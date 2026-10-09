@@ -68,3 +68,19 @@ path validation, legacy secret/cookie rejection, UI sign-in and logout, and nati
 MCP PKCE authorization. Live anonymous checks distinguish Access challenges on
 management paths from unchanged MCP OAuth challenges. Actual email PIN login
 requires access to the user's mailbox. All changes remain on the free tier.
+
+## Effective WARP authentication during deployment
+
+Cloudflare may omit or return null for an application's
+`allow_authenticate_via_warp` field. This inherits the organization's setting;
+it is not proof that WARP authentication is enabled or disabled. Bootstrap
+accepts an explicit application `false`, or an absent/null application value
+when the organization explicitly returns `false`. An application `true`, an
+invalid value, or an inherited setting that is enabled or unknown fails before
+any write. This avoids rejecting a safe dashboard-created application while
+preserving direct identity-provider authentication. The existing application,
+policy and audience are reused without updates.
+
+Public destination overrides can bypass authentication. Bootstrap rejects
+nonempty or malformed overrides even when the destination URI matches the
+management paths. Empty override arrays are safe.

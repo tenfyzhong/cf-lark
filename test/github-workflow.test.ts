@@ -71,3 +71,15 @@ it('runs separate credential-free unit and native integration jobs with complete
         for (const step of job.steps) if (step.uses) expect(step.uses).toMatch(/@[a-f0-9]{40}$/u);
     }
 });
+
+it('offers manual read-only inspection without production uploads or private files', async () => {
+    const workflow = parse(await readFile('.github/workflows/cloudflare.yml', 'utf8'));
+    expect(workflow.on.workflow_dispatch.inputs.inspect).toMatchObject({ type: 'boolean', default: false });
+    expect(workflow.jobs.inspect.if).toBe("github.event_name == 'workflow_dispatch' && inputs.inspect");
+    expect(workflow.jobs.deploy.if).toContain('!inputs.inspect');
+    const steps = workflow.jobs.inspect.steps;
+    expect(steps.some((step: { run?: string }) => step.run === 'pnpm inspect:deployment')).toBe(true);
+    expect(JSON.stringify(steps)).not.toContain('deploy:actions');
+    expect(JSON.stringify(steps)).not.toContain('provision:r2');
+    expect(JSON.stringify(steps)).not.toContain('configure:deployment');
+});

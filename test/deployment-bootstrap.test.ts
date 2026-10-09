@@ -25,7 +25,7 @@ function fixture(options: { create?: boolean; unsafe?: boolean; ambiguous?: bool
         else if (path.endsWith('/access/organizations')) {
             if (init.method === 'POST') org = true;
             if (!org) return Response.json({ success: false }, { status: 404 });
-            result = { auth_domain: options.badIssuer ? 'untrusted.test' : 'acme.cloudflareaccess.com' };
+            result = { auth_domain: options.badIssuer ? 'untrusted.test' : 'acme.cloudflareaccess.com', allow_authenticate_via_warp: false };
         } else if (path.endsWith('/identity_providers')) {
             if (init.method === 'POST') { pin = true; result = { id: 'pin-id', type: 'onetimepin' }; }
             else result = pin ? [{ id: 'pin-id', type: 'onetimepin' }] : [];
@@ -165,3 +165,77 @@ it('retains WORKER_NAME as the namespace selection and derives engine and bucket
         services: [{ binding: 'DOCS_ENGINE', service: 'team-lark-docs-engine' }, { binding: 'MAIL_ENGINE', service: 'team-lark-mail-engine' }] });
     expect(output.configs.slice(1).map((config) => config.name)).toEqual(['team-lark-docs-engine', 'team-lark-mail-engine']);
 });
+
+it('inspects existing deployment using GET only and returns no private values', async () => {
+    const { inspectDeployment } = await import('../scripts/deploy/inspection');
+    const request = fixture();
+    const report = await inspectDeployment(env, templates, request);
+    expect(report.ready).toBe(true);
+    expect(report.checks).toMatchObject({ applicationType: true, primaryDomain: true, destinations: true, sessionDuration: true, warpDisabled: true });
+    expect(request.mock.calls.every(([, init]) => init.method === 'GET')).toBe(true);
+    const serialized = JSON.stringify(report);
+    for (const value of [env.PUBLIC_URL, env.CLOUDFLARE_API_TOKEN, env.ENCRYPTION_KEY, account, audience]) expect(serialized).not.toContain(value);
+});
+
+it('inspects compatibility failures without dumping upstream application data', async () => {
+    const { inspectDeployment } = await import('../scripts/deploy/inspection');
+    const original = fixture();
+    const request = vi.fn(async (url: string, init: RequestInit) => new URL(url).pathname.endsWith('/apps/app-id')
+        ? Response.json({ success: true, result: { ...app, session_duration: '24h', private_field: env.ENCRYPTION_KEY } }) : original(url, init));
+    const report = await inspectDeployment(env, templates, request);
+    expect(report.ready).toBe(false);
+    expect(report.checks.sessionDuration).toBe(false);
+    expect(JSON.stringify(report)).not.toContain(env.ENCRYPTION_KEY);
+    expect(request.mock.calls.every(([, init]) => init.method === 'GET')).toBe(true);
+});
+
+it('refuses provisioning in inspection before any network write', async () => {
+    const { inspectDeployment } = await import('../scripts/deploy/inspection');
+    const request = fixture({ create: true });
+    const report = await inspectDeployment(env, templates, request);
+    expect(report.ready).toBe(false);
+    expect(request.mock.calls.every(([, init]) => init.method === 'GET')).toBe(true);
+});
+
+for (const absent of [undefined, null]) it(`inherits an explicitly disabled organization WARP setting when the app returns ${String(absent)}`, async () => {
+    const original = fixture();
+    const request = vi.fn(async (url: string, init: RequestInit) => new URL(url).pathname.endsWith('/apps/app-id')
+        ? Response.json({ success: true, result: { ...app, allow_authenticate_via_warp: absent } }) : original(url, init));
+    await expect(prepareDeployment(env, templates, request)).resolves.toBeDefined();
+    expect(request.mock.calls.every(([, init]) => init.method === 'GET')).toBe(true);
+    const { inspectDeployment } = await import('../scripts/deploy/inspection');
+    const report = await inspectDeployment(env, templates, request);
+    expect(report.ready).toBe(true);
+    expect(report.checks.warpDisabled).toBe(true);
+});
+
+for (const [appWarp, organizationWarp] of [[undefined, true], [null, undefined], [undefined, null], [true, false], ['false', false]]) {
+    it(`rejects unsafe or unknown WARP inheritance ${String(appWarp)}/${String(organizationWarp)}`, async () => {
+        const original = fixture();
+        const request = vi.fn(async (url: string, init: RequestInit) => {
+            const path = new URL(url).pathname;
+            if (path.endsWith('/apps/app-id')) return Response.json({ success: true, result: { ...app, allow_authenticate_via_warp: appWarp } });
+            if (path.endsWith('/access/organizations')) return Response.json({ success: true, result: { auth_domain: 'acme.cloudflareaccess.com', allow_authenticate_via_warp: organizationWarp } });
+            return original(url, init);
+        });
+        await expect(prepareDeployment(env, templates, request)).rejects.toThrow('Unsafe');
+        expect(request.mock.calls.every(([, init]) => init.method === 'GET')).toBe(true);
+    });
+}
+
+it('explicitly disabled application WARP overrides an enabled organization', async () => {
+    const original = fixture();
+    const request = vi.fn(async (url: string, init: RequestInit) => new URL(url).pathname.endsWith('/access/organizations')
+        ? Response.json({ success: true, result: { auth_domain: 'acme.cloudflareaccess.com', allow_authenticate_via_warp: true } }) : original(url, init));
+    await expect(prepareDeployment(env, templates, request)).resolves.toBeDefined();
+});
+
+for (const overrides of [[{ behavior: 'public', path_pattern: '/api/admin/*' }], null, {}]) {
+    it(`rejects destination overrides that bypass management authentication ${JSON.stringify(overrides)}`, async () => {
+        const original = fixture();
+        const request = vi.fn(async (url: string, init: RequestInit) => new URL(url).pathname.endsWith('/apps/app-id')
+            ? Response.json({ success: true, result: { ...app, destinations: app.destinations.map((entry) => ({ ...entry, overrides })) } }) : original(url, init));
+        await expect(prepareDeployment(env, templates, request)).rejects.toThrow('Unsafe');
+        expect(request.mock.calls.every(([, init]) => init.method === 'GET')).toBe(true);
+    });
+}
