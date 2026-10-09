@@ -8,7 +8,7 @@ private bucket must belong to that account. Set your canonical HTTPS origin in
 `PUBLIC_URL`; its MCP resource is `${PUBLIC_URL}/mcp`. See
 [independent fork deployment](fork-deployment.md).
 
-For automatic releases, configure [GitHub Actions](github-actions.md). Update
+For automatic releases, configure [GitHub Actions](fork-deployment.md). Update
 deployment settings in repository Secrets; production identities
 do not belong in tracked files. Set `DEPLOY_ENABLED=false` to suspend uploads.
 

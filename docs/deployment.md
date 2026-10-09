@@ -24,7 +24,7 @@ public routes, preview URLs, or workers.dev endpoints.
 
 ## Release sequence
 
-[GitHub Actions](github-actions.md) automates validation and the three-Worker
+[GitHub Actions](fork-deployment.md) automates validation and the three-Worker
 upload sequence using repository Secrets. It deploys only main
 after successful checks and does not create the R2 bucket or Access policies.
 The following sequence also applies to manual deployments.

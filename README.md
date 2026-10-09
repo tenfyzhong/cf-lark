@@ -50,7 +50,6 @@ checklist, first deployment, MCP connection and subsequent upgrades.
 ## Documentation
 
 - [Deploy an independent fork](docs/fork-deployment.md)
-- [GitHub Actions deployment](docs/github-actions.md)
 - [Architecture](docs/architecture.md)
 - [Deployment](docs/deployment.md)
 - [Operations, recovery, and migration history](docs/operations.md)
