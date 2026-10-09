@@ -1,0 +1,663 @@
+{
+  "mail.+decline-receipt": {
+    "status": "implemented",
+    "flags": [
+      "message-id",
+      "mailbox"
+    ],
+    "evidence": [
+      "test/mail-manage.test.ts"
+    ],
+    "adaptations": [
+      "Bounded durable workflow steps replace local multi-request loops; timestamps and generated descriptions use English and UTC."
+    ]
+  },
+  "mail.+message-modify": {
+    "status": "implemented",
+    "flags": [
+      "mailbox",
+      "message-ids",
+      "add-label-ids",
+      "remove-label-ids",
+      "add-folder"
+    ],
+    "evidence": [
+      "test/mail-manage.test.ts"
+    ],
+    "adaptations": [
+      "Bounded durable workflow steps replace local multi-request loops; timestamps and generated descriptions use English and UTC."
+    ]
+  },
+  "mail.+message-trash": {
+    "status": "implemented",
+    "flags": [
+      "mailbox",
+      "message-ids"
+    ],
+    "evidence": [
+      "test/mail-manage.test.ts"
+    ],
+    "adaptations": [
+      "Bounded durable workflow steps replace local multi-request loops; timestamps and generated descriptions use English and UTC."
+    ]
+  },
+  "mail.+thread-modify": {
+    "status": "implemented",
+    "flags": [
+      "mailbox",
+      "thread-ids",
+      "add-label-ids",
+      "remove-label-ids",
+      "add-folder",
+      "folder-id"
+    ],
+    "evidence": [
+      "test/mail-manage.test.ts"
+    ],
+    "adaptations": [
+      "Bounded durable workflow steps replace local multi-request loops; timestamps and generated descriptions use English and UTC."
+    ]
+  },
+  "mail.+thread-trash": {
+    "status": "implemented",
+    "flags": [
+      "mailbox",
+      "thread-ids"
+    ],
+    "evidence": [
+      "test/mail-manage.test.ts"
+    ],
+    "adaptations": [
+      "Bounded durable workflow steps replace local multi-request loops; timestamps and generated descriptions use English and UTC."
+    ]
+  },
+  "mail.+message": {
+    "status": "implemented",
+    "flags": [
+      "mailbox",
+      "message-id",
+      "html",
+      "print-output-schema"
+    ],
+    "evidence": [
+      "test/mail-read.test.ts"
+    ],
+    "adaptations": [
+      "Bounded durable workflow steps replace local multi-request loops; timestamps and generated descriptions use English and UTC."
+    ]
+  },
+  "mail.+messages": {
+    "status": "implemented",
+    "flags": [
+      "mailbox",
+      "message-ids",
+      "html",
+      "print-output-schema"
+    ],
+    "evidence": [
+      "test/mail-read.test.ts"
+    ],
+    "adaptations": [
+      "Bounded durable workflow steps replace local multi-request loops; timestamps and generated descriptions use English and UTC."
+    ]
+  },
+  "mail.+thread": {
+    "status": "implemented",
+    "flags": [
+      "mailbox",
+      "thread-id",
+      "html",
+      "include-spam-trash",
+      "print-output-schema"
+    ],
+    "evidence": [
+      "test/mail-read.test.ts"
+    ],
+    "adaptations": [
+      "Bounded durable workflow steps replace local multi-request loops; timestamps and generated descriptions use English and UTC."
+    ]
+  },
+  "mail.+draft-send": {
+    "status": "implemented",
+    "flags": [
+      "mailbox",
+      "draft-id",
+      "stop-on-error"
+    ],
+    "evidence": [
+      "test/mail-delivery.test.ts"
+    ],
+    "adaptations": [
+      "Bounded durable workflow steps replace local multi-request loops; timestamps and generated descriptions use English and UTC."
+    ]
+  },
+  "mail.+share-to-chat": {
+    "status": "implemented",
+    "flags": [
+      "message-id",
+      "thread-id",
+      "receive-id",
+      "receive-id-type",
+      "mailbox"
+    ],
+    "evidence": [
+      "test/mail-delivery.test.ts"
+    ],
+    "adaptations": [
+      "Bounded durable workflow steps replace local multi-request loops; timestamps and generated descriptions use English and UTC."
+    ]
+  },
+  "mail.+signature": {
+    "status": "implemented",
+    "flags": [
+      "from",
+      "detail"
+    ],
+    "evidence": [
+      "test/mail-delivery.test.ts"
+    ],
+    "adaptations": [
+      "Bounded durable workflow steps replace local multi-request loops; timestamps and generated descriptions use English and UTC."
+    ]
+  },
+  "mail.+rule-create": {
+    "status": "implemented",
+    "flags": [
+      "user-mailbox-id",
+      "enable",
+      "disable",
+      "match",
+      "stop-after-match",
+      "continue-after-match",
+      "condition",
+      "conditions",
+      "action",
+      "actions",
+      "name"
+    ],
+    "evidence": [
+      "test/mail-rules.test.ts",
+      "test/mail-artifact.test.ts"
+    ],
+    "adaptations": [
+      "Bounded durable workflow steps replace local multi-request loops; timestamps and generated descriptions use English and UTC.",
+      "@file inputs reference private grant-owned artifacts. Rule descriptions use English."
+    ]
+  },
+  "mail.+rule-delete": {
+    "status": "implemented",
+    "flags": [
+      "user-mailbox-id",
+      "rule-id"
+    ],
+    "evidence": [
+      "test/mail-rules.test.ts",
+      "test/mail-artifact.test.ts"
+    ],
+    "adaptations": [
+      "Bounded durable workflow steps replace local multi-request loops; timestamps and generated descriptions use English and UTC.",
+      "@file inputs reference private grant-owned artifacts. Rule descriptions use English."
+    ]
+  },
+  "mail.+rule-disable": {
+    "status": "implemented",
+    "flags": [
+      "user-mailbox-id",
+      "rule-id"
+    ],
+    "evidence": [
+      "test/mail-rules.test.ts",
+      "test/mail-artifact.test.ts"
+    ],
+    "adaptations": [
+      "Bounded durable workflow steps replace local multi-request loops; timestamps and generated descriptions use English and UTC.",
+      "@file inputs reference private grant-owned artifacts. Rule descriptions use English."
+    ]
+  },
+  "mail.+rule-enable": {
+    "status": "implemented",
+    "flags": [
+      "user-mailbox-id",
+      "rule-id"
+    ],
+    "evidence": [
+      "test/mail-rules.test.ts",
+      "test/mail-artifact.test.ts"
+    ],
+    "adaptations": [
+      "Bounded durable workflow steps replace local multi-request loops; timestamps and generated descriptions use English and UTC.",
+      "@file inputs reference private grant-owned artifacts. Rule descriptions use English."
+    ]
+  },
+  "mail.+rule-get": {
+    "status": "implemented",
+    "flags": [
+      "user-mailbox-id",
+      "rule-id"
+    ],
+    "evidence": [
+      "test/mail-rules.test.ts",
+      "test/mail-artifact.test.ts"
+    ],
+    "adaptations": [
+      "Bounded durable workflow steps replace local multi-request loops; timestamps and generated descriptions use English and UTC.",
+      "@file inputs reference private grant-owned artifacts. Rule descriptions use English."
+    ]
+  },
+  "mail.+rule-list": {
+    "status": "implemented",
+    "flags": [
+      "user-mailbox-id",
+      "name-contains"
+    ],
+    "evidence": [
+      "test/mail-rules.test.ts",
+      "test/mail-artifact.test.ts"
+    ],
+    "adaptations": [
+      "Bounded durable workflow steps replace local multi-request loops; timestamps and generated descriptions use English and UTC.",
+      "@file inputs reference private grant-owned artifacts. Rule descriptions use English."
+    ]
+  },
+  "mail.+rule-reorder": {
+    "status": "implemented",
+    "flags": [
+      "user-mailbox-id",
+      "rule-ids",
+      "move-rule-id",
+      "before-rule-id",
+      "after-rule-id",
+      "to-top",
+      "to-bottom"
+    ],
+    "evidence": [
+      "test/mail-rules.test.ts",
+      "test/mail-artifact.test.ts"
+    ],
+    "adaptations": [
+      "Bounded durable workflow steps replace local multi-request loops; timestamps and generated descriptions use English and UTC.",
+      "@file inputs reference private grant-owned artifacts. Rule descriptions use English."
+    ]
+  },
+  "mail.+rule-update": {
+    "status": "implemented",
+    "flags": [
+      "user-mailbox-id",
+      "enable",
+      "disable",
+      "match",
+      "stop-after-match",
+      "continue-after-match",
+      "condition",
+      "conditions",
+      "action",
+      "actions",
+      "name",
+      "rule-id"
+    ],
+    "evidence": [
+      "test/mail-rules.test.ts",
+      "test/mail-artifact.test.ts"
+    ],
+    "adaptations": [
+      "Bounded durable workflow steps replace local multi-request loops; timestamps and generated descriptions use English and UTC.",
+      "@file inputs reference private grant-owned artifacts. Rule descriptions use English."
+    ]
+  },
+  "mail.+triage": {
+    "status": "implemented",
+    "flags": [
+      "format",
+      "max",
+      "page-token",
+      "filter",
+      "folder",
+      "folder-id",
+      "is-unread",
+      "mailbox",
+      "query",
+      "labels",
+      "print-filter-schema"
+    ],
+    "evidence": [
+      "test/mail-triage.test.ts"
+    ],
+    "adaptations": [
+      "Bounded durable workflow steps replace local multi-request loops; timestamps and generated descriptions use English and UTC."
+    ]
+  },
+  "mail.+watch": {
+    "status": "implemented",
+    "flags": [
+      "format",
+      "msg-format",
+      "output-dir",
+      "mailbox",
+      "labels",
+      "folders",
+      "label-ids",
+      "folder-ids",
+      "print-output-schema"
+    ],
+    "evidence": [
+      "test/mail-watch.test.ts"
+    ],
+    "adaptations": [
+      "Bounded durable workflow steps replace local multi-request loops; timestamps and generated descriptions use English and UTC.",
+      "Verified callback polling replaces a WebSocket process. cursor/limit continue polling; stop=true unsubscribes. output-dir creates grant-owned artifacts."
+    ]
+  },
+  "mail.+lint-html": {
+    "status": "implemented",
+    "flags": [
+      "body",
+      "body-file",
+      "show-lint-details"
+    ],
+    "evidence": [
+      "test/mail-lint.test.ts",
+      "test/docs-mail-parser.test.ts"
+    ],
+    "adaptations": [
+      "Bounded durable workflow steps replace local multi-request loops; timestamps and generated descriptions use English and UTC.",
+      "Pinned pure Go HTML lint runs in shared Wasm. body-file references a private artifact."
+    ]
+  },
+  "mail.+draft-create": {
+    "status": "implemented",
+    "flags": [
+      "to",
+      "subject",
+      "body",
+      "body-file",
+      "from",
+      "mailbox",
+      "cc",
+      "bcc",
+      "plain-text",
+      "attach",
+      "inline",
+      "request-receipt",
+      "template-id",
+      "signature-id",
+      "no-signature",
+      "priority",
+      "event-summary",
+      "event-start",
+      "event-end",
+      "event-location",
+      "show-lint-details"
+    ],
+    "evidence": [
+      "test/mail-compose.test.ts",
+      "test/docs-mail-parser.test.ts",
+      "test/mail-stream-native.test.ts",
+      "test/runtime/mail-stream.test.ts"
+    ],
+    "adaptations": [
+      "Pinned pure Go handles MIME, quotes, template merge, receipt formatting, signature placement, and calendar edits. Private artifacts replace filesystem inputs. Embedded attachment payloads stream through MIME skeletons and authenticated JSON; oversized files stream to Drive.",
+      "Hosted resource ceilings: authored body-file reads and retained draft text/header skeletons are capped at 8 MiB. Embedded attachment MIME streams up to the pinned 25 MiB EML limit. Pure transformation requests remain bounded by the free-tier engine limit; no shortcut flags or workflow branches are omitted."
+    ]
+  },
+  "mail.+draft-edit": {
+    "status": "implemented",
+    "flags": [
+      "from",
+      "mailbox",
+      "draft-id",
+      "set-subject",
+      "set-to",
+      "set-cc",
+      "set-bcc",
+      "body",
+      "body-file",
+      "patch-file",
+      "print-patch-template",
+      "set-priority",
+      "set-event-summary",
+      "set-event-start",
+      "set-event-end",
+      "set-event-location",
+      "remove-event",
+      "inspect",
+      "request-receipt",
+      "show-lint-details"
+    ],
+    "evidence": [
+      "test/mail-draft.test.ts",
+      "test/docs-mail-parser.test.ts",
+      "test/mail-stream-native.test.ts",
+      "test/runtime/mail-stream.test.ts",
+      "test/mail-draft-native.test.ts",
+      "test/mail-partition.test.ts",
+      "test/mail-raw-stream.test.ts"
+    ],
+    "adaptations": [
+      "Pinned pure Go handles MIME, quotes, template merge, receipt formatting, signature placement, and calendar edits. Private artifacts replace filesystem inputs. Embedded attachment payloads stream through MIME skeletons and authenticated JSON; oversized files stream to Drive.",
+      "Hosted resource ceilings: authored body-file reads and retained draft text/header skeletons are capped at 8 MiB. Embedded attachment MIME streams up to the pinned 25 MiB EML limit. Pure transformation requests remain bounded by the free-tier engine limit; no shortcut flags or workflow branches are omitted."
+    ]
+  },
+  "mail.+forward": {
+    "status": "implemented",
+    "flags": [
+      "message-id",
+      "to",
+      "body",
+      "body-file",
+      "from",
+      "mailbox",
+      "cc",
+      "bcc",
+      "plain-text",
+      "attach",
+      "inline",
+      "confirm-send",
+      "send-time",
+      "request-receipt",
+      "subject",
+      "template-id",
+      "signature-id",
+      "no-signature",
+      "priority",
+      "event-summary",
+      "event-start",
+      "event-end",
+      "event-location",
+      "show-lint-details"
+    ],
+    "evidence": [
+      "test/mail-compose.test.ts",
+      "test/docs-mail-parser.test.ts",
+      "test/mail-stream-native.test.ts",
+      "test/runtime/mail-stream.test.ts"
+    ],
+    "adaptations": [
+      "Pinned pure Go handles MIME, quotes, template merge, receipt formatting, signature placement, and calendar edits. Private artifacts replace filesystem inputs. Embedded attachment payloads stream through MIME skeletons and authenticated JSON; oversized files stream to Drive.",
+      "Hosted resource ceilings: authored body-file reads and retained draft text/header skeletons are capped at 8 MiB. Embedded attachment MIME streams up to the pinned 25 MiB EML limit. Pure transformation requests remain bounded by the free-tier engine limit; no shortcut flags or workflow branches are omitted."
+    ]
+  },
+  "mail.+reply": {
+    "status": "implemented",
+    "flags": [
+      "message-id",
+      "body",
+      "body-file",
+      "from",
+      "mailbox",
+      "to",
+      "cc",
+      "bcc",
+      "plain-text",
+      "attach",
+      "inline",
+      "confirm-send",
+      "send-time",
+      "request-receipt",
+      "subject",
+      "template-id",
+      "signature-id",
+      "no-signature",
+      "priority",
+      "event-summary",
+      "event-start",
+      "event-end",
+      "event-location",
+      "show-lint-details"
+    ],
+    "evidence": [
+      "test/mail-compose.test.ts",
+      "test/docs-mail-parser.test.ts",
+      "test/mail-stream-native.test.ts",
+      "test/runtime/mail-stream.test.ts"
+    ],
+    "adaptations": [
+      "Pinned pure Go handles MIME, quotes, template merge, receipt formatting, signature placement, and calendar edits. Private artifacts replace filesystem inputs. Embedded attachment payloads stream through MIME skeletons and authenticated JSON; oversized files stream to Drive.",
+      "Hosted resource ceilings: authored body-file reads and retained draft text/header skeletons are capped at 8 MiB. Embedded attachment MIME streams up to the pinned 25 MiB EML limit. Pure transformation requests remain bounded by the free-tier engine limit; no shortcut flags or workflow branches are omitted."
+    ]
+  },
+  "mail.+reply-all": {
+    "status": "implemented",
+    "flags": [
+      "message-id",
+      "body",
+      "body-file",
+      "from",
+      "mailbox",
+      "to",
+      "cc",
+      "bcc",
+      "remove",
+      "plain-text",
+      "attach",
+      "inline",
+      "confirm-send",
+      "send-time",
+      "request-receipt",
+      "subject",
+      "template-id",
+      "signature-id",
+      "no-signature",
+      "priority",
+      "event-summary",
+      "event-start",
+      "event-end",
+      "event-location",
+      "show-lint-details"
+    ],
+    "evidence": [
+      "test/mail-compose.test.ts",
+      "test/docs-mail-parser.test.ts",
+      "test/mail-stream-native.test.ts",
+      "test/runtime/mail-stream.test.ts"
+    ],
+    "adaptations": [
+      "Pinned pure Go handles MIME, quotes, template merge, receipt formatting, signature placement, and calendar edits. Private artifacts replace filesystem inputs. Embedded attachment payloads stream through MIME skeletons and authenticated JSON; oversized files stream to Drive.",
+      "Hosted resource ceilings: authored body-file reads and retained draft text/header skeletons are capped at 8 MiB. Embedded attachment MIME streams up to the pinned 25 MiB EML limit. Pure transformation requests remain bounded by the free-tier engine limit; no shortcut flags or workflow branches are omitted."
+    ]
+  },
+  "mail.+send": {
+    "status": "implemented",
+    "flags": [
+      "to",
+      "subject",
+      "body",
+      "body-file",
+      "from",
+      "mailbox",
+      "cc",
+      "bcc",
+      "plain-text",
+      "attach",
+      "inline",
+      "confirm-send",
+      "send-time",
+      "request-receipt",
+      "template-id",
+      "signature-id",
+      "no-signature",
+      "priority",
+      "event-summary",
+      "event-start",
+      "event-end",
+      "event-location",
+      "show-lint-details"
+    ],
+    "evidence": [
+      "test/mail-compose.test.ts",
+      "test/docs-mail-parser.test.ts",
+      "test/mail-stream-native.test.ts",
+      "test/runtime/mail-stream.test.ts"
+    ],
+    "adaptations": [
+      "Pinned pure Go handles MIME, quotes, template merge, receipt formatting, signature placement, and calendar edits. Private artifacts replace filesystem inputs. Embedded attachment payloads stream through MIME skeletons and authenticated JSON; oversized files stream to Drive.",
+      "Hosted resource ceilings: authored body-file reads and retained draft text/header skeletons are capped at 8 MiB. Embedded attachment MIME streams up to the pinned 25 MiB EML limit. Pure transformation requests remain bounded by the free-tier engine limit; no shortcut flags or workflow branches are omitted."
+    ]
+  },
+  "mail.+send-receipt": {
+    "status": "implemented",
+    "flags": [
+      "message-id",
+      "mailbox",
+      "from"
+    ],
+    "evidence": [
+      "test/mail-compose.test.ts",
+      "test/docs-mail-parser.test.ts",
+      "test/mail-stream-native.test.ts",
+      "test/runtime/mail-stream.test.ts"
+    ],
+    "adaptations": [
+      "Pinned pure Go handles MIME, quotes, template merge, receipt formatting, signature placement, and calendar edits. Private artifacts replace filesystem inputs. Embedded attachment payloads stream through MIME skeletons and authenticated JSON; oversized files stream to Drive."
+    ]
+  },
+  "mail.+template-create": {
+    "status": "implemented",
+    "flags": [
+      "mailbox",
+      "name",
+      "subject",
+      "template-content",
+      "template-content-file",
+      "plain-text",
+      "to",
+      "cc",
+      "bcc",
+      "attach",
+      "inline"
+    ],
+    "evidence": [
+      "test/mail-template.test.ts",
+      "test/mail-upload.test.ts"
+    ],
+    "adaptations": [
+      "Private artifacts replace filesystem inputs. Durable workflow steps stream attachment uploads."
+    ]
+  },
+  "mail.+template-update": {
+    "status": "implemented",
+    "flags": [
+      "mailbox",
+      "template-id",
+      "inspect",
+      "print-patch-template",
+      "patch-file",
+      "set-name",
+      "set-subject",
+      "set-template-content",
+      "set-template-content-file",
+      "set-plain-text",
+      "set-to",
+      "set-cc",
+      "set-bcc",
+      "attach",
+      "inline"
+    ],
+    "evidence": [
+      "test/mail-template.test.ts",
+      "test/mail-upload.test.ts"
+    ],
+    "adaptations": [
+      "Private artifacts replace filesystem inputs. Durable workflow steps stream attachment uploads."
+    ]
+  }
+}

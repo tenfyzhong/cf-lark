@@ -1,0 +1,582 @@
+{
+  "im.+messages-mget": {
+    "status": "implemented",
+    "flags": [
+      "message-ids",
+      "no-reactions",
+      "download-resources"
+    ],
+    "evidence": [
+      "test/im-read.test.ts",
+      "test/im-write.test.ts",
+      "test/im-feed.test.ts",
+      "test/im-chat-reads.test.ts",
+      "test/im-flags.test.ts",
+      "test/im-members.test.ts",
+      "test/im-contract.test.ts",
+      "test/runtime/im-mcp.test.ts"
+    ],
+    "adaptations": [
+      "Exact card rendering runs in the isolated pinned upstream converter.",
+      "Encrypted internal workflow artifacts preserve large page-all state under the same aggregate 2 GB quota without extra artifact consent.",
+      "UTC timestamps, private resource artifacts and resumable workflows replace terminal-local time, filesystem output and blocking pagination."
+    ]
+  },
+  "im.+chat-messages-list": {
+    "status": "implemented",
+    "flags": [
+      "chat-id",
+      "user-id",
+      "start",
+      "end",
+      "order",
+      "page-size",
+      "page-token",
+      "no-reactions",
+      "concise",
+      "download-resources",
+      "page-all",
+      "page-limit",
+      "page-delay"
+    ],
+    "evidence": [
+      "test/im-read.test.ts",
+      "test/im-write.test.ts",
+      "test/im-feed.test.ts",
+      "test/im-chat-reads.test.ts",
+      "test/im-flags.test.ts",
+      "test/im-members.test.ts",
+      "test/im-contract.test.ts",
+      "test/runtime/im-mcp.test.ts"
+    ],
+    "adaptations": [
+      "Exact card rendering runs in the isolated pinned upstream converter.",
+      "Encrypted internal workflow artifacts preserve large page-all state under the same aggregate 2 GB quota without extra artifact consent.",
+      "UTC timestamps, private resource artifacts and resumable workflows replace terminal-local time, filesystem output and blocking pagination."
+    ]
+  },
+  "im.+threads-messages-list": {
+    "status": "implemented",
+    "flags": [
+      "thread",
+      "order",
+      "page-size",
+      "page-token",
+      "no-reactions",
+      "concise",
+      "download-resources",
+      "page-all",
+      "page-limit",
+      "page-delay"
+    ],
+    "evidence": [
+      "test/im-read.test.ts",
+      "test/im-write.test.ts",
+      "test/im-feed.test.ts",
+      "test/im-chat-reads.test.ts",
+      "test/im-flags.test.ts",
+      "test/im-members.test.ts",
+      "test/im-contract.test.ts",
+      "test/runtime/im-mcp.test.ts"
+    ],
+    "adaptations": [
+      "Exact card rendering runs in the isolated pinned upstream converter.",
+      "Encrypted internal workflow artifacts preserve large page-all state under the same aggregate 2 GB quota without extra artifact consent.",
+      "UTC timestamps, private resource artifacts and resumable workflows replace terminal-local time, filesystem output and blocking pagination."
+    ]
+  },
+  "im.+messages-search": {
+    "status": "implemented",
+    "flags": [
+      "query",
+      "chat-id",
+      "sender",
+      "include-attachment-type",
+      "chat-type",
+      "sender-type",
+      "exclude-sender-type",
+      "is-at-me",
+      "at-chatter-ids",
+      "start",
+      "end",
+      "page-size",
+      "page-token",
+      "page-all",
+      "page-limit",
+      "no-reactions"
+    ],
+    "evidence": [
+      "test/im-read.test.ts",
+      "test/im-write.test.ts",
+      "test/im-feed.test.ts",
+      "test/im-chat-reads.test.ts",
+      "test/im-flags.test.ts",
+      "test/im-members.test.ts",
+      "test/im-contract.test.ts",
+      "test/runtime/im-mcp.test.ts"
+    ],
+    "adaptations": [
+      "Exact card rendering runs in the isolated pinned upstream converter.",
+      "Encrypted internal workflow artifacts preserve large page-all state under the same aggregate 2 GB quota without extra artifact consent.",
+      "UTC timestamps, private resource artifacts and resumable workflows replace terminal-local time, filesystem output and blocking pagination."
+    ]
+  },
+  "im.+messages-resources-download": {
+    "status": "implemented",
+    "flags": [
+      "message-id",
+      "file-key",
+      "type",
+      "output"
+    ],
+    "evidence": [
+      "test/im-download.test.ts",
+      "test/im-contract.test.ts",
+      "test/runtime/im-mcp.test.ts"
+    ],
+    "adaptations": [
+      "Source-matched business workflow with private artifact, explicit artifact reference, UTC and resumable pagination cloud adaptations."
+    ]
+  },
+  "im.+messages-send": {
+    "status": "implemented",
+    "flags": [
+      "chat-id",
+      "user-id",
+      "msg-type",
+      "content",
+      "text",
+      "markdown",
+      "idempotency-key",
+      "image",
+      "file",
+      "video",
+      "video-cover",
+      "audio",
+      "attachment"
+    ],
+    "evidence": [
+      "test/im-read.test.ts",
+      "test/im-write.test.ts",
+      "test/im-feed.test.ts",
+      "test/im-chat-reads.test.ts",
+      "test/im-flags.test.ts",
+      "test/im-members.test.ts",
+      "test/im-contract.test.ts",
+      "test/runtime/im-mcp.test.ts"
+    ],
+    "adaptations": [
+      "Source-matched business workflow with private artifact, explicit artifact reference, UTC and resumable pagination cloud adaptations."
+    ]
+  },
+  "im.+messages-reply": {
+    "status": "implemented",
+    "flags": [
+      "message-id",
+      "msg-type",
+      "content",
+      "text",
+      "markdown",
+      "image",
+      "file",
+      "video",
+      "video-cover",
+      "audio",
+      "attachment",
+      "reply-in-thread",
+      "idempotency-key"
+    ],
+    "evidence": [
+      "test/im-read.test.ts",
+      "test/im-write.test.ts",
+      "test/im-feed.test.ts",
+      "test/im-chat-reads.test.ts",
+      "test/im-flags.test.ts",
+      "test/im-members.test.ts",
+      "test/im-contract.test.ts"
+    ],
+    "adaptations": [
+      "Source-matched business workflow with private artifact, explicit artifact reference, UTC and resumable pagination cloud adaptations."
+    ]
+  },
+  "im.+messages-edit": {
+    "status": "implemented",
+    "flags": [
+      "message-id",
+      "msg-type",
+      "content",
+      "text",
+      "markdown",
+      "set-attachments",
+      "clear-attachments"
+    ],
+    "evidence": [
+      "test/im-read.test.ts",
+      "test/im-write.test.ts",
+      "test/im-feed.test.ts",
+      "test/im-chat-reads.test.ts",
+      "test/im-flags.test.ts",
+      "test/im-members.test.ts",
+      "test/im-contract.test.ts",
+      "test/runtime/im-mcp.test.ts"
+    ],
+    "adaptations": [
+      "Source-matched business workflow with private artifact, explicit artifact reference, UTC and resumable pagination cloud adaptations."
+    ]
+  },
+  "im.+chat-list": {
+    "status": "implemented",
+    "flags": [
+      "user-id-type",
+      "sort",
+      "sort-type",
+      "types",
+      "page-size",
+      "page-token",
+      "exclude-muted",
+      "page-all",
+      "page-limit",
+      "page-delay"
+    ],
+    "evidence": [
+      "test/im-read.test.ts",
+      "test/im-write.test.ts",
+      "test/im-feed.test.ts",
+      "test/im-chat-reads.test.ts",
+      "test/im-flags.test.ts",
+      "test/im-members.test.ts",
+      "test/im-contract.test.ts"
+    ],
+    "adaptations": [
+      "Source-matched business workflow with private artifact, explicit artifact reference, UTC and resumable pagination cloud adaptations."
+    ]
+  },
+  "im.+chat-search": {
+    "status": "implemented",
+    "flags": [
+      "query",
+      "search-types",
+      "chat-modes",
+      "member-ids",
+      "is-manager",
+      "disable-search-by-user",
+      "sort",
+      "sort-by",
+      "page-size",
+      "page-token",
+      "exclude-muted",
+      "page-all",
+      "page-limit",
+      "page-delay"
+    ],
+    "evidence": [
+      "test/im-read.test.ts",
+      "test/im-write.test.ts",
+      "test/im-feed.test.ts",
+      "test/im-chat-reads.test.ts",
+      "test/im-flags.test.ts",
+      "test/im-members.test.ts",
+      "test/im-contract.test.ts"
+    ],
+    "adaptations": [
+      "Source-matched business workflow with private artifact, explicit artifact reference, UTC and resumable pagination cloud adaptations."
+    ]
+  },
+  "im.+flag-create": {
+    "status": "implemented",
+    "flags": [
+      "message-id",
+      "item-type",
+      "flag-type"
+    ],
+    "evidence": [
+      "test/im-read.test.ts",
+      "test/im-write.test.ts",
+      "test/im-feed.test.ts",
+      "test/im-chat-reads.test.ts",
+      "test/im-flags.test.ts",
+      "test/im-members.test.ts",
+      "test/im-contract.test.ts"
+    ],
+    "adaptations": [
+      "Source-matched business workflow with private artifact, explicit artifact reference, UTC and resumable pagination cloud adaptations."
+    ]
+  },
+  "im.+flag-cancel": {
+    "status": "implemented",
+    "flags": [
+      "message-id",
+      "item-type",
+      "flag-type"
+    ],
+    "evidence": [
+      "test/im-read.test.ts",
+      "test/im-write.test.ts",
+      "test/im-feed.test.ts",
+      "test/im-chat-reads.test.ts",
+      "test/im-flags.test.ts",
+      "test/im-members.test.ts",
+      "test/im-contract.test.ts"
+    ],
+    "adaptations": [
+      "Source-matched business workflow with private artifact, explicit artifact reference, UTC and resumable pagination cloud adaptations."
+    ]
+  },
+  "im.+flag-list": {
+    "status": "implemented",
+    "flags": [
+      "page-size",
+      "page-token",
+      "page-all",
+      "page-limit",
+      "enrich-feed-thread"
+    ],
+    "evidence": [
+      "test/im-read.test.ts",
+      "test/im-write.test.ts",
+      "test/im-feed.test.ts",
+      "test/im-chat-reads.test.ts",
+      "test/im-flags.test.ts",
+      "test/im-members.test.ts",
+      "test/im-contract.test.ts"
+    ],
+    "adaptations": [
+      "Source-matched business workflow with private artifact, explicit artifact reference, UTC and resumable pagination cloud adaptations."
+    ]
+  },
+  "im.+messages-read-status": {
+    "status": "implemented",
+    "flags": [
+      "message-ids"
+    ],
+    "evidence": [
+      "test/im-read.test.ts",
+      "test/im-write.test.ts",
+      "test/im-feed.test.ts",
+      "test/im-chat-reads.test.ts",
+      "test/im-flags.test.ts",
+      "test/im-members.test.ts",
+      "test/im-contract.test.ts"
+    ],
+    "adaptations": [
+      "Source-matched business workflow with private artifact, explicit artifact reference, UTC and resumable pagination cloud adaptations."
+    ]
+  },
+  "im.+message-read-users": {
+    "status": "implemented",
+    "flags": [
+      "message-id",
+      "user-id-type",
+      "page-size",
+      "page-token",
+      "page-all",
+      "page-limit",
+      "page-delay"
+    ],
+    "evidence": [
+      "test/im-read.test.ts",
+      "test/im-write.test.ts",
+      "test/im-feed.test.ts",
+      "test/im-chat-reads.test.ts",
+      "test/im-flags.test.ts",
+      "test/im-members.test.ts",
+      "test/im-contract.test.ts"
+    ],
+    "adaptations": [
+      "Source-matched business workflow with private artifact, explicit artifact reference, UTC and resumable pagination cloud adaptations."
+    ]
+  },
+  "im.+chat-members-list": {
+    "status": "implemented",
+    "flags": [
+      "chat-id",
+      "member-types",
+      "member-id-type",
+      "page-size",
+      "page-token",
+      "page-all",
+      "page-limit",
+      "page-delay"
+    ],
+    "evidence": [
+      "test/im-read.test.ts",
+      "test/im-write.test.ts",
+      "test/im-feed.test.ts",
+      "test/im-chat-reads.test.ts",
+      "test/im-flags.test.ts",
+      "test/im-members.test.ts",
+      "test/im-contract.test.ts"
+    ],
+    "adaptations": [
+      "Source-matched business workflow with private artifact, explicit artifact reference, UTC and resumable pagination cloud adaptations."
+    ]
+  },
+  "im.+chat-create": {
+    "status": "implemented",
+    "flags": [
+      "name",
+      "description",
+      "users",
+      "bots",
+      "owner",
+      "type",
+      "chat-mode",
+      "set-bot-manager"
+    ],
+    "evidence": [
+      "test/im-read.test.ts",
+      "test/im-write.test.ts",
+      "test/im-feed.test.ts",
+      "test/im-chat-reads.test.ts",
+      "test/im-flags.test.ts",
+      "test/im-members.test.ts",
+      "test/im-contract.test.ts"
+    ],
+    "adaptations": [
+      "Source-matched business workflow with private artifact, explicit artifact reference, UTC and resumable pagination cloud adaptations."
+    ]
+  },
+  "im.+chat-update": {
+    "status": "implemented",
+    "flags": [
+      "chat-id",
+      "name",
+      "description"
+    ],
+    "evidence": [
+      "test/im-read.test.ts",
+      "test/im-write.test.ts",
+      "test/im-feed.test.ts",
+      "test/im-chat-reads.test.ts",
+      "test/im-flags.test.ts",
+      "test/im-members.test.ts",
+      "test/im-contract.test.ts"
+    ],
+    "adaptations": [
+      "Source-matched business workflow with private artifact, explicit artifact reference, UTC and resumable pagination cloud adaptations."
+    ]
+  },
+  "im.+feed-shortcut-create": {
+    "status": "implemented",
+    "flags": [
+      "chat-id",
+      "head",
+      "tail"
+    ],
+    "evidence": [
+      "test/im-read.test.ts",
+      "test/im-write.test.ts",
+      "test/im-feed.test.ts",
+      "test/im-chat-reads.test.ts",
+      "test/im-flags.test.ts",
+      "test/im-members.test.ts",
+      "test/im-contract.test.ts"
+    ],
+    "adaptations": [
+      "Source-matched business workflow with private artifact, explicit artifact reference, UTC and resumable pagination cloud adaptations."
+    ]
+  },
+  "im.+feed-shortcut-remove": {
+    "status": "implemented",
+    "flags": [
+      "chat-id"
+    ],
+    "evidence": [
+      "test/im-read.test.ts",
+      "test/im-write.test.ts",
+      "test/im-feed.test.ts",
+      "test/im-chat-reads.test.ts",
+      "test/im-flags.test.ts",
+      "test/im-members.test.ts",
+      "test/im-contract.test.ts"
+    ],
+    "adaptations": [
+      "Source-matched business workflow with private artifact, explicit artifact reference, UTC and resumable pagination cloud adaptations."
+    ]
+  },
+  "im.+feed-shortcut-list": {
+    "status": "implemented",
+    "flags": [
+      "page-token",
+      "no-detail"
+    ],
+    "evidence": [
+      "test/im-read.test.ts",
+      "test/im-write.test.ts",
+      "test/im-feed.test.ts",
+      "test/im-chat-reads.test.ts",
+      "test/im-flags.test.ts",
+      "test/im-members.test.ts",
+      "test/im-contract.test.ts"
+    ],
+    "adaptations": [
+      "Source-matched business workflow with private artifact, explicit artifact reference, UTC and resumable pagination cloud adaptations."
+    ]
+  },
+  "im.+feed-group-list": {
+    "status": "implemented",
+    "flags": [
+      "page-size",
+      "page-token",
+      "page-all",
+      "page-limit",
+      "start-time",
+      "end-time"
+    ],
+    "evidence": [
+      "test/im-read.test.ts",
+      "test/im-write.test.ts",
+      "test/im-feed.test.ts",
+      "test/im-chat-reads.test.ts",
+      "test/im-flags.test.ts",
+      "test/im-members.test.ts",
+      "test/im-contract.test.ts"
+    ],
+    "adaptations": [
+      "Source-matched business workflow with private artifact, explicit artifact reference, UTC and resumable pagination cloud adaptations."
+    ]
+  },
+  "im.+feed-group-list-item": {
+    "status": "implemented",
+    "flags": [
+      "feed-group-id",
+      "page-size",
+      "page-token",
+      "page-all",
+      "page-limit",
+      "start-time",
+      "end-time"
+    ],
+    "evidence": [
+      "test/im-read.test.ts",
+      "test/im-write.test.ts",
+      "test/im-feed.test.ts",
+      "test/im-chat-reads.test.ts",
+      "test/im-flags.test.ts",
+      "test/im-members.test.ts",
+      "test/im-contract.test.ts"
+    ],
+    "adaptations": [
+      "Source-matched business workflow with private artifact, explicit artifact reference, UTC and resumable pagination cloud adaptations."
+    ]
+  },
+  "im.+feed-group-query-item": {
+    "status": "implemented",
+    "flags": [
+      "feed-group-id",
+      "feed-id"
+    ],
+    "evidence": [
+      "test/im-read.test.ts",
+      "test/im-write.test.ts",
+      "test/im-feed.test.ts",
+      "test/im-chat-reads.test.ts",
+      "test/im-flags.test.ts",
+      "test/im-members.test.ts",
+      "test/im-contract.test.ts"
+    ],
+    "adaptations": [
+      "Source-matched business workflow with private artifact, explicit artifact reference, UTC and resumable pagination cloud adaptations."
+    ]
+  }
+}

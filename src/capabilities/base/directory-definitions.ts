@@ -1,0 +1,10 @@
+import type { CommandDefinition, JsonObject } from '../../domain/models';
+const text = { type: 'string', minLength: 1 };
+const types = { type: 'string', enum: ['folder', 'table', 'docx', 'dashboard', 'workflow'] };
+const specs: Array<{ name: string; required: string[]; properties: JsonObject; scope: string }> = [];
+for (const action of ['list', 'create', 'move', 'rename', 'delete']) specs.push({
+    name: `base-block-${action}`, required: ['base-token', ...(['move', 'rename', 'delete'].includes(action) ? ['block-id'] : []), ...(['create', 'rename'].includes(action) ? ['name'] : []), ...(action === 'create' ? ['type'] : [])],
+    properties: { ...(['list', 'create', 'move'].includes(action) ? { 'parent-id': text } : {}), ...(['list', 'create'].includes(action) ? { type: types } : {}), ...(action === 'move' ? { 'before-id': text, 'after-id': text } : {}) }, scope: `base:block:${action === 'list' ? 'read' : action === 'create' ? 'create' : action === 'delete' ? 'delete' : 'update'}`,
+});
+for (const action of ['categories', 'list', 'search']) specs.push({ name: `template-${action}`, required: action === 'search' ? ['keyword'] : [], properties: action === 'categories' ? {} : { ...(action === 'list' ? { 'category-key': text } : {}), limit: { type: 'integer', minimum: 1, maximum: 100 }, 'page-size': { type: 'integer', minimum: 1, maximum: 100 }, offset: { type: 'string' } }, scope: 'base:template:read' });
+export const directoryDefinitions: CommandDefinition[] = specs.map(spec => ({ id: `base.+${spec.name}`, domain: 'base', source: 'shortcut', identities: ['user', 'bot'], risk: spec.name.startsWith('template-') || spec.name.endsWith('-list') ? 'read' : 'write', scopes: [spec.scope], description: `${spec.name.replaceAll('-', ' ')}. Base blocks can be tables, dashboards, workflows, documents or folders.`, inputSchema: { type: 'object', additionalProperties: false, required: spec.required, properties: { ...Object.fromEntries(spec.required.map(key => [key, text])), ...spec.properties } } }));

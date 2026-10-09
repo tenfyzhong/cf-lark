@@ -1,0 +1,606 @@
+{
+  "version": "1.0.97",
+  "commit": "72579c80027c863ca51d5f9affda72a70ab0d8a6",
+  "eventKeys": {
+    "application.bot.menu_v6": {
+      "status": "implemented",
+      "flags": [
+        "param",
+        "jq",
+        "quiet",
+        "output-dir",
+        "max-events",
+        "timeout",
+        "dry-run",
+        "as"
+      ],
+      "evidence": [
+        "test/event-consume-catalog.test.ts",
+        "test/event-consume-processors.test.ts",
+        "test/event-consume-lifecycle.test.ts",
+        "test/event-consume-storage.test.ts"
+      ],
+      "adaptations": [
+        "Verified callbacks and durable grant-owned polling replace local daemon/socket/NDJSON process lifetime.",
+        "UTC output, private artifacts, one matching event per poll, explicit consumer IDs and alarm cleanup.",
+        "Account-only grants cannot receive ambiguous profile events; explicit bot/app event permission is required for pinned user envelopes lacking recipient identity."
+      ]
+    },
+    "approval.instance.status_changed_v4": {
+      "status": "implemented",
+      "flags": [
+        "param",
+        "jq",
+        "quiet",
+        "output-dir",
+        "max-events",
+        "timeout",
+        "dry-run",
+        "as"
+      ],
+      "evidence": [
+        "test/event-consume-catalog.test.ts",
+        "test/event-consume-processors.test.ts",
+        "test/event-consume-lifecycle.test.ts",
+        "test/event-consume-storage.test.ts"
+      ],
+      "adaptations": [
+        "Verified callbacks and durable grant-owned polling replace local daemon/socket/NDJSON process lifetime.",
+        "UTC output, private artifacts, one matching event per poll, explicit consumer IDs and alarm cleanup.",
+        "Account-only grants cannot receive ambiguous profile events; explicit bot/app event permission is required for pinned user envelopes lacking recipient identity."
+      ]
+    },
+    "approval.task.status_changed_v4": {
+      "status": "implemented",
+      "flags": [
+        "param",
+        "jq",
+        "quiet",
+        "output-dir",
+        "max-events",
+        "timeout",
+        "dry-run",
+        "as"
+      ],
+      "evidence": [
+        "test/event-consume-catalog.test.ts",
+        "test/event-consume-processors.test.ts",
+        "test/event-consume-lifecycle.test.ts",
+        "test/event-consume-storage.test.ts"
+      ],
+      "adaptations": [
+        "Verified callbacks and durable grant-owned polling replace local daemon/socket/NDJSON process lifetime.",
+        "UTC output, private artifacts, one matching event per poll, explicit consumer IDs and alarm cleanup.",
+        "Account-only grants cannot receive ambiguous profile events; explicit bot/app event permission is required for pinned user envelopes lacking recipient identity."
+      ]
+    },
+    "board.whiteboard.updated_v1": {
+      "status": "implemented",
+      "flags": [
+        "param",
+        "jq",
+        "quiet",
+        "output-dir",
+        "max-events",
+        "timeout",
+        "dry-run",
+        "as"
+      ],
+      "evidence": [
+        "test/event-consume-catalog.test.ts",
+        "test/event-consume-processors.test.ts",
+        "test/event-consume-lifecycle.test.ts",
+        "test/event-consume-storage.test.ts"
+      ],
+      "adaptations": [
+        "Verified callbacks and durable grant-owned polling replace local daemon/socket/NDJSON process lifetime.",
+        "UTC output, private artifacts, one matching event per poll, explicit consumer IDs and alarm cleanup.",
+        "Account-only grants cannot receive ambiguous profile events; explicit bot/app event permission is required for pinned user envelopes lacking recipient identity."
+      ]
+    },
+    "card.action.trigger": {
+      "status": "implemented",
+      "flags": [
+        "param",
+        "jq",
+        "quiet",
+        "output-dir",
+        "max-events",
+        "timeout",
+        "dry-run",
+        "as"
+      ],
+      "evidence": [
+        "test/event-consume-catalog.test.ts",
+        "test/event-consume-processors.test.ts",
+        "test/event-consume-lifecycle.test.ts",
+        "test/event-consume-storage.test.ts"
+      ],
+      "adaptations": [
+        "Verified callbacks and durable grant-owned polling replace local daemon/socket/NDJSON process lifetime.",
+        "UTC output, private artifacts, one matching event per poll, explicit consumer IDs and alarm cleanup.",
+        "Account-only grants cannot receive ambiguous profile events; explicit bot/app event permission is required for pinned user envelopes lacking recipient identity."
+      ]
+    },
+    "im.chat.disbanded_v1": {
+      "status": "implemented",
+      "flags": [
+        "param",
+        "jq",
+        "quiet",
+        "output-dir",
+        "max-events",
+        "timeout",
+        "dry-run",
+        "as"
+      ],
+      "evidence": [
+        "test/event-consume-catalog.test.ts",
+        "test/event-consume-processors.test.ts",
+        "test/event-consume-lifecycle.test.ts",
+        "test/event-consume-storage.test.ts"
+      ],
+      "adaptations": [
+        "Verified callbacks and durable grant-owned polling replace local daemon/socket/NDJSON process lifetime.",
+        "UTC output, private artifacts, one matching event per poll, explicit consumer IDs and alarm cleanup.",
+        "Account-only grants cannot receive ambiguous profile events; explicit bot/app event permission is required for pinned user envelopes lacking recipient identity."
+      ]
+    },
+    "im.chat.member.bot.added_v1": {
+      "status": "implemented",
+      "flags": [
+        "param",
+        "jq",
+        "quiet",
+        "output-dir",
+        "max-events",
+        "timeout",
+        "dry-run",
+        "as"
+      ],
+      "evidence": [
+        "test/event-consume-catalog.test.ts",
+        "test/event-consume-processors.test.ts",
+        "test/event-consume-lifecycle.test.ts",
+        "test/event-consume-storage.test.ts"
+      ],
+      "adaptations": [
+        "Verified callbacks and durable grant-owned polling replace local daemon/socket/NDJSON process lifetime.",
+        "UTC output, private artifacts, one matching event per poll, explicit consumer IDs and alarm cleanup.",
+        "Account-only grants cannot receive ambiguous profile events; explicit bot/app event permission is required for pinned user envelopes lacking recipient identity."
+      ]
+    },
+    "im.chat.member.bot.deleted_v1": {
+      "status": "implemented",
+      "flags": [
+        "param",
+        "jq",
+        "quiet",
+        "output-dir",
+        "max-events",
+        "timeout",
+        "dry-run",
+        "as"
+      ],
+      "evidence": [
+        "test/event-consume-catalog.test.ts",
+        "test/event-consume-processors.test.ts",
+        "test/event-consume-lifecycle.test.ts",
+        "test/event-consume-storage.test.ts"
+      ],
+      "adaptations": [
+        "Verified callbacks and durable grant-owned polling replace local daemon/socket/NDJSON process lifetime.",
+        "UTC output, private artifacts, one matching event per poll, explicit consumer IDs and alarm cleanup.",
+        "Account-only grants cannot receive ambiguous profile events; explicit bot/app event permission is required for pinned user envelopes lacking recipient identity."
+      ]
+    },
+    "im.chat.member.user.added_v1": {
+      "status": "implemented",
+      "flags": [
+        "param",
+        "jq",
+        "quiet",
+        "output-dir",
+        "max-events",
+        "timeout",
+        "dry-run",
+        "as"
+      ],
+      "evidence": [
+        "test/event-consume-catalog.test.ts",
+        "test/event-consume-processors.test.ts",
+        "test/event-consume-lifecycle.test.ts",
+        "test/event-consume-storage.test.ts"
+      ],
+      "adaptations": [
+        "Verified callbacks and durable grant-owned polling replace local daemon/socket/NDJSON process lifetime.",
+        "UTC output, private artifacts, one matching event per poll, explicit consumer IDs and alarm cleanup.",
+        "Account-only grants cannot receive ambiguous profile events; explicit bot/app event permission is required for pinned user envelopes lacking recipient identity."
+      ]
+    },
+    "im.chat.member.user.deleted_v1": {
+      "status": "implemented",
+      "flags": [
+        "param",
+        "jq",
+        "quiet",
+        "output-dir",
+        "max-events",
+        "timeout",
+        "dry-run",
+        "as"
+      ],
+      "evidence": [
+        "test/event-consume-catalog.test.ts",
+        "test/event-consume-processors.test.ts",
+        "test/event-consume-lifecycle.test.ts",
+        "test/event-consume-storage.test.ts"
+      ],
+      "adaptations": [
+        "Verified callbacks and durable grant-owned polling replace local daemon/socket/NDJSON process lifetime.",
+        "UTC output, private artifacts, one matching event per poll, explicit consumer IDs and alarm cleanup.",
+        "Account-only grants cannot receive ambiguous profile events; explicit bot/app event permission is required for pinned user envelopes lacking recipient identity."
+      ]
+    },
+    "im.chat.member.user.withdrawn_v1": {
+      "status": "implemented",
+      "flags": [
+        "param",
+        "jq",
+        "quiet",
+        "output-dir",
+        "max-events",
+        "timeout",
+        "dry-run",
+        "as"
+      ],
+      "evidence": [
+        "test/event-consume-catalog.test.ts",
+        "test/event-consume-processors.test.ts",
+        "test/event-consume-lifecycle.test.ts",
+        "test/event-consume-storage.test.ts"
+      ],
+      "adaptations": [
+        "Verified callbacks and durable grant-owned polling replace local daemon/socket/NDJSON process lifetime.",
+        "UTC output, private artifacts, one matching event per poll, explicit consumer IDs and alarm cleanup.",
+        "Account-only grants cannot receive ambiguous profile events; explicit bot/app event permission is required for pinned user envelopes lacking recipient identity."
+      ]
+    },
+    "im.chat.updated_v1": {
+      "status": "implemented",
+      "flags": [
+        "param",
+        "jq",
+        "quiet",
+        "output-dir",
+        "max-events",
+        "timeout",
+        "dry-run",
+        "as"
+      ],
+      "evidence": [
+        "test/event-consume-catalog.test.ts",
+        "test/event-consume-processors.test.ts",
+        "test/event-consume-lifecycle.test.ts",
+        "test/event-consume-storage.test.ts"
+      ],
+      "adaptations": [
+        "Verified callbacks and durable grant-owned polling replace local daemon/socket/NDJSON process lifetime.",
+        "UTC output, private artifacts, one matching event per poll, explicit consumer IDs and alarm cleanup.",
+        "Account-only grants cannot receive ambiguous profile events; explicit bot/app event permission is required for pinned user envelopes lacking recipient identity."
+      ]
+    },
+    "im.message.message_read_v1": {
+      "status": "implemented",
+      "flags": [
+        "param",
+        "jq",
+        "quiet",
+        "output-dir",
+        "max-events",
+        "timeout",
+        "dry-run",
+        "as"
+      ],
+      "evidence": [
+        "test/event-consume-catalog.test.ts",
+        "test/event-consume-processors.test.ts",
+        "test/event-consume-lifecycle.test.ts",
+        "test/event-consume-storage.test.ts"
+      ],
+      "adaptations": [
+        "Verified callbacks and durable grant-owned polling replace local daemon/socket/NDJSON process lifetime.",
+        "UTC output, private artifacts, one matching event per poll, explicit consumer IDs and alarm cleanup.",
+        "Account-only grants cannot receive ambiguous profile events; explicit bot/app event permission is required for pinned user envelopes lacking recipient identity."
+      ]
+    },
+    "im.message.reaction.created_v1": {
+      "status": "implemented",
+      "flags": [
+        "param",
+        "jq",
+        "quiet",
+        "output-dir",
+        "max-events",
+        "timeout",
+        "dry-run",
+        "as"
+      ],
+      "evidence": [
+        "test/event-consume-catalog.test.ts",
+        "test/event-consume-processors.test.ts",
+        "test/event-consume-lifecycle.test.ts",
+        "test/event-consume-storage.test.ts"
+      ],
+      "adaptations": [
+        "Verified callbacks and durable grant-owned polling replace local daemon/socket/NDJSON process lifetime.",
+        "UTC output, private artifacts, one matching event per poll, explicit consumer IDs and alarm cleanup.",
+        "Account-only grants cannot receive ambiguous profile events; explicit bot/app event permission is required for pinned user envelopes lacking recipient identity."
+      ]
+    },
+    "im.message.reaction.deleted_v1": {
+      "status": "implemented",
+      "flags": [
+        "param",
+        "jq",
+        "quiet",
+        "output-dir",
+        "max-events",
+        "timeout",
+        "dry-run",
+        "as"
+      ],
+      "evidence": [
+        "test/event-consume-catalog.test.ts",
+        "test/event-consume-processors.test.ts",
+        "test/event-consume-lifecycle.test.ts",
+        "test/event-consume-storage.test.ts"
+      ],
+      "adaptations": [
+        "Verified callbacks and durable grant-owned polling replace local daemon/socket/NDJSON process lifetime.",
+        "UTC output, private artifacts, one matching event per poll, explicit consumer IDs and alarm cleanup.",
+        "Account-only grants cannot receive ambiguous profile events; explicit bot/app event permission is required for pinned user envelopes lacking recipient identity."
+      ]
+    },
+    "im.message.receive_v1": {
+      "status": "implemented",
+      "flags": [
+        "param",
+        "jq",
+        "quiet",
+        "output-dir",
+        "max-events",
+        "timeout",
+        "dry-run",
+        "as"
+      ],
+      "evidence": [
+        "test/event-consume-catalog.test.ts",
+        "test/event-consume-processors.test.ts",
+        "test/event-consume-lifecycle.test.ts",
+        "test/event-consume-storage.test.ts"
+      ],
+      "adaptations": [
+        "Verified callbacks and durable grant-owned polling replace local daemon/socket/NDJSON process lifetime.",
+        "UTC output, private artifacts, one matching event per poll, explicit consumer IDs and alarm cleanup.",
+        "Account-only grants cannot receive ambiguous profile events; explicit bot/app event permission is required for pinned user envelopes lacking recipient identity."
+      ]
+    },
+    "minutes.minute.generated_v1": {
+      "status": "implemented",
+      "flags": [
+        "param",
+        "jq",
+        "quiet",
+        "output-dir",
+        "max-events",
+        "timeout",
+        "dry-run",
+        "as"
+      ],
+      "evidence": [
+        "test/event-consume-catalog.test.ts",
+        "test/event-consume-processors.test.ts",
+        "test/event-consume-lifecycle.test.ts",
+        "test/event-consume-storage.test.ts"
+      ],
+      "adaptations": [
+        "Verified callbacks and durable grant-owned polling replace local daemon/socket/NDJSON process lifetime.",
+        "UTC output, private artifacts, one matching event per poll, explicit consumer IDs and alarm cleanup.",
+        "Account-only grants cannot receive ambiguous profile events; explicit bot/app event permission is required for pinned user envelopes lacking recipient identity."
+      ]
+    },
+    "task.task.update_user_access_v2": {
+      "status": "implemented",
+      "flags": [
+        "param",
+        "jq",
+        "quiet",
+        "output-dir",
+        "max-events",
+        "timeout",
+        "dry-run",
+        "as"
+      ],
+      "evidence": [
+        "test/event-consume-catalog.test.ts",
+        "test/event-consume-processors.test.ts",
+        "test/event-consume-lifecycle.test.ts",
+        "test/event-consume-storage.test.ts"
+      ],
+      "adaptations": [
+        "Verified callbacks and durable grant-owned polling replace local daemon/socket/NDJSON process lifetime.",
+        "UTC output, private artifacts, one matching event per poll, explicit consumer IDs and alarm cleanup.",
+        "Account-only grants cannot receive ambiguous profile events; explicit bot/app event permission is required for pinned user envelopes lacking recipient identity."
+      ]
+    },
+    "vc.meeting.participant_meeting_ended_v1": {
+      "status": "implemented",
+      "flags": [
+        "param",
+        "jq",
+        "quiet",
+        "output-dir",
+        "max-events",
+        "timeout",
+        "dry-run",
+        "as"
+      ],
+      "evidence": [
+        "test/event-consume-catalog.test.ts",
+        "test/event-consume-processors.test.ts",
+        "test/event-consume-lifecycle.test.ts",
+        "test/event-consume-storage.test.ts"
+      ],
+      "adaptations": [
+        "Verified callbacks and durable grant-owned polling replace local daemon/socket/NDJSON process lifetime.",
+        "UTC output, private artifacts, one matching event per poll, explicit consumer IDs and alarm cleanup.",
+        "Account-only grants cannot receive ambiguous profile events; explicit bot/app event permission is required for pinned user envelopes lacking recipient identity."
+      ]
+    },
+    "vc.meeting.participant_meeting_joined_v1": {
+      "status": "implemented",
+      "flags": [
+        "param",
+        "jq",
+        "quiet",
+        "output-dir",
+        "max-events",
+        "timeout",
+        "dry-run",
+        "as"
+      ],
+      "evidence": [
+        "test/event-consume-catalog.test.ts",
+        "test/event-consume-processors.test.ts",
+        "test/event-consume-lifecycle.test.ts",
+        "test/event-consume-storage.test.ts"
+      ],
+      "adaptations": [
+        "Verified callbacks and durable grant-owned polling replace local daemon/socket/NDJSON process lifetime.",
+        "UTC output, private artifacts, one matching event per poll, explicit consumer IDs and alarm cleanup.",
+        "Account-only grants cannot receive ambiguous profile events; explicit bot/app event permission is required for pinned user envelopes lacking recipient identity."
+      ]
+    },
+    "vc.meeting.participant_meeting_started_v1": {
+      "status": "implemented",
+      "flags": [
+        "param",
+        "jq",
+        "quiet",
+        "output-dir",
+        "max-events",
+        "timeout",
+        "dry-run",
+        "as"
+      ],
+      "evidence": [
+        "test/event-consume-catalog.test.ts",
+        "test/event-consume-processors.test.ts",
+        "test/event-consume-lifecycle.test.ts",
+        "test/event-consume-storage.test.ts"
+      ],
+      "adaptations": [
+        "Verified callbacks and durable grant-owned polling replace local daemon/socket/NDJSON process lifetime.",
+        "UTC output, private artifacts, one matching event per poll, explicit consumer IDs and alarm cleanup.",
+        "Account-only grants cannot receive ambiguous profile events; explicit bot/app event permission is required for pinned user envelopes lacking recipient identity."
+      ]
+    },
+    "vc.note.generated_v1": {
+      "status": "implemented",
+      "flags": [
+        "param",
+        "jq",
+        "quiet",
+        "output-dir",
+        "max-events",
+        "timeout",
+        "dry-run",
+        "as"
+      ],
+      "evidence": [
+        "test/event-consume-catalog.test.ts",
+        "test/event-consume-processors.test.ts",
+        "test/event-consume-lifecycle.test.ts",
+        "test/event-consume-storage.test.ts"
+      ],
+      "adaptations": [
+        "Verified callbacks and durable grant-owned polling replace local daemon/socket/NDJSON process lifetime.",
+        "UTC output, private artifacts, one matching event per poll, explicit consumer IDs and alarm cleanup.",
+        "Account-only grants cannot receive ambiguous profile events; explicit bot/app event permission is required for pinned user envelopes lacking recipient identity."
+      ]
+    },
+    "vc.recording.recording_ended_v1": {
+      "status": "implemented",
+      "flags": [
+        "param",
+        "jq",
+        "quiet",
+        "output-dir",
+        "max-events",
+        "timeout",
+        "dry-run",
+        "as"
+      ],
+      "evidence": [
+        "test/event-consume-catalog.test.ts",
+        "test/event-consume-processors.test.ts",
+        "test/event-consume-lifecycle.test.ts",
+        "test/event-consume-storage.test.ts"
+      ],
+      "adaptations": [
+        "Verified callbacks and durable grant-owned polling replace local daemon/socket/NDJSON process lifetime.",
+        "UTC output, private artifacts, one matching event per poll, explicit consumer IDs and alarm cleanup.",
+        "Account-only grants cannot receive ambiguous profile events; explicit bot/app event permission is required for pinned user envelopes lacking recipient identity."
+      ]
+    },
+    "vc.recording.recording_started_v1": {
+      "status": "implemented",
+      "flags": [
+        "param",
+        "jq",
+        "quiet",
+        "output-dir",
+        "max-events",
+        "timeout",
+        "dry-run",
+        "as"
+      ],
+      "evidence": [
+        "test/event-consume-catalog.test.ts",
+        "test/event-consume-processors.test.ts",
+        "test/event-consume-lifecycle.test.ts",
+        "test/event-consume-storage.test.ts"
+      ],
+      "adaptations": [
+        "Verified callbacks and durable grant-owned polling replace local daemon/socket/NDJSON process lifetime.",
+        "UTC output, private artifacts, one matching event per poll, explicit consumer IDs and alarm cleanup.",
+        "Account-only grants cannot receive ambiguous profile events; explicit bot/app event permission is required for pinned user envelopes lacking recipient identity."
+      ]
+    },
+    "vc.recording.recording_transcript_generated_v1": {
+      "status": "implemented",
+      "flags": [
+        "param",
+        "jq",
+        "quiet",
+        "output-dir",
+        "max-events",
+        "timeout",
+        "dry-run",
+        "as"
+      ],
+      "evidence": [
+        "test/event-consume-catalog.test.ts",
+        "test/event-consume-processors.test.ts",
+        "test/event-consume-lifecycle.test.ts",
+        "test/event-consume-storage.test.ts"
+      ],
+      "adaptations": [
+        "Verified callbacks and durable grant-owned polling replace local daemon/socket/NDJSON process lifetime.",
+        "UTC output, private artifacts, one matching event per poll, explicit consumer IDs and alarm cleanup.",
+        "Account-only grants cannot receive ambiguous profile events; explicit bot/app event permission is required for pinned user envelopes lacking recipient identity."
+      ]
+    }
+  }
+}

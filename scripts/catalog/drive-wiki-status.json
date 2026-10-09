@@ -1,0 +1,987 @@
+{
+  "drive.+add-comment": {
+    "status": "implemented",
+    "flags": [
+      "doc",
+      "type",
+      "content",
+      "full-comment",
+      "block-id"
+    ],
+    "evidence": [
+      "test/drive-contract-metadata.test.ts",
+      "test/drive-comments.test.ts"
+    ],
+    "adaptations": []
+  },
+  "drive.+add-reply": {
+    "status": "implemented",
+    "flags": [
+      "url",
+      "token",
+      "type",
+      "comment-id",
+      "content"
+    ],
+    "evidence": [
+      "test/drive-contract-metadata.test.ts",
+      "test/drive-comments.test.ts"
+    ],
+    "adaptations": []
+  },
+  "drive.+apply-permission": {
+    "status": "implemented",
+    "flags": [
+      "token",
+      "type",
+      "perm",
+      "remark"
+    ],
+    "evidence": [
+      "test/drive-contract-metadata.test.ts",
+      "test/drive-permissions.test.ts"
+    ],
+    "adaptations": []
+  },
+  "drive.+batch-query-comments": {
+    "status": "implemented",
+    "flags": [
+      "url",
+      "token",
+      "type",
+      "comment-ids",
+      "need-reaction",
+      "need-relation"
+    ],
+    "evidence": [
+      "test/drive-contract-metadata.test.ts",
+      "test/drive-comments.test.ts"
+    ],
+    "adaptations": []
+  },
+  "drive.+copy": {
+    "status": "implemented",
+    "flags": [
+      "url",
+      "token",
+      "type",
+      "name",
+      "folder-token",
+      "extra"
+    ],
+    "evidence": [
+      "test/drive-contract-metadata.test.ts",
+      "test/drive-metadata.test.ts"
+    ],
+    "adaptations": []
+  },
+  "drive.+cover": {
+    "status": "implemented",
+    "flags": [
+      "file-token",
+      "spec",
+      "version",
+      "list-only",
+      "output",
+      "if-exists"
+    ],
+    "evidence": [
+      "test/drive-contract-metadata.test.ts",
+      "test/drive-downloads.test.ts"
+    ],
+    "adaptations": [
+      "Downloads stream into private immutable artifacts; local overwrite policies cannot overwrite another artifact.",
+      "Output paths and directories are filename hints; artifact writes require the grant artifact-write permission."
+    ]
+  },
+  "drive.+create-folder": {
+    "status": "implemented",
+    "flags": [
+      "name",
+      "folder-token"
+    ],
+    "evidence": [
+      "test/drive-contract-metadata.test.ts",
+      "test/drive-permissions.test.ts"
+    ],
+    "adaptations": []
+  },
+  "drive.+create-shortcut": {
+    "status": "implemented",
+    "flags": [
+      "file-token",
+      "type",
+      "folder-token"
+    ],
+    "evidence": [
+      "test/drive-contract-metadata.test.ts",
+      "test/drive-permissions.test.ts"
+    ],
+    "adaptations": []
+  },
+  "drive.+delete": {
+    "status": "implemented",
+    "flags": [
+      "file-token",
+      "type"
+    ],
+    "evidence": [
+      "test/drive-contract-metadata.test.ts",
+      "test/drive-tasks.test.ts"
+    ],
+    "adaptations": [
+      "Asynchronous operations use durable checkpoints and workflow.resume."
+    ]
+  },
+  "drive.+delete-reply": {
+    "status": "implemented",
+    "flags": [
+      "url",
+      "token",
+      "type",
+      "comment-id",
+      "reply-id"
+    ],
+    "evidence": [
+      "test/drive-contract-metadata.test.ts",
+      "test/drive-comments.test.ts"
+    ],
+    "adaptations": []
+  },
+  "drive.+download": {
+    "status": "implemented",
+    "flags": [
+      "file-token",
+      "url",
+      "wiki-token",
+      "output",
+      "overwrite"
+    ],
+    "evidence": [
+      "test/drive-contract-metadata.test.ts",
+      "test/drive-downloads.test.ts"
+    ],
+    "adaptations": [
+      "Downloads stream into private immutable artifacts; local overwrite policies cannot overwrite another artifact.",
+      "Output paths and directories are filename hints; artifact writes require the grant artifact-write permission."
+    ]
+  },
+  "drive.+export": {
+    "status": "implemented",
+    "flags": [
+      "url",
+      "token",
+      "doc-type",
+      "file-extension",
+      "sub-id",
+      "only-schema",
+      "file-name",
+      "output-dir",
+      "overwrite"
+    ],
+    "evidence": [
+      "test/drive-contract-metadata.test.ts",
+      "test/drive-conversions.test.ts"
+    ],
+    "adaptations": [
+      "Private artifact IDs replace filesystem paths; import file-name supplies the original source filename independently of destination name.",
+      "Checkpointed uploads and task polling use workflow.resume; completed mutations are never replayed."
+    ]
+  },
+  "drive.+export-download": {
+    "status": "implemented",
+    "flags": [
+      "file-token",
+      "file-name",
+      "output-dir",
+      "overwrite"
+    ],
+    "evidence": [
+      "test/drive-contract-metadata.test.ts",
+      "test/drive-downloads.test.ts"
+    ],
+    "adaptations": [
+      "Downloads stream into private immutable artifacts; local overwrite policies cannot overwrite another artifact.",
+      "Output paths and directories are filename hints; artifact writes require the grant artifact-write permission."
+    ]
+  },
+  "drive.+import": {
+    "status": "implemented",
+    "flags": [
+      "file",
+      "type",
+      "folder-token",
+      "name",
+      "target-token"
+    ],
+    "evidence": [
+      "test/drive-contract-metadata.test.ts",
+      "test/drive-conversions.test.ts"
+    ],
+    "adaptations": [
+      "Private artifact IDs replace filesystem paths; import file-name supplies the original source filename independently of destination name.",
+      "Checkpointed uploads and task polling use workflow.resume; completed mutations are never replayed."
+    ]
+  },
+  "drive.+inspect": {
+    "status": "implemented",
+    "flags": [
+      "url",
+      "type"
+    ],
+    "evidence": [
+      "test/drive-contract-metadata.test.ts",
+      "test/drive-metadata.test.ts"
+    ],
+    "adaptations": []
+  },
+  "drive.+list-comments": {
+    "status": "implemented",
+    "flags": [
+      "url",
+      "token",
+      "type",
+      "solved-status",
+      "comment-scope",
+      "need-reaction",
+      "need-relation",
+      "page-size",
+      "page-token"
+    ],
+    "evidence": [
+      "test/drive-contract-metadata.test.ts",
+      "test/drive-comments.test.ts"
+    ],
+    "adaptations": []
+  },
+  "drive.+list-replies": {
+    "status": "implemented",
+    "flags": [
+      "url",
+      "token",
+      "type",
+      "comment-id",
+      "page-size",
+      "page-token",
+      "need-reaction"
+    ],
+    "evidence": [
+      "test/drive-contract-metadata.test.ts",
+      "test/drive-comments.test.ts"
+    ],
+    "adaptations": []
+  },
+  "drive.+member-add": {
+    "status": "implemented",
+    "flags": [
+      "token",
+      "type",
+      "member-id",
+      "member-type",
+      "member-kind",
+      "perm",
+      "perm-type",
+      "need-notification"
+    ],
+    "evidence": [
+      "test/drive-contract-metadata.test.ts",
+      "test/drive-permissions.test.ts"
+    ],
+    "adaptations": []
+  },
+  "drive.+member-list": {
+    "status": "implemented",
+    "flags": [
+      "token",
+      "type",
+      "fields",
+      "perm-type"
+    ],
+    "evidence": [
+      "test/drive-contract-metadata.test.ts",
+      "test/drive-permissions.test.ts"
+    ],
+    "adaptations": []
+  },
+  "drive.+member-remove": {
+    "status": "implemented",
+    "flags": [
+      "token",
+      "type",
+      "member-id",
+      "member-type",
+      "member-kind",
+      "perm-type"
+    ],
+    "evidence": [
+      "test/drive-contract-metadata.test.ts",
+      "test/drive-permissions.test.ts"
+    ],
+    "adaptations": []
+  },
+  "drive.+move": {
+    "status": "implemented",
+    "flags": [
+      "file-token",
+      "type",
+      "folder-token"
+    ],
+    "evidence": [
+      "test/drive-contract-metadata.test.ts",
+      "test/drive-tasks.test.ts"
+    ],
+    "adaptations": [
+      "Asynchronous operations use durable checkpoints and workflow.resume."
+    ]
+  },
+  "drive.+permission-get-setting": {
+    "status": "implemented",
+    "flags": [
+      "token",
+      "type"
+    ],
+    "evidence": [
+      "test/drive-contract-metadata.test.ts",
+      "test/drive-permissions.test.ts"
+    ],
+    "adaptations": []
+  },
+  "drive.+preview": {
+    "status": "implemented",
+    "flags": [
+      "file-token",
+      "url",
+      "wiki-token",
+      "type",
+      "version",
+      "list-only",
+      "output",
+      "if-exists"
+    ],
+    "evidence": [
+      "test/drive-contract-metadata.test.ts",
+      "test/drive-downloads.test.ts"
+    ],
+    "adaptations": [
+      "Downloads stream into private immutable artifacts; local overwrite policies cannot overwrite another artifact.",
+      "Output paths and directories are filename hints; artifact writes require the grant artifact-write permission."
+    ]
+  },
+  "drive.+pull": {
+    "status": "implemented",
+    "flags": [
+      "local-dir",
+      "folder-token",
+      "if-exists",
+      "on-duplicate-remote",
+      "delete-local",
+      "yes"
+    ],
+    "evidence": [
+      "test/drive-contract-metadata.test.ts",
+      "test/drive-directories.test.ts",
+      "test/runtime/drive-hasher.test.ts"
+    ],
+    "adaptations": [
+      "local-dir is a private version 1 directory manifest artifact; file entries reference private artifact IDs and preserve modification times.",
+      "Directory metadata processing is bounded to 4 MiB; binary transfers remain streaming and share the 2 GB quota.",
+      "Local deletion changes the returned manifest without deleting shared artifact bytes.",
+      "Interactive ask uses explicit per-path conflict-decisions and performs no mutations while decisions are missing.",
+      "Exact comparison uses native Cloudflare streaming SHA-256."
+    ]
+  },
+  "drive.+push": {
+    "status": "implemented",
+    "flags": [
+      "local-dir",
+      "folder-token",
+      "if-exists",
+      "on-duplicate-remote",
+      "delete-remote",
+      "yes"
+    ],
+    "evidence": [
+      "test/drive-contract-metadata.test.ts",
+      "test/drive-directories.test.ts",
+      "test/runtime/drive-hasher.test.ts"
+    ],
+    "adaptations": [
+      "local-dir is a private version 1 directory manifest artifact; file entries reference private artifact IDs and preserve modification times.",
+      "Directory metadata processing is bounded to 4 MiB; binary transfers remain streaming and share the 2 GB quota.",
+      "Local deletion changes the returned manifest without deleting shared artifact bytes.",
+      "Interactive ask uses explicit per-path conflict-decisions and performs no mutations while decisions are missing.",
+      "Exact comparison uses native Cloudflare streaming SHA-256."
+    ]
+  },
+  "drive.+react-reply": {
+    "status": "implemented",
+    "flags": [
+      "url",
+      "token",
+      "type",
+      "reply-id",
+      "emoji",
+      "action"
+    ],
+    "evidence": [
+      "test/drive-contract-metadata.test.ts",
+      "test/drive-comments.test.ts"
+    ],
+    "adaptations": []
+  },
+  "drive.+resolve-comment": {
+    "status": "implemented",
+    "flags": [
+      "url",
+      "token",
+      "type",
+      "comment-id"
+    ],
+    "evidence": [
+      "test/drive-contract-metadata.test.ts",
+      "test/drive-comments.test.ts"
+    ],
+    "adaptations": []
+  },
+  "drive.+restore-comment": {
+    "status": "implemented",
+    "flags": [
+      "url",
+      "token",
+      "type",
+      "comment-id"
+    ],
+    "evidence": [
+      "test/drive-contract-metadata.test.ts",
+      "test/drive-comments.test.ts"
+    ],
+    "adaptations": []
+  },
+  "drive.+search": {
+    "status": "implemented",
+    "flags": [
+      "query",
+      "mine",
+      "creator-ids",
+      "created-by-me",
+      "original-creator-ids",
+      "edited-since",
+      "edited-until",
+      "commented-since",
+      "commented-until",
+      "opened-since",
+      "opened-until",
+      "created-since",
+      "created-until",
+      "doc-types",
+      "folder-tokens",
+      "space-ids",
+      "chat-ids",
+      "sharer-ids",
+      "only-title",
+      "only-comment",
+      "sort",
+      "page-token",
+      "page-size"
+    ],
+    "evidence": [
+      "test/drive-contract-metadata.test.ts",
+      "test/drive-search.test.ts"
+    ],
+    "adaptations": [
+      "Date-only inputs use UTC; explicit RFC 3339 offsets preserve other timezones."
+    ]
+  },
+  "drive.+secure-label-list": {
+    "status": "implemented",
+    "flags": [
+      "page-size",
+      "page-token",
+      "lang"
+    ],
+    "evidence": [
+      "test/drive-contract-metadata.test.ts",
+      "test/drive-permissions.test.ts"
+    ],
+    "adaptations": []
+  },
+  "drive.+secure-label-update": {
+    "status": "implemented",
+    "flags": [
+      "token",
+      "type",
+      "label-id"
+    ],
+    "evidence": [
+      "test/drive-contract-metadata.test.ts",
+      "test/drive-permissions.test.ts"
+    ],
+    "adaptations": []
+  },
+  "drive.+status": {
+    "status": "implemented",
+    "flags": [
+      "local-dir",
+      "folder-token",
+      "quick"
+    ],
+    "evidence": [
+      "test/drive-contract-metadata.test.ts",
+      "test/drive-directories.test.ts",
+      "test/runtime/drive-hasher.test.ts"
+    ],
+    "adaptations": [
+      "local-dir is a private version 1 directory manifest artifact; file entries reference private artifact IDs and preserve modification times.",
+      "Directory metadata processing is bounded to 4 MiB; binary transfers remain streaming and share the 2 GB quota.",
+      "Local deletion changes the returned manifest without deleting shared artifact bytes.",
+      "Interactive ask uses explicit per-path conflict-decisions and performs no mutations while decisions are missing.",
+      "Exact comparison uses native Cloudflare streaming SHA-256."
+    ]
+  },
+  "drive.+sync": {
+    "status": "implemented",
+    "flags": [
+      "local-dir",
+      "folder-token",
+      "on-conflict",
+      "on-duplicate-remote",
+      "quick"
+    ],
+    "evidence": [
+      "test/drive-contract-metadata.test.ts",
+      "test/drive-directories.test.ts",
+      "test/runtime/drive-hasher.test.ts"
+    ],
+    "adaptations": [
+      "local-dir is a private version 1 directory manifest artifact; file entries reference private artifact IDs and preserve modification times.",
+      "Directory metadata processing is bounded to 4 MiB; binary transfers remain streaming and share the 2 GB quota.",
+      "Local deletion changes the returned manifest without deleting shared artifact bytes.",
+      "Interactive ask uses explicit per-path conflict-decisions and performs no mutations while decisions are missing.",
+      "Exact comparison uses native Cloudflare streaming SHA-256."
+    ]
+  },
+  "drive.+task_result": {
+    "status": "implemented",
+    "flags": [
+      "ticket",
+      "task-id",
+      "scenario",
+      "file-token"
+    ],
+    "evidence": [
+      "test/drive-contract-metadata.test.ts",
+      "test/drive-tasks.test.ts"
+    ],
+    "adaptations": [
+      "Asynchronous operations use durable checkpoints and workflow.resume.",
+      "The optional bot permission grant is skipped with an explicit explanation when MCP Drive write permission is absent."
+    ]
+  },
+  "drive.+update-reply": {
+    "status": "implemented",
+    "flags": [
+      "url",
+      "token",
+      "type",
+      "comment-id",
+      "reply-id",
+      "content"
+    ],
+    "evidence": [
+      "test/drive-contract-metadata.test.ts",
+      "test/drive-comments.test.ts"
+    ],
+    "adaptations": []
+  },
+  "drive.+update-title": {
+    "status": "implemented",
+    "flags": [
+      "url",
+      "token",
+      "type",
+      "title",
+      "on-extension-mismatch"
+    ],
+    "evidence": [
+      "test/drive-contract-metadata.test.ts",
+      "test/drive-metadata.test.ts"
+    ],
+    "adaptations": []
+  },
+  "drive.+version-delete": {
+    "status": "implemented",
+    "flags": [
+      "file-token",
+      "version"
+    ],
+    "evidence": [
+      "test/drive-contract-metadata.test.ts",
+      "test/drive-metadata.test.ts"
+    ],
+    "adaptations": []
+  },
+  "drive.+version-get": {
+    "status": "implemented",
+    "flags": [
+      "file-token",
+      "version",
+      "output",
+      "overwrite"
+    ],
+    "evidence": [
+      "test/drive-contract-metadata.test.ts",
+      "test/drive-downloads.test.ts"
+    ],
+    "adaptations": [
+      "Downloads stream into private immutable artifacts; local overwrite policies cannot overwrite another artifact.",
+      "Output paths and directories are filename hints; artifact writes require the grant artifact-write permission."
+    ]
+  },
+  "drive.+version-history": {
+    "status": "implemented",
+    "flags": [
+      "file-token",
+      "limit",
+      "cursor"
+    ],
+    "evidence": [
+      "test/drive-contract-metadata.test.ts",
+      "test/drive-metadata.test.ts"
+    ],
+    "adaptations": []
+  },
+  "drive.+version-revert": {
+    "status": "implemented",
+    "flags": [
+      "file-token",
+      "version"
+    ],
+    "evidence": [
+      "test/drive-contract-metadata.test.ts",
+      "test/drive-metadata.test.ts"
+    ],
+    "adaptations": []
+  },
+  "markdown.+create": {
+    "status": "implemented",
+    "flags": [
+      "folder-token",
+      "wiki-token",
+      "name",
+      "content",
+      "file"
+    ],
+    "evidence": [
+      "test/drive-contract-metadata.test.ts",
+      "test/markdown-shortcuts.test.ts",
+      "test/markdown-transforms.test.ts"
+    ],
+    "adaptations": [
+      "Local files use private artifact IDs; output paths become filename hints for immutable artifacts.",
+      "Fetch returns text inline up to 512 KiB and streams larger results into artifacts.",
+      "Private artifacts count toward the shared 2 GB quota and expire automatically."
+    ]
+  },
+  "markdown.+diff": {
+    "status": "implemented",
+    "flags": [
+      "file-token",
+      "from-version",
+      "to-version",
+      "file",
+      "context-lines"
+    ],
+    "evidence": [
+      "test/drive-contract-metadata.test.ts",
+      "test/markdown-shortcuts.test.ts",
+      "test/markdown-transforms.test.ts"
+    ],
+    "adaptations": [
+      "Local files use private artifact IDs; output paths become filename hints for immutable artifacts.",
+      "Fetch returns text inline up to 512 KiB and streams larger results into artifacts.",
+      "Private artifacts count toward the shared 2 GB quota and expire automatically.",
+      "Diff retains the upstream 10 MiB per-side limit; intermediate snapshots use private artifacts."
+    ]
+  },
+  "markdown.+fetch": {
+    "status": "implemented",
+    "flags": [
+      "file-token",
+      "output",
+      "overwrite"
+    ],
+    "evidence": [
+      "test/drive-contract-metadata.test.ts",
+      "test/markdown-shortcuts.test.ts",
+      "test/markdown-transforms.test.ts"
+    ],
+    "adaptations": [
+      "Local files use private artifact IDs; output paths become filename hints for immutable artifacts.",
+      "Fetch returns text inline up to 512 KiB and streams larger results into artifacts.",
+      "Private artifacts count toward the shared 2 GB quota and expire automatically."
+    ]
+  },
+  "markdown.+overwrite": {
+    "status": "implemented",
+    "flags": [
+      "file-token",
+      "name",
+      "content",
+      "file"
+    ],
+    "evidence": [
+      "test/drive-contract-metadata.test.ts",
+      "test/markdown-shortcuts.test.ts",
+      "test/markdown-transforms.test.ts"
+    ],
+    "adaptations": [
+      "Local files use private artifact IDs; output paths become filename hints for immutable artifacts.",
+      "Fetch returns text inline up to 512 KiB and streams larger results into artifacts.",
+      "Private artifacts count toward the shared 2 GB quota and expire automatically."
+    ]
+  },
+  "markdown.+patch": {
+    "status": "implemented",
+    "flags": [
+      "file-token",
+      "pattern",
+      "content",
+      "regex"
+    ],
+    "evidence": [
+      "test/drive-contract-metadata.test.ts",
+      "test/markdown-shortcuts.test.ts",
+      "test/markdown-transforms.test.ts"
+    ],
+    "adaptations": [
+      "Local files use private artifact IDs; output paths become filename hints for immutable artifacts.",
+      "Fetch returns text inline up to 512 KiB and streams larger results into artifacts.",
+      "Private artifacts count toward the shared 2 GB quota and expire automatically.",
+      "Patch processing is bounded to 32 MiB per source file on the free Worker tier."
+    ]
+  },
+  "wiki.+delete-space": {
+    "status": "implemented",
+    "flags": [
+      "space-id"
+    ],
+    "evidence": [
+      "test/drive-contract-metadata.test.ts",
+      "test/wiki-shortcuts.test.ts"
+    ],
+    "adaptations": [
+      "Multi-page listing and asynchronous mutations use durable workflow handles; resume until completed.",
+      "Explicit page tokens override page-all; repeated server cursors stop safely with a warning."
+    ]
+  },
+  "wiki.+member-add": {
+    "status": "implemented",
+    "flags": [
+      "space-id",
+      "member-id",
+      "member-type",
+      "member-role",
+      "need-notification"
+    ],
+    "evidence": [
+      "test/drive-contract-metadata.test.ts",
+      "test/wiki-shortcuts.test.ts"
+    ],
+    "adaptations": [
+      "Multi-page listing and asynchronous mutations use durable workflow handles; resume until completed.",
+      "Explicit page tokens override page-all; repeated server cursors stop safely with a warning."
+    ]
+  },
+  "wiki.+member-list": {
+    "status": "implemented",
+    "flags": [
+      "space-id",
+      "page-size",
+      "page-token",
+      "page-all",
+      "page-limit"
+    ],
+    "evidence": [
+      "test/drive-contract-metadata.test.ts",
+      "test/wiki-shortcuts.test.ts"
+    ],
+    "adaptations": [
+      "Multi-page listing and asynchronous mutations use durable workflow handles; resume until completed.",
+      "Explicit page tokens override page-all; repeated server cursors stop safely with a warning."
+    ]
+  },
+  "wiki.+member-remove": {
+    "status": "implemented",
+    "flags": [
+      "space-id",
+      "member-id",
+      "member-type",
+      "member-role"
+    ],
+    "evidence": [
+      "test/drive-contract-metadata.test.ts",
+      "test/wiki-shortcuts.test.ts"
+    ],
+    "adaptations": [
+      "Multi-page listing and asynchronous mutations use durable workflow handles; resume until completed.",
+      "Explicit page tokens override page-all; repeated server cursors stop safely with a warning."
+    ]
+  },
+  "wiki.+move": {
+    "status": "implemented",
+    "flags": [
+      "node-token",
+      "source-space-id",
+      "target-space-id",
+      "target-parent-token",
+      "obj-type",
+      "obj-token",
+      "apply"
+    ],
+    "evidence": [
+      "test/drive-contract-metadata.test.ts",
+      "test/wiki-shortcuts.test.ts"
+    ],
+    "adaptations": [
+      "Multi-page listing and asynchronous mutations use durable workflow handles; resume until completed.",
+      "Explicit page tokens override page-all; repeated server cursors stop safely with a warning."
+    ]
+  },
+  "wiki.+move-to-drive": {
+    "status": "implemented",
+    "flags": [
+      "node-token",
+      "folder-token"
+    ],
+    "evidence": [
+      "test/drive-contract-metadata.test.ts",
+      "test/wiki-shortcuts.test.ts"
+    ],
+    "adaptations": [
+      "Multi-page listing and asynchronous mutations use durable workflow handles; resume until completed.",
+      "Explicit page tokens override page-all; repeated server cursors stop safely with a warning."
+    ]
+  },
+  "wiki.+node-copy": {
+    "status": "implemented",
+    "flags": [
+      "space-id",
+      "node-token",
+      "target-space-id",
+      "target-parent-node-token",
+      "title"
+    ],
+    "evidence": [
+      "test/drive-contract-metadata.test.ts",
+      "test/wiki-shortcuts.test.ts"
+    ],
+    "adaptations": [
+      "Multi-page listing and asynchronous mutations use durable workflow handles; resume until completed.",
+      "Explicit page tokens override page-all; repeated server cursors stop safely with a warning."
+    ]
+  },
+  "wiki.+node-create": {
+    "status": "implemented",
+    "flags": [
+      "space-id",
+      "parent-node-token",
+      "title",
+      "node-type",
+      "obj-type",
+      "origin-node-token"
+    ],
+    "evidence": [
+      "test/drive-contract-metadata.test.ts",
+      "test/wiki-shortcuts.test.ts"
+    ],
+    "adaptations": [
+      "Multi-page listing and asynchronous mutations use durable workflow handles; resume until completed.",
+      "Explicit page tokens override page-all; repeated server cursors stop safely with a warning."
+    ]
+  },
+  "wiki.+node-delete": {
+    "status": "implemented",
+    "flags": [
+      "node-token",
+      "obj-type",
+      "space-id",
+      "include-children"
+    ],
+    "evidence": [
+      "test/drive-contract-metadata.test.ts",
+      "test/wiki-shortcuts.test.ts"
+    ],
+    "adaptations": [
+      "Multi-page listing and asynchronous mutations use durable workflow handles; resume until completed.",
+      "Explicit page tokens override page-all; repeated server cursors stop safely with a warning."
+    ]
+  },
+  "wiki.+node-get": {
+    "status": "implemented",
+    "flags": [
+      "node-token",
+      "token",
+      "obj-type",
+      "space-id"
+    ],
+    "evidence": [
+      "test/drive-contract-metadata.test.ts",
+      "test/wiki-shortcuts.test.ts"
+    ],
+    "adaptations": [
+      "Multi-page listing and asynchronous mutations use durable workflow handles; resume until completed.",
+      "Explicit page tokens override page-all; repeated server cursors stop safely with a warning."
+    ]
+  },
+  "wiki.+node-list": {
+    "status": "implemented",
+    "flags": [
+      "space-id",
+      "parent-node-token",
+      "page-size",
+      "page-token",
+      "page-all",
+      "page-limit"
+    ],
+    "evidence": [
+      "test/drive-contract-metadata.test.ts",
+      "test/wiki-shortcuts.test.ts"
+    ],
+    "adaptations": [
+      "Multi-page listing and asynchronous mutations use durable workflow handles; resume until completed.",
+      "Explicit page tokens override page-all; repeated server cursors stop safely with a warning."
+    ]
+  },
+  "wiki.+space-create": {
+    "status": "implemented",
+    "flags": [
+      "name",
+      "description"
+    ],
+    "evidence": [
+      "test/drive-contract-metadata.test.ts",
+      "test/wiki-shortcuts.test.ts"
+    ],
+    "adaptations": [
+      "Multi-page listing and asynchronous mutations use durable workflow handles; resume until completed.",
+      "Explicit page tokens override page-all; repeated server cursors stop safely with a warning."
+    ]
+  },
+  "wiki.+space-list": {
+    "status": "implemented",
+    "flags": [
+      "page-size",
+      "page-token",
+      "page-all",
+      "page-limit"
+    ],
+    "evidence": [
+      "test/drive-contract-metadata.test.ts",
+      "test/wiki-shortcuts.test.ts"
+    ],
+    "adaptations": [
+      "Multi-page listing and asynchronous mutations use durable workflow handles; resume until completed.",
+      "Explicit page tokens override page-all; repeated server cursors stop safely with a warning."
+    ]
+  }
+}

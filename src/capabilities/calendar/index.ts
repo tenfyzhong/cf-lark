@@ -1,0 +1,13 @@
+import type { ArtifactStore } from '../../ports/artifacts';
+import type { WorkflowRunner } from '../../ports/workflows';
+import { calendarCoreCapabilities, calendarCorePrograms } from './core';
+import { calendarCoreDefinitions } from './core-definitions';
+import { calendarAvailabilityCapabilities, calendarAvailabilityPrograms } from './availability';
+import { calendarAvailabilityDefinitions } from './availability-definitions';
+import { calendarAgendaCapability, calendarAgendaDefinition, calendarAgendaProgram } from './agenda';
+import { calendarCreateCapability, calendarCreateDefinition, calendarCreateProgram } from './create';
+import { calendarMutationCapabilities, calendarMutationProgram } from './mutation';
+import { calendarMutationDefinitions } from './mutation-definitions';
+export const calendarDefinitions = [...calendarCoreDefinitions, ...calendarAvailabilityDefinitions, calendarAgendaDefinition, calendarCreateDefinition, ...calendarMutationDefinitions];
+export const calendarCapabilities = (workflows: WorkflowRunner) => [...calendarCoreCapabilities(workflows), ...calendarAvailabilityCapabilities(workflows), calendarAgendaCapability(workflows), calendarCreateCapability(workflows), ...calendarMutationCapabilities(workflows)];
+export const calendarPrograms = (artifacts: ArtifactStore) => [...calendarCorePrograms(), ...calendarAvailabilityPrograms(), calendarAgendaProgram(), calendarCreateProgram(artifacts), calendarMutationProgram(artifacts)];

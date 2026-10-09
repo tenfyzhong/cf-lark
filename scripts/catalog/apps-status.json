@@ -1,0 +1,1422 @@
+{
+  "apps.+list": {
+    "status": "implemented",
+    "flags": [
+      "keyword",
+      "ownership",
+      "app-type",
+      "page-size",
+      "page-token"
+    ],
+    "evidence": [
+      "test/apps-core.test.ts"
+    ],
+    "adaptations": []
+  },
+  "apps.+get": {
+    "status": "implemented",
+    "flags": [
+      "app-id"
+    ],
+    "evidence": [
+      "test/apps-core.test.ts"
+    ],
+    "adaptations": []
+  },
+  "apps.+create": {
+    "status": "implemented",
+    "flags": [
+      "name",
+      "app-type",
+      "description",
+      "icon-url"
+    ],
+    "evidence": [
+      "test/apps-core.test.ts"
+    ],
+    "adaptations": []
+  },
+  "apps.+update": {
+    "status": "implemented",
+    "flags": [
+      "app-id",
+      "name",
+      "description"
+    ],
+    "evidence": [
+      "test/apps-core.test.ts"
+    ],
+    "adaptations": []
+  },
+  "apps.+cache-get": {
+    "status": "implemented",
+    "flags": [
+      "app-id",
+      "key",
+      "environment"
+    ],
+    "evidence": [
+      "test/apps-core.test.ts"
+    ],
+    "adaptations": []
+  },
+  "apps.+cache-delete": {
+    "status": "implemented",
+    "flags": [
+      "app-id",
+      "key",
+      "environment"
+    ],
+    "evidence": [
+      "test/apps-core.test.ts"
+    ],
+    "adaptations": []
+  },
+  "apps.+cache-clear": {
+    "status": "implemented",
+    "flags": [
+      "app-id",
+      "environment"
+    ],
+    "evidence": [
+      "test/apps-core.test.ts"
+    ],
+    "adaptations": []
+  },
+  "apps.+html-publish": {
+    "status": "implemented",
+    "flags": [
+      "app-id",
+      "path",
+      "allow-sensitive"
+    ],
+    "evidence": [
+      "test/apps-html.test.ts"
+    ],
+    "adaptations": [
+      "Local file inputs and outputs use grant-owned private artifacts; inline config/SQL remain supported.",
+      "Multi-step and pagination operations use bounded resumable workflows.",
+      "path is a gzip USTAR bundle artifact, or a single index.html artifact with name=index.html; extended tar headers and links are rejected."
+    ]
+  },
+  "apps.+env-pull": {
+    "status": "implemented",
+    "flags": [
+      "app-id",
+      "project-path"
+    ],
+    "evidence": [
+      "test/apps-env-pull.test.ts"
+    ],
+    "adaptations": [
+      "Local file inputs and outputs use grant-owned private artifacts; inline config/SQL remain supported.",
+      "project-path discovery is replaced by explicit app-id and optional existing dotenv file artifact; output is a private dotenv artifact."
+    ]
+  },
+  "apps.+env-list": {
+    "status": "implemented",
+    "flags": [
+      "app-id",
+      "environment",
+      "include-values"
+    ],
+    "evidence": [
+      "test/apps-core.test.ts"
+    ],
+    "adaptations": []
+  },
+  "apps.+env-set": {
+    "status": "implemented",
+    "flags": [
+      "app-id",
+      "environment",
+      "key",
+      "value",
+      "yes"
+    ],
+    "evidence": [
+      "test/apps-core.test.ts"
+    ],
+    "adaptations": []
+  },
+  "apps.+env-delete": {
+    "status": "implemented",
+    "flags": [
+      "app-id",
+      "environment",
+      "key"
+    ],
+    "evidence": [
+      "test/apps-core.test.ts"
+    ],
+    "adaptations": []
+  },
+  "apps.+db-data-export": {
+    "status": "implemented",
+    "flags": [
+      "app-id",
+      "table",
+      "output",
+      "limit",
+      "environment",
+      "env"
+    ],
+    "evidence": [
+      "test/apps-db-files.test.ts"
+    ],
+    "adaptations": [
+      "The removed legacy env flag is rejected; use environment.",
+      "Local file inputs and outputs use grant-owned private artifacts; inline config/SQL remain supported.",
+      "Multi-step and pagination operations use bounded resumable workflows."
+    ]
+  },
+  "apps.+db-data-import": {
+    "status": "implemented",
+    "flags": [
+      "app-id",
+      "file",
+      "table",
+      "environment",
+      "env"
+    ],
+    "evidence": [
+      "test/apps-db-files.test.ts"
+    ],
+    "adaptations": [
+      "The removed legacy env flag is rejected; use environment.",
+      "Local file inputs and outputs use grant-owned private artifacts; inline config/SQL remain supported.",
+      "Multi-step and pagination operations use bounded resumable workflows."
+    ]
+  },
+  "apps.+db-sync-create": {
+    "status": "implemented",
+    "flags": [
+      "app-id",
+      "config",
+      "preview",
+      "output",
+      "environment",
+      "env"
+    ],
+    "evidence": [
+      "test/apps-sync.test.ts"
+    ],
+    "adaptations": [
+      "The removed legacy env flag is rejected; use environment.",
+      "Local file inputs and outputs use grant-owned private artifacts; inline config/SQL remain supported."
+    ]
+  },
+  "apps.+db-sync-update": {
+    "status": "implemented",
+    "flags": [
+      "app-id",
+      "task-id",
+      "config",
+      "environment",
+      "env"
+    ],
+    "evidence": [
+      "test/apps-sync.test.ts"
+    ],
+    "adaptations": [
+      "The removed legacy env flag is rejected; use environment.",
+      "Local file inputs and outputs use grant-owned private artifacts; inline config/SQL remain supported."
+    ]
+  },
+  "apps.+db-execute": {
+    "status": "implemented",
+    "flags": [
+      "app-id",
+      "sql",
+      "file",
+      "environment",
+      "env"
+    ],
+    "evidence": [
+      "test/apps-sql.test.ts"
+    ],
+    "adaptations": [
+      "The removed legacy env flag is rejected; use environment.",
+      "Local file inputs and outputs use grant-owned private artifacts; inline config/SQL remain supported.",
+      "SQL artifacts are bounded to 1 MiB; upstream error messages are sanitized while statement and rollback evidence is preserved."
+    ]
+  },
+  "apps.+db-env-diff": {
+    "status": "implemented",
+    "flags": [
+      "app-id"
+    ],
+    "evidence": [
+      "test/apps-db-workflows.test.ts"
+    ],
+    "adaptations": [
+      "Multi-step and pagination operations use bounded resumable workflows.",
+      "Timezone-free dates use UTC in the Worker."
+    ]
+  },
+  "apps.+db-env-migrate": {
+    "status": "implemented",
+    "flags": [
+      "app-id"
+    ],
+    "evidence": [
+      "test/apps-db-workflows.test.ts"
+    ],
+    "adaptations": [
+      "Multi-step and pagination operations use bounded resumable workflows.",
+      "Timezone-free dates use UTC in the Worker."
+    ]
+  },
+  "apps.+db-recovery-diff": {
+    "status": "implemented",
+    "flags": [
+      "app-id",
+      "target",
+      "environment",
+      "env"
+    ],
+    "evidence": [
+      "test/apps-db-workflows.test.ts"
+    ],
+    "adaptations": [
+      "The removed legacy env flag is rejected; use environment.",
+      "Multi-step and pagination operations use bounded resumable workflows.",
+      "Timezone-free dates use UTC in the Worker."
+    ]
+  },
+  "apps.+db-recovery-apply": {
+    "status": "implemented",
+    "flags": [
+      "app-id",
+      "target",
+      "environment",
+      "env"
+    ],
+    "evidence": [
+      "test/apps-db-workflows.test.ts"
+    ],
+    "adaptations": [
+      "The removed legacy env flag is rejected; use environment.",
+      "Multi-step and pagination operations use bounded resumable workflows.",
+      "Timezone-free dates use UTC in the Worker."
+    ]
+  },
+  "apps.+db-audit-enable": {
+    "status": "implemented",
+    "flags": [
+      "app-id",
+      "table",
+      "retention",
+      "environment",
+      "env"
+    ],
+    "evidence": [
+      "test/apps-audit.test.ts"
+    ],
+    "adaptations": [
+      "The removed legacy env flag is rejected; use environment.",
+      "Multi-step and pagination operations use bounded resumable workflows.",
+      "Timezone-free dates use UTC in the Worker."
+    ]
+  },
+  "apps.+db-audit-disable": {
+    "status": "implemented",
+    "flags": [
+      "app-id",
+      "table",
+      "environment",
+      "env"
+    ],
+    "evidence": [
+      "test/apps-audit.test.ts"
+    ],
+    "adaptations": [
+      "The removed legacy env flag is rejected; use environment.",
+      "Multi-step and pagination operations use bounded resumable workflows.",
+      "Timezone-free dates use UTC in the Worker."
+    ]
+  },
+  "apps.+db-audit-list": {
+    "status": "implemented",
+    "flags": [
+      "app-id",
+      "table",
+      "since",
+      "until",
+      "page-size",
+      "page-token",
+      "environment",
+      "env"
+    ],
+    "evidence": [
+      "test/apps-audit.test.ts"
+    ],
+    "adaptations": [
+      "The removed legacy env flag is rejected; use environment.",
+      "Multi-step and pagination operations use bounded resumable workflows.",
+      "Timezone-free dates use UTC in the Worker."
+    ]
+  },
+  "apps.+db-changelog-list": {
+    "status": "implemented",
+    "flags": [
+      "app-id",
+      "table",
+      "change-id",
+      "since",
+      "until",
+      "page-size",
+      "page-token",
+      "environment",
+      "env"
+    ],
+    "evidence": [
+      "test/apps-audit.test.ts"
+    ],
+    "adaptations": [
+      "The removed legacy env flag is rejected; use environment.",
+      "Multi-step and pagination operations use bounded resumable workflows.",
+      "Timezone-free dates use UTC in the Worker."
+    ]
+  },
+  "apps.+session-list": {
+    "status": "implemented",
+    "flags": [
+      "app-id",
+      "page-size",
+      "page-token"
+    ],
+    "evidence": [
+      "test/apps-sessions.test.ts"
+    ],
+    "adaptations": []
+  },
+  "apps.+session-create": {
+    "status": "implemented",
+    "flags": [
+      "app-id"
+    ],
+    "evidence": [
+      "test/apps-sessions.test.ts"
+    ],
+    "adaptations": []
+  },
+  "apps.+session-get": {
+    "status": "implemented",
+    "flags": [
+      "app-id",
+      "session-id"
+    ],
+    "evidence": [
+      "test/apps-sessions.test.ts"
+    ],
+    "adaptations": []
+  },
+  "apps.+session-stop": {
+    "status": "implemented",
+    "flags": [
+      "app-id",
+      "session-id",
+      "turn-id"
+    ],
+    "evidence": [
+      "test/apps-sessions.test.ts"
+    ],
+    "adaptations": []
+  },
+  "apps.+session-messages-list": {
+    "status": "implemented",
+    "flags": [
+      "app-id",
+      "session-id",
+      "turn-id",
+      "page-token"
+    ],
+    "evidence": [
+      "test/apps-sessions.test.ts"
+    ],
+    "adaptations": []
+  },
+  "apps.+chat": {
+    "status": "implemented",
+    "flags": [
+      "app-id",
+      "session-id",
+      "message"
+    ],
+    "evidence": [
+      "test/apps-sessions.test.ts"
+    ],
+    "adaptations": []
+  },
+  "apps.+release-list": {
+    "status": "implemented",
+    "flags": [
+      "app-id",
+      "status",
+      "page-size",
+      "page-token"
+    ],
+    "evidence": [
+      "test/apps-sessions.test.ts"
+    ],
+    "adaptations": []
+  },
+  "apps.+release-create": {
+    "status": "implemented",
+    "flags": [
+      "app-id",
+      "branch",
+      "apply-reason"
+    ],
+    "evidence": [
+      "test/apps-sessions.test.ts"
+    ],
+    "adaptations": []
+  },
+  "apps.+release-get": {
+    "status": "implemented",
+    "flags": [
+      "app-id",
+      "release-id"
+    ],
+    "evidence": [
+      "test/apps-sessions.test.ts"
+    ],
+    "adaptations": []
+  },
+  "apps.+db-table-list": {
+    "status": "implemented",
+    "flags": [
+      "app-id",
+      "page-size",
+      "page-token",
+      "environment",
+      "env"
+    ],
+    "evidence": [
+      "test/apps-database.test.ts"
+    ],
+    "adaptations": [
+      "The removed legacy env flag is rejected; use environment."
+    ]
+  },
+  "apps.+db-table-get": {
+    "status": "implemented",
+    "flags": [
+      "app-id",
+      "table",
+      "environment",
+      "env"
+    ],
+    "evidence": [
+      "test/apps-database.test.ts"
+    ],
+    "adaptations": [
+      "The removed legacy env flag is rejected; use environment."
+    ]
+  },
+  "apps.+db-audit-status": {
+    "status": "implemented",
+    "flags": [
+      "app-id",
+      "table",
+      "environment",
+      "env"
+    ],
+    "evidence": [
+      "test/apps-database.test.ts"
+    ],
+    "adaptations": [
+      "The removed legacy env flag is rejected; use environment."
+    ]
+  },
+  "apps.+db-quota-get": {
+    "status": "implemented",
+    "flags": [
+      "app-id",
+      "environment",
+      "env"
+    ],
+    "evidence": [
+      "test/apps-database.test.ts"
+    ],
+    "adaptations": [
+      "The removed legacy env flag is rejected; use environment."
+    ]
+  },
+  "apps.+db-env-create": {
+    "status": "implemented",
+    "flags": [
+      "app-id",
+      "sync-data",
+      "environment",
+      "env"
+    ],
+    "evidence": [
+      "test/apps-database.test.ts"
+    ],
+    "adaptations": [
+      "The removed legacy env flag is rejected; use environment."
+    ]
+  },
+  "apps.+db-sync-list": {
+    "status": "implemented",
+    "flags": [
+      "app-id",
+      "mode",
+      "status",
+      "table",
+      "page-size",
+      "page-token",
+      "environment",
+      "env"
+    ],
+    "evidence": [
+      "test/apps-database.test.ts"
+    ],
+    "adaptations": [
+      "The removed legacy env flag is rejected; use environment."
+    ]
+  },
+  "apps.+db-sync-get": {
+    "status": "implemented",
+    "flags": [
+      "app-id",
+      "task-id"
+    ],
+    "evidence": [
+      "test/apps-database.test.ts"
+    ],
+    "adaptations": []
+  },
+  "apps.+db-sync-enable": {
+    "status": "implemented",
+    "flags": [
+      "app-id",
+      "task-id"
+    ],
+    "evidence": [
+      "test/apps-database.test.ts"
+    ],
+    "adaptations": []
+  },
+  "apps.+db-sync-disable": {
+    "status": "implemented",
+    "flags": [
+      "app-id",
+      "task-id"
+    ],
+    "evidence": [
+      "test/apps-database.test.ts"
+    ],
+    "adaptations": []
+  },
+  "apps.+db-sync-delete": {
+    "status": "implemented",
+    "flags": [
+      "app-id",
+      "task-id"
+    ],
+    "evidence": [
+      "test/apps-database.test.ts"
+    ],
+    "adaptations": []
+  },
+  "apps.+member-list": {
+    "status": "implemented",
+    "flags": [
+      "app-id",
+      "role",
+      "member-type"
+    ],
+    "evidence": [
+      "test/apps-members.test.ts"
+    ],
+    "adaptations": []
+  },
+  "apps.+member-add": {
+    "status": "implemented",
+    "flags": [
+      "app-id",
+      "member-type",
+      "member-id",
+      "perm",
+      "need-notification"
+    ],
+    "evidence": [
+      "test/apps-members.test.ts"
+    ],
+    "adaptations": []
+  },
+  "apps.+member-update": {
+    "status": "implemented",
+    "flags": [
+      "app-id",
+      "member-type",
+      "member-id",
+      "perm"
+    ],
+    "evidence": [
+      "test/apps-members.test.ts"
+    ],
+    "adaptations": []
+  },
+  "apps.+member-remove": {
+    "status": "implemented",
+    "flags": [
+      "app-id",
+      "member-type",
+      "member-id"
+    ],
+    "evidence": [
+      "test/apps-members.test.ts"
+    ],
+    "adaptations": []
+  },
+  "apps.+member-settings-get": {
+    "status": "implemented",
+    "flags": [
+      "app-id"
+    ],
+    "evidence": [
+      "test/apps-members.test.ts"
+    ],
+    "adaptations": []
+  },
+  "apps.+member-settings-set": {
+    "status": "implemented",
+    "flags": [
+      "app-id",
+      "external-access",
+      "link-share",
+      "manage-collaborators-by",
+      "comment-by"
+    ],
+    "evidence": [
+      "test/apps-members.test.ts"
+    ],
+    "adaptations": []
+  },
+  "apps.+file-list": {
+    "status": "implemented",
+    "flags": [
+      "app-id",
+      "name",
+      "path",
+      "type",
+      "size-gt",
+      "size-lt",
+      "uploaded-since",
+      "uploaded-until",
+      "page-size",
+      "page-token"
+    ],
+    "evidence": [
+      "test/apps-files.test.ts"
+    ],
+    "adaptations": [
+      "Timezone-free dates use UTC in the Worker."
+    ]
+  },
+  "apps.+file-get": {
+    "status": "implemented",
+    "flags": [
+      "app-id",
+      "path"
+    ],
+    "evidence": [
+      "test/apps-files.test.ts"
+    ],
+    "adaptations": [
+      "Timezone-free dates use UTC in the Worker."
+    ]
+  },
+  "apps.+file-sign": {
+    "status": "implemented",
+    "flags": [
+      "app-id",
+      "path",
+      "expires-in"
+    ],
+    "evidence": [
+      "test/apps-files.test.ts"
+    ],
+    "adaptations": [
+      "Timezone-free dates use UTC in the Worker."
+    ]
+  },
+  "apps.+file-delete": {
+    "status": "implemented",
+    "flags": [
+      "app-id",
+      "path"
+    ],
+    "evidence": [
+      "test/apps-files.test.ts"
+    ],
+    "adaptations": [
+      "Timezone-free dates use UTC in the Worker."
+    ]
+  },
+  "apps.+file-quota-get": {
+    "status": "implemented",
+    "flags": [
+      "app-id"
+    ],
+    "evidence": [
+      "test/apps-files.test.ts"
+    ],
+    "adaptations": [
+      "Timezone-free dates use UTC in the Worker."
+    ]
+  },
+  "apps.+access-scope-get": {
+    "status": "implemented",
+    "flags": [
+      "app-id"
+    ],
+    "evidence": [
+      "test/apps-access.test.ts"
+    ],
+    "adaptations": []
+  },
+  "apps.+access-scope-set": {
+    "status": "implemented",
+    "flags": [
+      "app-id",
+      "scope",
+      "targets",
+      "apply-enabled",
+      "approver",
+      "require-login"
+    ],
+    "evidence": [
+      "test/apps-access.test.ts"
+    ],
+    "adaptations": []
+  },
+  "apps.+user-id-convert": {
+    "status": "implemented",
+    "flags": [
+      "convert-type",
+      "ids"
+    ],
+    "evidence": [
+      "test/apps-access.test.ts"
+    ],
+    "adaptations": []
+  },
+  "apps.+automation-list": {
+    "status": "implemented",
+    "flags": [
+      "app-id",
+      "trigger-type",
+      "page-size",
+      "page-token",
+      "all"
+    ],
+    "evidence": [
+      "test/apps-automation.test.ts"
+    ],
+    "adaptations": [
+      "Multi-step and pagination operations use bounded resumable workflows."
+    ]
+  },
+  "apps.+automation-create": {
+    "status": "implemented",
+    "flags": [
+      "app-id",
+      "name",
+      "trigger-type",
+      "description",
+      "cron",
+      "timezone",
+      "table",
+      "event",
+      "fields",
+      "white-ip-list",
+      "approval-code",
+      "event-type",
+      "instance-status",
+      "task-status",
+      "status"
+    ],
+    "evidence": [
+      "test/apps-automation.test.ts"
+    ],
+    "adaptations": [
+      "Multi-step and pagination operations use bounded resumable workflows."
+    ]
+  },
+  "apps.+automation-update": {
+    "status": "implemented",
+    "flags": [
+      "app-id",
+      "name",
+      "trigger-type",
+      "description",
+      "cron",
+      "timezone",
+      "table",
+      "event",
+      "fields",
+      "approval-code",
+      "event-type",
+      "instance-status",
+      "task-status",
+      "white-ip-list",
+      "reset-url",
+      "app-env",
+      "enable-token",
+      "disable-token",
+      "reset-token"
+    ],
+    "evidence": [
+      "test/apps-automation.test.ts"
+    ],
+    "adaptations": [
+      "Multi-step and pagination operations use bounded resumable workflows."
+    ]
+  },
+  "apps.+automation-get": {
+    "status": "implemented",
+    "flags": [
+      "app-id",
+      "name"
+    ],
+    "evidence": [
+      "test/apps-automation.test.ts"
+    ],
+    "adaptations": [
+      "Multi-step and pagination operations use bounded resumable workflows."
+    ]
+  },
+  "apps.+automation-enable": {
+    "status": "implemented",
+    "flags": [
+      "app-id",
+      "name"
+    ],
+    "evidence": [
+      "test/apps-automation.test.ts"
+    ],
+    "adaptations": [
+      "Multi-step and pagination operations use bounded resumable workflows."
+    ]
+  },
+  "apps.+automation-disable": {
+    "status": "implemented",
+    "flags": [
+      "app-id",
+      "name"
+    ],
+    "evidence": [
+      "test/apps-automation.test.ts"
+    ],
+    "adaptations": [
+      "Multi-step and pagination operations use bounded resumable workflows."
+    ]
+  },
+  "apps.+file-upload": {
+    "status": "implemented",
+    "flags": [
+      "app-id",
+      "file"
+    ],
+    "evidence": [
+      "test/apps-transfers.test.ts"
+    ],
+    "adaptations": [
+      "Local file inputs and outputs use grant-owned private artifacts; inline config/SQL remain supported.",
+      "Multi-step and pagination operations use bounded resumable workflows."
+    ]
+  },
+  "apps.+file-download": {
+    "status": "implemented",
+    "flags": [
+      "app-id",
+      "path",
+      "output"
+    ],
+    "evidence": [
+      "test/apps-transfers.test.ts"
+    ],
+    "adaptations": [
+      "Local file inputs and outputs use grant-owned private artifacts; inline config/SQL remain supported.",
+      "Multi-step and pagination operations use bounded resumable workflows."
+    ]
+  },
+  "apps.+export": {
+    "status": "implemented",
+    "flags": [
+      "app-id",
+      "meta-token",
+      "output"
+    ],
+    "evidence": [
+      "test/apps-transfers.test.ts"
+    ],
+    "adaptations": [
+      "Local file inputs and outputs use grant-owned private artifacts; inline config/SQL remain supported.",
+      "Multi-step and pagination operations use bounded resumable workflows."
+    ]
+  },
+  "apps.+role-list": {
+    "status": "implemented",
+    "flags": [
+      "app-id",
+      "name",
+      "page-size",
+      "page-token"
+    ],
+    "evidence": [
+      "test/apps-roles.test.ts"
+    ],
+    "adaptations": [
+      "Multi-step and pagination operations use bounded resumable workflows."
+    ]
+  },
+  "apps.+role-get": {
+    "status": "implemented",
+    "flags": [
+      "app-id",
+      "role-id"
+    ],
+    "evidence": [
+      "test/apps-roles.test.ts"
+    ],
+    "adaptations": [
+      "Multi-step and pagination operations use bounded resumable workflows."
+    ]
+  },
+  "apps.+role-create": {
+    "status": "implemented",
+    "flags": [
+      "app-id",
+      "name",
+      "description",
+      "role-id"
+    ],
+    "evidence": [
+      "test/apps-roles.test.ts"
+    ],
+    "adaptations": [
+      "Multi-step and pagination operations use bounded resumable workflows."
+    ]
+  },
+  "apps.+role-update": {
+    "status": "implemented",
+    "flags": [
+      "app-id",
+      "role-id",
+      "name",
+      "description"
+    ],
+    "evidence": [
+      "test/apps-roles.test.ts"
+    ],
+    "adaptations": [
+      "Multi-step and pagination operations use bounded resumable workflows."
+    ]
+  },
+  "apps.+role-delete": {
+    "status": "implemented",
+    "flags": [
+      "app-id",
+      "role-id"
+    ],
+    "evidence": [
+      "test/apps-roles.test.ts"
+    ],
+    "adaptations": [
+      "Multi-step and pagination operations use bounded resumable workflows."
+    ]
+  },
+  "apps.+role-member-list": {
+    "status": "implemented",
+    "flags": [
+      "app-id",
+      "role-id",
+      "member-type"
+    ],
+    "evidence": [
+      "test/apps-roles.test.ts"
+    ],
+    "adaptations": [
+      "Multi-step and pagination operations use bounded resumable workflows."
+    ]
+  },
+  "apps.+role-member-add": {
+    "status": "implemented",
+    "flags": [
+      "app-id",
+      "role-id",
+      "users",
+      "departments",
+      "chats"
+    ],
+    "evidence": [
+      "test/apps-roles.test.ts"
+    ],
+    "adaptations": [
+      "Multi-step and pagination operations use bounded resumable workflows."
+    ]
+  },
+  "apps.+role-member-remove": {
+    "status": "implemented",
+    "flags": [
+      "app-id",
+      "role-id",
+      "users",
+      "departments",
+      "chats",
+      "all"
+    ],
+    "evidence": [
+      "test/apps-roles.test.ts"
+    ],
+    "adaptations": [
+      "Multi-step and pagination operations use bounded resumable workflows."
+    ]
+  },
+  "apps.+role-match-list": {
+    "status": "implemented",
+    "flags": [
+      "app-id",
+      "user-id"
+    ],
+    "evidence": [
+      "test/apps-roles.test.ts"
+    ],
+    "adaptations": [
+      "Multi-step and pagination operations use bounded resumable workflows."
+    ]
+  },
+  "apps.+log-list": {
+    "status": "implemented",
+    "flags": [
+      "app-id",
+      "environment",
+      "since",
+      "until",
+      "level",
+      "trace-id",
+      "keyword",
+      "module",
+      "user-id",
+      "page",
+      "api",
+      "min-duration",
+      "max-duration",
+      "page-size",
+      "page-token"
+    ],
+    "evidence": [
+      "test/apps-observability.test.ts"
+    ],
+    "adaptations": [
+      "Timezone-free dates use UTC in the Worker."
+    ]
+  },
+  "apps.+log-get": {
+    "status": "implemented",
+    "flags": [
+      "app-id",
+      "log-id",
+      "environment"
+    ],
+    "evidence": [
+      "test/apps-observability.test.ts"
+    ],
+    "adaptations": [
+      "Timezone-free dates use UTC in the Worker."
+    ]
+  },
+  "apps.+trace-list": {
+    "status": "implemented",
+    "flags": [
+      "app-id",
+      "environment",
+      "trace-id",
+      "root-span",
+      "user-id",
+      "since",
+      "until",
+      "page-size",
+      "page-token"
+    ],
+    "evidence": [
+      "test/apps-observability.test.ts"
+    ],
+    "adaptations": [
+      "Timezone-free dates use UTC in the Worker."
+    ]
+  },
+  "apps.+trace-get": {
+    "status": "implemented",
+    "flags": [
+      "app-id",
+      "environment",
+      "trace-id"
+    ],
+    "evidence": [
+      "test/apps-observability.test.ts"
+    ],
+    "adaptations": [
+      "Timezone-free dates use UTC in the Worker."
+    ]
+  },
+  "apps.+metric-list": {
+    "status": "implemented",
+    "flags": [
+      "app-id",
+      "environment",
+      "metric",
+      "series",
+      "since",
+      "until",
+      "page",
+      "api",
+      "down-sample"
+    ],
+    "evidence": [
+      "test/apps-observability.test.ts"
+    ],
+    "adaptations": [
+      "Timezone-free dates use UTC in the Worker.",
+      "Tabular terminal formatting is replaced by the upstream structured series representation."
+    ]
+  },
+  "apps.+analytics-list": {
+    "status": "implemented",
+    "flags": [
+      "app-id",
+      "environment",
+      "analytics",
+      "series",
+      "since",
+      "until",
+      "page",
+      "device-type",
+      "granularity"
+    ],
+    "evidence": [
+      "test/apps-observability.test.ts"
+    ],
+    "adaptations": [
+      "Timezone-free dates use UTC in the Worker.",
+      "Tabular terminal formatting is replaced by the upstream structured series representation."
+    ]
+  },
+  "apps.+openapi-key-list": {
+    "status": "implemented",
+    "flags": [
+      "app-id",
+      "limit",
+      "offset"
+    ],
+    "evidence": [
+      "test/apps-keys.test.ts"
+    ],
+    "adaptations": []
+  },
+  "apps.+openapi-key-get": {
+    "status": "implemented",
+    "flags": [
+      "app-id",
+      "key-id"
+    ],
+    "evidence": [
+      "test/apps-keys.test.ts"
+    ],
+    "adaptations": []
+  },
+  "apps.+openapi-key-create": {
+    "status": "implemented",
+    "flags": [
+      "app-id",
+      "name",
+      "scope-all",
+      "scope-api",
+      "scope",
+      "allow-preview"
+    ],
+    "evidence": [
+      "test/apps-keys.test.ts"
+    ],
+    "adaptations": []
+  },
+  "apps.+openapi-key-update": {
+    "status": "implemented",
+    "flags": [
+      "app-id",
+      "key-id",
+      "name",
+      "scope-all",
+      "scope-api",
+      "scope",
+      "allow-preview"
+    ],
+    "evidence": [
+      "test/apps-keys.test.ts"
+    ],
+    "adaptations": []
+  },
+  "apps.+openapi-key-reset": {
+    "status": "implemented",
+    "flags": [
+      "app-id",
+      "key-id"
+    ],
+    "evidence": [
+      "test/apps-keys.test.ts"
+    ],
+    "adaptations": []
+  },
+  "apps.+openapi-key-delete": {
+    "status": "implemented",
+    "flags": [
+      "app-id",
+      "key-id"
+    ],
+    "evidence": [
+      "test/apps-keys.test.ts"
+    ],
+    "adaptations": []
+  },
+  "apps.+openapi-key-enable": {
+    "status": "implemented",
+    "flags": [
+      "app-id",
+      "key-id"
+    ],
+    "evidence": [
+      "test/apps-keys.test.ts"
+    ],
+    "adaptations": []
+  },
+  "apps.+openapi-key-disable": {
+    "status": "implemented",
+    "flags": [
+      "app-id",
+      "key-id"
+    ],
+    "evidence": [
+      "test/apps-keys.test.ts"
+    ],
+    "adaptations": []
+  },
+  "apps.+init": {
+    "status": "excluded",
+    "flags": [],
+    "evidence": [
+      "test/apps-local-exclusions.test.ts"
+    ],
+    "adaptations": [],
+    "exclusion": {
+      "kind": "local-runtime",
+      "reason": "Clones a local repository, runs Git and scaffold commands, and may commit or push from the caller working directory.",
+      "sources": [
+        "shortcuts/apps/apps_init.go"
+      ],
+      "documentation": "docs/apps-shortcuts.md"
+    }
+  },
+  "apps.+git-credential-init": {
+    "status": "excluded",
+    "flags": [],
+    "evidence": [
+      "test/apps-local-exclusions.test.ts"
+    ],
+    "adaptations": [],
+    "exclusion": {
+      "kind": "local-runtime",
+      "reason": "Installs an issued repository credential into the caller system credential store and global Git URL-scoped helper.",
+      "sources": [
+        "shortcuts/apps/git_credential.go"
+      ],
+      "documentation": "docs/apps-shortcuts.md"
+    }
+  },
+  "apps.+git-credential-list": {
+    "status": "excluded",
+    "flags": [],
+    "evidence": [
+      "test/apps-local-exclusions.test.ts"
+    ],
+    "adaptations": [],
+    "exclusion": {
+      "kind": "local-runtime",
+      "reason": "Reads the caller local CLI credential metadata and installed Git credential helper state; it is not a remote account listing.",
+      "sources": [
+        "shortcuts/apps/git_credential.go"
+      ],
+      "documentation": "docs/apps-shortcuts.md"
+    }
+  },
+  "apps.+git-credential-remove": {
+    "status": "excluded",
+    "flags": [],
+    "evidence": [
+      "test/apps-local-exclusions.test.ts"
+    ],
+    "adaptations": [],
+    "exclusion": {
+      "kind": "local-runtime",
+      "reason": "Deletes a credential from the caller system credential store and removes its local Git helper configuration.",
+      "sources": [
+        "shortcuts/apps/git_credential.go"
+      ],
+      "documentation": "docs/apps-shortcuts.md"
+    }
+  },
+  "apps.+plugin-install": {
+    "status": "excluded",
+    "flags": [],
+    "evidence": [
+      "test/apps-local-exclusions.test.ts"
+    ],
+    "adaptations": [],
+    "exclusion": {
+      "kind": "local-runtime",
+      "reason": "Downloads or extracts a plugin into local node_modules and modifies the caller package.json actionPlugins and dependencies.",
+      "sources": [
+        "shortcuts/apps/apps_plugin_install.go"
+      ],
+      "documentation": "docs/apps-shortcuts.md"
+    }
+  },
+  "apps.+plugin-list": {
+    "status": "excluded",
+    "flags": [],
+    "evidence": [
+      "test/apps-local-exclusions.test.ts"
+    ],
+    "adaptations": [],
+    "exclusion": {
+      "kind": "local-runtime",
+      "reason": "Reads local package.json actionPlugins and compares them with the caller installed node_modules.",
+      "sources": [
+        "shortcuts/apps/apps_plugin_list.go"
+      ],
+      "documentation": "docs/apps-shortcuts.md"
+    }
+  },
+  "apps.+plugin-uninstall": {
+    "status": "excluded",
+    "flags": [],
+    "evidence": [
+      "test/apps-local-exclusions.test.ts"
+    ],
+    "adaptations": [],
+    "exclusion": {
+      "kind": "local-runtime",
+      "reason": "Removes plugin files from the caller local node_modules and updates its package.json declaration.",
+      "sources": [
+        "shortcuts/apps/apps_plugin_uninstall.go"
+      ],
+      "documentation": "docs/apps-shortcuts.md"
+    }
+  }
+}

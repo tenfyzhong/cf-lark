@@ -1,0 +1,6 @@
+{
+  "name": "cf-lark-access-jwks-fixture",
+  "main": "./access-jwks-worker.ts",
+  "compatibility_date": "2026-10-08",
+  "workers_dev": false
+}

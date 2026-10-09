@@ -1,0 +1,6 @@
+import type { CommandDefinition, JsonObject } from '../../domain/models';
+const text = { type: 'string', minLength: 1 };
+const array = { anyOf: [{ type: 'array' }, { type: 'string', minLength: 1 }, { type: 'null' }] };
+const specs: Array<[string, string[], JsonObject, string]> = [['form-detail', ['share-token'], {}, 'base:form:read']];
+for (const action of ['create', 'update', 'list', 'delete']) specs.push([`form-questions-${action}`, ['base-token', 'table-id', 'form-id', ...(action === 'list' ? [] : [action === 'delete' ? 'question-ids' : 'questions'])], action === 'list' ? {} : action === 'delete' ? { 'question-ids': array, 'keep-field': { type: 'boolean' } } : { questions: array }, `base:form:${action === 'list' ? 'read' : 'update'}`]);
+export const questionDefinitions: CommandDefinition[] = specs.map(([name, required, properties, scope]) => ({ id: `base.+${name}`, domain: 'base', source: 'shortcut', identities: ['user', 'bot'], risk: name.endsWith('list') || name.endsWith('detail') ? 'read' : 'write', scopes: [scope], description: `${name.replaceAll('-', ' ')}. Question updates overwrite omitted fields. Question deletion removes underlying fields unless keep-field is true.`, inputSchema: { type: 'object', required, additionalProperties: false, properties: { ...Object.fromEntries(required.map(key => [key, text])), ...properties } } }));

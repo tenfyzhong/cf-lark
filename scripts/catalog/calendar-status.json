@@ -1,0 +1,232 @@
+{
+  "calendar.+join-event": {
+    "status": "implemented",
+    "flags": [
+      "token"
+    ],
+    "evidence": [
+      "test/calendar-core.test.ts"
+    ],
+    "adaptations": [
+      "Pinned business workflow, validation, response projection and documented UTC, durable checkpoint and private artifact adaptations."
+    ]
+  },
+  "calendar.+rsvp": {
+    "status": "implemented",
+    "flags": [
+      "calendar-id",
+      "event-id",
+      "rsvp-status"
+    ],
+    "evidence": [
+      "test/calendar-core.test.ts"
+    ],
+    "adaptations": [
+      "Pinned business workflow, validation, response projection and documented UTC, durable checkpoint and private artifact adaptations."
+    ]
+  },
+  "calendar.+get": {
+    "status": "implemented",
+    "flags": [
+      "calendar-id",
+      "event-id"
+    ],
+    "evidence": [
+      "test/calendar-core.test.ts"
+    ],
+    "adaptations": [
+      "Pinned business workflow, validation, response projection and documented UTC, durable checkpoint and private artifact adaptations."
+    ]
+  },
+  "calendar.+list-attendees": {
+    "status": "implemented",
+    "flags": [
+      "calendar-id",
+      "event-id",
+      "type",
+      "page-size",
+      "page-token"
+    ],
+    "evidence": [
+      "test/calendar-core.test.ts"
+    ],
+    "adaptations": [
+      "Pinned business workflow, validation, response projection and documented UTC, durable checkpoint and private artifact adaptations."
+    ]
+  },
+  "calendar.+search-event": {
+    "status": "implemented",
+    "flags": [
+      "calendar-id",
+      "query",
+      "attendee-ids",
+      "start",
+      "end",
+      "page-token",
+      "page-size"
+    ],
+    "evidence": [
+      "test/calendar-core.test.ts"
+    ],
+    "adaptations": [
+      "Pinned business workflow, validation, response projection and documented UTC, durable checkpoint and private artifact adaptations."
+    ]
+  },
+  "calendar.+meeting": {
+    "status": "implemented",
+    "flags": [
+      "event-ids",
+      "calendar-id"
+    ],
+    "evidence": [
+      "test/calendar-core.test.ts"
+    ],
+    "adaptations": [
+      "Pinned business workflow, validation, response projection and documented UTC, durable checkpoint and private artifact adaptations."
+    ]
+  },
+  "calendar.+transfer": {
+    "status": "implemented",
+    "flags": [
+      "event-id",
+      "to-user-id",
+      "calendar-id",
+      "remove-original-organizer",
+      "transfer-series"
+    ],
+    "evidence": [
+      "test/calendar-core.test.ts"
+    ],
+    "adaptations": [
+      "Pinned business workflow, validation, response projection and documented UTC, durable checkpoint and private artifact adaptations."
+    ]
+  },
+  "calendar.+freebusy": {
+    "status": "implemented",
+    "flags": [
+      "start",
+      "end",
+      "user-id",
+      "type",
+      "min-duration"
+    ],
+    "evidence": [
+      "test/calendar-availability.test.ts"
+    ],
+    "adaptations": [
+      "Pinned business workflow, validation, response projection and documented UTC, durable checkpoint and private artifact adaptations."
+    ]
+  },
+  "calendar.+suggestion": {
+    "status": "implemented",
+    "flags": [
+      "start",
+      "end",
+      "attendee-ids",
+      "event-rrule",
+      "duration-minutes",
+      "timezone",
+      "exclude"
+    ],
+    "evidence": [
+      "test/calendar-availability.test.ts"
+    ],
+    "adaptations": [
+      "Pinned business workflow, validation, response projection and documented UTC, durable checkpoint and private artifact adaptations."
+    ]
+  },
+  "calendar.+room-find": {
+    "status": "implemented",
+    "flags": [
+      "slot",
+      "city",
+      "building",
+      "floor",
+      "room-name",
+      "min-capacity",
+      "max-capacity",
+      "attendee-ids",
+      "event-rrule",
+      "timezone"
+    ],
+    "evidence": [
+      "test/calendar-availability.test.ts"
+    ],
+    "adaptations": [
+      "Pinned business workflow, validation, response projection and documented UTC, durable checkpoint and private artifact adaptations."
+    ]
+  },
+  "calendar.+agenda": {
+    "status": "implemented",
+    "flags": [
+      "start",
+      "end",
+      "calendar-id"
+    ],
+    "evidence": [
+      "test/calendar-agenda.test.ts"
+    ],
+    "adaptations": [
+      "Pinned business workflow, validation, response projection and documented UTC, durable checkpoint and private artifact adaptations."
+    ]
+  },
+  "calendar.+create": {
+    "status": "implemented",
+    "flags": [
+      "summary",
+      "start",
+      "end",
+      "description",
+      "attendee-ids",
+      "calendar-id",
+      "rrule",
+      "meeting-owner-id"
+    ],
+    "evidence": [
+      "test/calendar-create.test.ts",
+      "test/calendar-description.test.ts"
+    ],
+    "adaptations": [
+      "Pinned business workflow, validation, response projection and documented UTC, durable checkpoint and private artifact adaptations."
+    ]
+  },
+  "calendar.+update": {
+    "status": "implemented",
+    "flags": [
+      "event-id",
+      "calendar-id",
+      "summary",
+      "description",
+      "start",
+      "end",
+      "rrule",
+      "add-attendee-ids",
+      "remove-attendee-ids",
+      "apply-to",
+      "notify",
+      "skip-room-check"
+    ],
+    "evidence": [
+      "test/calendar-recurring.test.ts",
+      "test/calendar-description.test.ts"
+    ],
+    "adaptations": [
+      "Pinned business workflow, validation, response projection and documented UTC, durable checkpoint and private artifact adaptations."
+    ]
+  },
+  "calendar.+delete": {
+    "status": "implemented",
+    "flags": [
+      "event-id",
+      "calendar-id",
+      "apply-to",
+      "notify"
+    ],
+    "evidence": [
+      "test/calendar-recurring.test.ts"
+    ],
+    "adaptations": [
+      "Pinned business workflow, validation, response projection and documented UTC, durable checkpoint and private artifact adaptations."
+    ]
+  }
+}

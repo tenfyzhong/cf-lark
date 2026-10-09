@@ -1,0 +1,25 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "cf-lark-docs-engine",
+  "account_id": "d2400c41980c1ea80728ad214078178f",
+  "main": "src/bootstrap/pure-engine-docs.ts",
+  "compatibility_date": "2026-10-08",
+  "workers_dev": false,
+  "preview_urls": false,
+  "durable_objects": {
+    "bindings": [
+      {
+        "name": "ENGINE",
+        "class_name": "PureEngineObject"
+      }
+    ]
+  },
+  "migrations": [
+    {
+      "tag": "v1",
+      "new_sqlite_classes": [
+        "PureEngineObject"
+      ]
+    }
+  ]
+}
