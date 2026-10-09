@@ -28,7 +28,8 @@ public routes, preview URLs, or workers.dev endpoints.
 upload sequence using repository Secrets. It deploys only main
 after successful checks. It creates/reuses the private R2 bucket before uploads;
 Account-level R2/Zero Trust activation remains a prerequisite; Actions derives the
-account and discovers or provisions Access when complete manual overrides are absent.
+account, Worker/bucket names and Access on every deployment. No discovered
+identity needs a repository Secret.
 It runs anonymous discovery and authorization-boundary checks after upload.
 The following sequence also applies to manual deployments.
 
@@ -36,8 +37,9 @@ The following sequence also applies to manual deployments.
    to the change. Verify generated coverage and command schemas are current.
 2. Verify the selected account, existing namespaces, private bucket, custom domain,
    and secret backups. Keep all existing migration entries and encryption keys.
-3. Configure the dedicated Cloudflare Access application, team issuer, AUD and
-   your email-domain Allow policy using [Access setup](cloudflare-access.md).
+3. Run the bootstrap to discover the dedicated Cloudflare Access application,
+   team issuer and AUD, and validate your email-domain policy. See
+   [Access setup](cloudflare-access.md).
    Preserve `ENCRYPTION_KEY` on the public Worker. Never upload stale secret
    backups or copy production secrets into tracked files or engine Workers.
 4. Deploy private engines before the public Worker. `pnpm deploy` generates

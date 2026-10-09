@@ -23,8 +23,12 @@ it('validates PRs without credentials and gates serialized production deployment
     expect(workflow.jobs.deploy.if).toContain("github.event_name != 'pull_request'");
     expect(JSON.stringify(workflow)).not.toContain('vars.');
     expect(workflow.jobs.deploy.env.DEPLOY_ENABLED).toBe("${{ secrets.DEPLOY_ENABLED || 'true' }}");
-    for (const name of ['CLOUDFLARE_ACCOUNT_ID', 'PUBLIC_URL', 'ACCESS_TEAM_DOMAIN', 'ACCESS_AUD', 'ACCESS_EMAIL_DOMAIN', 'WORKER_NAME', 'R2_BUCKET_NAME']) {
+    for (const name of ['PUBLIC_URL', 'ACCESS_EMAIL_DOMAIN', 'WORKER_NAME']) {
         expect(workflow.jobs.deploy.env[name]).toBe('${{ secrets.' + name + ' }}');
+    }
+    for (const name of ['CLOUDFLARE_ACCOUNT_ID', 'ACCESS_TEAM_DOMAIN', 'ACCESS_AUD', 'R2_BUCKET_NAME']) {
+        expect(workflow.jobs.deploy.env).not.toHaveProperty(name);
+        expect(JSON.stringify(workflow)).not.toContain('secrets.' + name);
     }
     expect(workflow.jobs.deploy.concurrency['cancel-in-progress']).toBe(false);
     const steps = workflow.jobs.deploy.steps;

@@ -29,15 +29,15 @@ Forking creates your deployment source; it does not deploy anything by itself.
 
 1. Select one Cloudflare account for all three Workers and the R2 bucket. Keep
    the Workers Free plan. Actions derives the account from your active DNS zone.
-   An optional **Account ID** override is available for existing installations;
-   it is a 32-character hexadecimal identifier, not a Zone ID.
+   There is no Account ID deployment Secret to copy.
 2. Add your domain to that account and ensure its Cloudflare zone is active.
    Choose a hostname such as `mcp.example.com`. The workflow attaches it as a
    Worker Custom Domain; reserve it for this service and resolve conflicting
    DNS records or existing Worker bindings before deployment.
 3. Activate R2 in that account. You do not need to create a bucket manually.
-   Actions creates a private Standard bucket named by `R2_BUCKET_NAME` (default
-   `${WORKER_NAME}-private`) before uploading Workers, or reuses it if present.
+   Actions reads an existing Worker's `ARTIFACTS` binding to retain its bucket.
+   For a new installation it derives a private Standard bucket name from the
+   automatically selected Worker name and creates it before uploading Workers.
    The provisioner maintains a named `cf-lark-temporary-retention` rule for
    one-day object expiration and incomplete multipart upload cleanup, preserving
    all other lifecycle rules. It never enables public access or deletes a bucket.
@@ -47,9 +47,9 @@ Forking creates your deployment source; it does not deploy anything by itself.
    management application with an eight-hour email-domain Allow policy. Only
    `/api/admin` and `/consent` are protected; public MCP/OAuth stays reachable.
 5. Choose the exact permitted email domain yourself. Actions does not infer an
-   administrator policy from your service hostname. Existing installations can
-   keep both `ACCESS_TEAM_DOMAIN` and `ACCESS_AUD` Secrets to use their manually
-   managed Access application without any Access provisioning changes.
+   administrator policy from your service hostname. Existing narrow applications
+   for that hostname are discovered and validated before reuse. Team issuer and
+   application AUD are always read from Cloudflare, never entered as Secrets.
 
 The default combined temporary-storage cap is **2,000,000,000 bytes**, with
 24-hour retention. All permitted Access identities share administration of this
@@ -65,36 +65,39 @@ workflow reads `secrets.*` directly without selecting an Environment.
 
 | Secret | Required | Value and source | Illustrative example/default |
 | --- | --- | --- | --- |
+| `WORKER_NAME` | No | Explicit instance name for multiple installations; stable on upgrades. With no override, reuse the hostname-bound Worker or default to `cf-lark` for a new installation | Lowercase letters/digits/hyphens, 1–51 characters |
 | `DEPLOY_ENABLED` | No | Defaults to `true`; exact `false` suspends uploads | Optional `false` while staging |
-| `CLOUDFLARE_ACCOUNT_ID` | No | Derived from the longest matching active zone for `PUBLIC_URL`; an explicit ID selects your account | Optional Account ID override |
 | `PUBLIC_URL` | Yes | Canonical HTTPS origin using your chosen Custom Domain; no path, query, credentials or port | `https://mcp.example.com` |
-| `ACCESS_TEAM_DOMAIN` | No | Discovered from Access; a missing organization uses `cf-lark-ACCOUNT_ID.cloudflareaccess.com` | Optional existing issuer |
-| `ACCESS_AUD` | No | Read from the created/reused management application | Optional existing application AUD |
 | `ACCESS_EMAIL_DOMAIN` | Yes | Exact allowed lowercase email domain, without `@` | `example.com` |
 | `CLOUDFLARE_API_TOKEN` | Yes | Token scoped to your account and hostname's zone | See token setup below |
 | `ENCRYPTION_KEY` | Yes | Standard base64 encoding of exactly 32 random bytes | See key setup below |
-| `WORKER_NAME` | No | Public Worker name; lowercase letters/digits/hyphens, 1–51 characters, starting with a letter or digit | Defaults to `cf-lark` |
-| `R2_BUCKET_NAME` | No | Private bucket name to create or reuse; lowercase letters/digits/hyphens, 3–63 characters, starting/ending with a letter or digit | Defaults to `${WORKER_NAME}-private` |
 
 Examples are placeholders. Replace them with your own settings; the configuration
 renderer rejects `example.com`, `example.org` and `example.net` deployment origins.
 An optional Secret may be omitted or left empty to use its default.
 
-For `WORKER_NAME=cf-lark`, the deployment creates/updates `cf-lark`,
-`cf-lark-docs-engine` and `cf-lark-mail-engine`. Engine names and service bindings
-are derived automatically; do not add separate engine-name Secrets.
-`R2_BUCKET_NAME` chooses the bucket Actions creates; keep the existing name on upgrades.
-
 Only four Secrets are required: `CLOUDFLARE_API_TOKEN`, `PUBLIC_URL`,
-`ACCESS_EMAIL_DOMAIN` and `ENCRYPTION_KEY`. All optional overrides also use
-repository **Secrets**; no deployment Variables are needed.
-Each fork must configure its own settings. Do not paste real values into source,
-workflow YAML, PRs or issues.
+`ACCESS_EMAIL_DOMAIN` and `ENCRYPTION_KEY`. `DEPLOY_ENABLED` is an optional control,
+and `WORKER_NAME` is an optional namespace selection.
+No deployment Variables are needed. Do not add `CLOUDFLARE_ACCOUNT_ID`,
+`ACCESS_TEAM_DOMAIN`, `ACCESS_AUD` or `R2_BUCKET_NAME` Secrets;
+these identifiers are discovered or derived and old overrides are ignored.
+Each fork must configure its own required settings. Do not paste real values
+into source, workflow YAML, PRs or issues.
 
-A renamed GitHub repository does not automatically change Worker or bucket names.
-Different forks in the same Cloudflare account should use distinct `WORKER_NAME`,
-`R2_BUCKET_NAME` and service hostnames to avoid updating each other's installation.
-Keep those names stable after the first deployment.
+Actions discovers an existing Worker from the Custom Domain matching `PUBLIC_URL`
+and reads its bindings to retain the private bucket. For a new installation,
+set `WORKER_NAME` to choose a distinct instance name
+(default `cf-lark`). Actions refuses to update that name if it belongs to another
+hostname. Internal engine names and the new bucket derive from the selected
+public Worker. Multiple installations in one account need distinct hostnames
+and Worker names; their buckets and Durable Object namespaces stay separate.
+An existing
+binding with missing/ambiguous service, storage or ownership metadata fails rather
+than starting a fresh namespace. Keep the hostname and encryption key stable
+when upgrading. Repository renaming does not change deployment identity.
+Resource discovery uses the [Worker Domains API](https://developers.cloudflare.com/api/resources/workers/subresources/domains/methods/list/)
+and [Worker settings API](https://developers.cloudflare.com/api/resources/workers/subresources/scripts/subresources/script_and_version_settings/).
 
 ### Create the Cloudflare API token
 
@@ -106,18 +109,18 @@ Workers editing template or configure a custom token with these permissions:
 | Account | Workers Scripts | Edit |
 | Account | Account Settings | Read |
 | Account | Workers R2 Storage | Edit |
-| Account | Access: Apps and Policies | Edit for automatic Access setup |
-| Account | Access: Organizations, Identity Providers, and Groups | Edit for automatic Access setup |
+| Account | Access: Apps and Policies | Edit |
+| Account | Access: Organizations, Identity Providers, and Groups | Edit |
 | Zone | Workers Routes | Edit |
 | Zone | Zone | Read |
 
 Restrict account resources to the selected Cloudflare account
 and zone resources to the zone containing `PUBLIC_URL`. An IP restriction must
 permit GitHub-hosted runners; do not restrict the token to your home IP.
-Automatic Access setup requires both Access permissions above. If you supply
-both existing issuer/AUD overrides, Access discovery/creation is skipped and
-these extra rights are unnecessary. Account discovery requires Zone Read; no
-ambiguous account is selected automatically. Store the generated token
+Access discovery/provisioning always runs and requires both Access permissions
+above, including for an existing installation. Upgrade older deployment tokens
+that only have Worker/R2 rights before running deployment. Account discovery
+requires Zone Read; no ambiguous account is selected automatically. Store the generated token
 as `CLOUDFLARE_API_TOKEN`; do not use a Global API Key, R2 S3 access key, or Wrangler
 OAuth login/refresh token. See [Cloudflare token creation](https://developers.cloudflare.com/fundamentals/api/get-started/create-token/)
 and the [Workers GitHub Actions guide](https://developers.cloudflare.com/workers/ci-cd/external-cicd/github-actions/).
@@ -209,12 +212,13 @@ upgrade failure. Follow [operations and recovery](operations.md) instead.
 `configure:deployment` validates required inputs before API mutations. Account
 lookup tries hostname suffixes from most specific to least, selecting one active
 zone only. Access lists are paginated with a fixed page limit. Existing organization
-and identity providers are retained. A named application must match the narrow
+and identity providers are retained. A hostname-matched application must match the narrow
 management paths, email-domain-only policy, PIN provider and eight-hour session;
 unsafe/ambiguous apps fail instead of being overwritten. A missing app is created,
 and an app missing its policy can be repaired on rerun. Derived values are masked
-in Actions logs and written only to ignored private configuration. Full explicit
-Access overrides preserve the previous manual setup path.
+in Actions logs and written only to ignored private configuration. The old
+discovery override path is removed; generated runtime fields are still
+written privately because Workers need the resolved issuer and AUD.
 
 Worker names, private engines/service bindings, bucket name, Durable Object
 namespaces/migrations, custom domain, static assets and validators are derived or
@@ -234,7 +238,6 @@ values are never logged. Rerunning repairs a partially completed setup. The
 managed retention rule is merged with existing rules using the
 [lifecycle API](https://developers.cloudflare.com/api/resources/r2/subresources/buckets/subresources/lifecycle/methods/update/).
 
-
 The renderer changes account, origin, Access settings, Worker/service names and
 bucket bindings while preserving tracked migration tags/classes and limits.
 The default combined R2 temporary-storage cap remains **2,000,000,000 bytes**,
@@ -250,7 +253,7 @@ are tracked so clean checkouts do not depend on local ignored files.
 
 The workflow creates/reuses the R2 bucket; it does not activate subscriptions,
 accept subscription terms or register Lark accounts. It provisions the dedicated
-Access application/policy unless complete overrides select an existing one. Keep the selected Workers
+Access application/policy when a matching safe application is absent. Keep the selected Workers
 plan and resource limits consistent with [deployment](deployment.md).
 
 ## Troubleshooting
@@ -259,7 +262,7 @@ plan and resource limits consistent with [deployment](deployment.md).
 | --- | --- |
 | No **Run workflow** button | Enable Actions in your fork and ensure the workflow exists on the default `main` branch |
 | **Deploy production** or its steps skipped | Use `main`, ensure **Verify** passed, and leave `DEPLOY_ENABLED` unset or set it to exact `true`; PR skipping is expected |
-| Account/Access bootstrap failure | Confirm the active zone belongs to your selected account and the token has the documented Access rights; complete account activation first. For a manually managed application, supply both issuer/AUD overrides. Resolve ambiguous/conflicting resources instead of deleting them blindly |
+| Account/Access bootstrap failure | Confirm the active zone belongs to your selected account and the token has the documented Access rights; complete account activation first. Existing applications must match the narrow hostname destinations, PIN login and exact email-domain policy; they are discovered by hostname. Resolve ambiguous/conflicting resources instead of deleting them blindly |
 | Deployment smoke checks fail | Check Custom Domain propagation, public OAuth discovery and the narrow Access destinations; Actions retries for a bounded period and does not roll back an uploaded version |
 | `Missing NAME` / `Invalid NAME` | Add the named repository Secret; check the formats in the tables, replace placeholder origins, and use base64 encoding of exactly 32 bytes for the key |
 | Cloudflare authentication/permission error | Check API token expiry, account/zone restrictions, token permissions and the account ID; do not substitute Wrangler OAuth credentials |
@@ -278,38 +281,30 @@ the step, error code and configuration names rather than secret values.
 Use this route only if you prefer local Wrangler instead of GitHub Actions.
 It is not required for the fork-and-Secrets path above.
 
-### Prepare private configuration
+### Prepare local production files
 
-Copy the three templates before editing:
+Set the same four required environment values locally, keeping the encryption key
+and API token out of command arguments and shell history. Then use the identical
+bootstrap and R2 provisioners:
 
 ```sh
-cp wrangler.jsonc wrangler.production.jsonc
-cp wrangler.engine-docs.jsonc wrangler.engine-docs.production.jsonc
-cp wrangler.engine-mail.jsonc wrangler.engine-mail.production.jsonc
+pnpm configure:deployment
+pnpm provision:r2
 ```
 
-These production copies are ignored by Git. Set `CLOUDFLARE_ACCOUNT_ID` explicitly
-for every Wrangler operation, or add the same account ID to all three private
-copies. Create a private R2 bucket in that account. In the public configuration:
-
-- Set the custom-domain route and `PUBLIC_URL` to your own HTTPS origin.
-- Set `ACCESS_TEAM_DOMAIN` to your Access team's HTTPS issuer, `ACCESS_AUD` to
-  the dedicated application's audience, and `ACCESS_EMAIL_DOMAIN` to your exact
-  permitted email domain.
-- Set `ARTIFACTS.bucket_name` to your own private bucket. Keep the default
-  aggregate `MAX_STORAGE_BYTES` at 2,000,000,000 unless intentionally changed.
-- If changing Worker names, update both engine configurations and their public
-  service binding names together. Keep the engine routes and preview URLs off.
-
-Reuse the resource/Access setup and encryption-key instructions above. Upload
-the public Worker encryption secret using its production configuration before
-first use; retain the same key for upgrades. Never upload it to private engines.
+They discover account, names and Access, then create the ignored private production
+files. No account/team/AUD/name fields need manual entry. The renderer refuses to
+overwrite existing private files; retain backups and deliberately remove those
+local generated copies before regenerating. Do not replace the encryption key or
+remove Cloudflare resources to resolve a local configuration-file conflict.
 
 ### Deploy
 
 Authenticate Wrangler to your own account, activate R2, install the locked
-packages and run the documented checks. `pnpm deploy` uses the three private
-production copies; `pnpm deploy:engines` deploys only their internal engines.
+packages and run the documented checks. `pnpm deploy:actions` uses the three
+private production copies and uploads the generated encryption-secret file with
+the public Worker. Run `pnpm verify:deployment` after upload.
+`pnpm deploy:engines` deploys only their internal engines.
 `pnpm build` continues to use the tracked templates for independent size checks.
 Create and configure all three copies first; a missing configuration causes
 Wrangler to reject that component's deployment.

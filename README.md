@@ -66,7 +66,7 @@ checklist, first deployment, MCP connection and subsequent upgrades.
 ## Local development
 
 Use Node.js and pnpm 10.32.1. Install with `pnpm install --frozen-lockfile`.
-Configure Cloudflare Access with `ACCESS_TEAM_DOMAIN`, `ACCESS_AUD` and
+Actions discovers Cloudflare Access issuer/AUD automatically; choose
 your own `ACCESS_EMAIL_DOMAIN`; management no longer accepts a deployment secret.
 Create an ignored `.dev.vars` containing the base64-encoded 32-byte
 `ENCRYPTION_KEY`. Back it up securely; replacing it cannot decrypt existing

@@ -20,6 +20,8 @@ function fixture(options: { create?: boolean; unsafe?: boolean; ambiguous?: bool
         if (path === '/client/v4/zones') result = new URL(url).searchParams.get('name') === 'acme.test'
             ? (options.ambiguous ? [{ status: 'active', account: { id: account } }, { status: 'active', account: { id: 'c'.repeat(32) } }]
                 : [{ status: 'active', account: { id: account } }]) : [];
+        else if (path.endsWith('/workers/domains')) result = [];
+        else if (path.endsWith('/workers/scripts/cf-lark/settings')) return Response.json({ success: false }, { status: 404 });
         else if (path.endsWith('/access/organizations')) {
             if (init.method === 'POST') org = true;
             if (!org) return Response.json({ success: false }, { status: 404 });
@@ -62,12 +64,15 @@ it('repairs only a missing policy on an otherwise safe dedicated application', a
     expect(request.mock.calls.filter((call) => call[1].method === 'POST')).toHaveLength(1);
 });
 
-it('preserves complete manual Access overrides without making API requests', async () => {
-    const request = vi.fn();
-    const rendered = await prepareDeployment({ ...env, CLOUDFLARE_ACCOUNT_ID: account,
-        ACCESS_TEAM_DOMAIN: 'https://manual.cloudflareaccess.com', ACCESS_AUD: audience }, templates, request);
-    expect(rendered.configs[0]?.account_id).toBe(account);
-    expect(request).not.toHaveBeenCalled();
+it('ignores obsolete discovery Secrets and always resolves actual account/Access/names', async () => {
+    const request = fixture();
+    const rendered = await prepareDeployment({ ...env, CLOUDFLARE_ACCOUNT_ID: 'invalid-stale-account',
+        ACCESS_TEAM_DOMAIN: 'https://manual.cloudflareaccess.com', ACCESS_AUD: 'c'.repeat(64),
+        WORKER_NAME: 'cf-lark', R2_BUCKET_NAME: 'stale-bucket' }, templates, request);
+    expect(rendered.configs[0]).toMatchObject({ account_id: account, name: 'cf-lark',
+        vars: { ACCESS_TEAM_DOMAIN: 'https://acme.cloudflareaccess.com', ACCESS_AUD: audience },
+        r2_buckets: [{ binding: 'ARTIFACTS', bucket_name: 'cf-lark-private' }] });
+    expect(request.mock.calls.some((call) => new URL(call[0]).pathname.endsWith('/access/organizations'))).toBe(true);
 });
 
 for (const options of [{ unsafe: true }, { ambiguous: true }, { badIssuer: true }]) it(`fails closed for unsafe discovery ${JSON.stringify(options)}`, async () => {
@@ -96,12 +101,6 @@ it('bounds paginated discovery and refuses incomplete inventories', async () => 
     expect(request).toHaveBeenCalledTimes(20);
 });
 
-it('derives only the account when both manual Access overrides are provided', async () => {
-    const request = fixture();
-    await prepareDeployment({ ...env, ACCESS_TEAM_DOMAIN: 'https://manual.cloudflareaccess.com', ACCESS_AUD: audience }, templates, request);
-    expect(request.mock.calls.every((call) => new URL(call[0]).pathname === '/client/v4/zones')).toBe(true);
-});
-
 it('does not overwrite an existing broad policy or an unexpected identity provider', async () => {
     for (const change of ['policy', 'provider']) {
         const original = fixture();
@@ -125,9 +124,21 @@ it('fails on absent zones without creating resources', async () => {
     expect(request).toHaveBeenCalledTimes(2);
 });
 
-it('fails when an explicit audience does not match the discovered application', async () => {
+it('always discovers the audience instead of trusting a stale override', async () => {
     const request = fixture();
-    await expect(prepareDeployment({ ...env, ACCESS_AUD: 'c'.repeat(64) }, templates, request)).rejects.toThrow('mismatched ACCESS_AUD');
+    const output = await prepareDeployment({ ...env, ACCESS_AUD: 'c'.repeat(64) }, templates, request);
+    expect(output.configs[0]?.vars).toMatchObject({ ACCESS_AUD: audience });
+});
+
+it('reuses a safe management application by hostname even if its display name differs', async () => {
+    const original = fixture();
+    const request = vi.fn(async (url: string, init: RequestInit) => {
+        const path = new URL(url).pathname;
+        if (path.endsWith('/apps')) return Response.json({ success: true, result: [{ ...app, name: 'existing-management' }] });
+        if (path.endsWith('/apps/app-id')) return Response.json({ success: true, result: { ...app, name: 'existing-management' } });
+        return original(url, init);
+    });
+    await prepareDeployment(env, templates, request);
     expect(request.mock.calls.every((call) => call[1].method === 'GET')).toBe(true);
 });
 
@@ -143,4 +154,14 @@ it('rejects policies that extend the documented eight-hour management session', 
         ? Response.json({ success: true, result: [{ ...policy, session_duration: '24h' }] }) : original(url, init));
     await expect(prepareDeployment(env, templates, request)).rejects.toThrow('Unsafe');
     expect(request.mock.calls.every((call) => call[1].method === 'GET')).toBe(true);
+});
+
+it('retains WORKER_NAME as the namespace selection and derives engine and bucket names', async () => {
+    const original = fixture();
+    const request = vi.fn(async (url: string, init: RequestInit) => new URL(url).pathname.endsWith('/workers/scripts/team-lark/settings')
+        ? Response.json({ success: false }, { status: 404 }) : original(url, init));
+    const output = await prepareDeployment({ ...env, WORKER_NAME: 'team-lark' }, templates, request);
+    expect(output.configs[0]).toMatchObject({ name: 'team-lark', r2_buckets: [{ binding: 'ARTIFACTS', bucket_name: 'team-lark-private' }],
+        services: [{ binding: 'DOCS_ENGINE', service: 'team-lark-docs-engine' }, { binding: 'MAIL_ENGINE', service: 'team-lark-mail-engine' }] });
+    expect(output.configs.slice(1).map((config) => config.name)).toEqual(['team-lark-docs-engine', 'team-lark-mail-engine']);
 });

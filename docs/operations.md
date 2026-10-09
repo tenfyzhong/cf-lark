@@ -3,15 +3,17 @@
 ## Provisioning
 
 Actions derives your Cloudflare account from the longest matching active DNS zone
-for `PUBLIC_URL`. Set `CLOUDFLARE_ACCOUNT_ID` to override it; manual deployments
-keep the same account ID in all three ignored production configurations. Workers and the
+for `PUBLIC_URL`, discovers the bound Worker and its private bucket, and writes
+the same resolved account ID in all three ignored production configurations.
+There are no account/name deployment Secret overrides. Workers and the
 private bucket must belong to that account. Set your canonical HTTPS origin in
 `PUBLIC_URL`; its MCP resource is `${PUBLIC_URL}/mcp`. See
 [independent fork deployment](fork-deployment.md).
 
 For automatic releases, configure [GitHub Actions](fork-deployment.md). Actions
 discovers or provisions the Access team, email PIN provider and dedicated
-management application unless both issuer/AUD overrides are supplied. It
+management application on every deployment. Issuer and AUD are generated
+runtime settings, not user Secrets. It
 creates/reuses the private bucket and merges its one-day retention rule before
 uploading Workers; existing data and unrelated lifecycle rules are retained. Update
 deployment settings in repository Secrets; production identities
@@ -26,8 +28,8 @@ Use Workers Free, SQLite Durable Objects, Workers Static Assets, and one private
 R2 Standard bucket. R2 requires activation and can charge beyond its account-wide
 free allowance. No paid Workers upgrade is part of this deployment.
 
-Configure a canonical HTTPS public URL, Cloudflare Access team issuer/AUD,
-and your own `ACCESS_EMAIL_DOMAIN`. Preserve `ENCRYPTION_KEY` (32 random bytes
+Configure a canonical HTTPS public URL and your own `ACCESS_EMAIL_DOMAIN`.
+The bootstrap discovers the Cloudflare Access team issuer/AUD. Preserve `ENCRYPTION_KEY` (32 random bytes
 encoded as base64). Never put its value in tracked files, command arguments,
 browser storage, or logs. Provision the encryption secret via stdin. Management
 uses verified Access identities; deployment-secret login is removed. See

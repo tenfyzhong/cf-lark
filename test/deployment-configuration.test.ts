@@ -6,6 +6,7 @@ import { promisify } from 'node:util';
 import { expect, it } from 'vitest';
 import { renderDeployment, writeDeployment } from '../scripts/deploy/configuration';
 
+const cloudflareFixture = new URL('./support/deployment-cloudflare.ts', import.meta.url).pathname;
 const templates = await Promise.all(['wrangler.jsonc', 'wrangler.engine-docs.jsonc', 'wrangler.engine-mail.jsonc'].map(async (file) => JSON.parse(await readFile(file, 'utf8'))));
 const environment = { CLOUDFLARE_ACCOUNT_ID: 'a'.repeat(32), PUBLIC_URL: 'https://mcp.acme.test/',
     ACCESS_TEAM_DOMAIN: 'https://acme.cloudflareaccess.com', ACCESS_AUD: 'b'.repeat(64), ACCESS_EMAIL_DOMAIN: 'acme.test',
@@ -67,12 +68,12 @@ it('runs the deployment CLI without exposing credentials and preserves existing 
         for (const [index, file] of ['wrangler.jsonc', 'wrangler.engine-docs.jsonc', 'wrangler.engine-mail.jsonc'].entries()) {
             await writeFile(join(directory, file), JSON.stringify(templates[index]));
         }
-        const result = await run(process.execPath, [entrypoint], options);
+        const result = await run(process.execPath, ['--import', cloudflareFixture, entrypoint], options);
         expect(result.stdout.trim()).toBe('Private deployment configuration prepared.');
         expect(result.stderr).toBe('');
         expect(JSON.parse(await readFile(join(directory, 'wrangler.production.jsonc'), 'utf8')).name).toBe('cf-lark');
         const before = await readFile(join(directory, 'deployment-secrets.production.json'), 'utf8');
-        await expect(run(process.execPath, [entrypoint], options)).rejects.toMatchObject({ code: 1 });
+        await expect(run(process.execPath, ['--import', cloudflareFixture, entrypoint], options)).rejects.toMatchObject({ code: 1 });
         expect(await readFile(join(directory, 'deployment-secrets.production.json'), 'utf8')).toBe(before);
     } finally { await rm(directory, { recursive: true, force: true }); }
 });
@@ -83,7 +84,7 @@ it('masks resolved deployment identities before emitting Actions output', async 
         for (const [index, file] of ['wrangler.jsonc', 'wrangler.engine-docs.jsonc', 'wrangler.engine-mail.jsonc'].entries()) {
             await writeFile(join(directory, file), JSON.stringify(templates[index]));
         }
-        const result = await promisify(execFile)(process.execPath, [new URL('../scripts/deploy/configure.ts', import.meta.url).pathname], {
+        const result = await promisify(execFile)(process.execPath, ['--import', cloudflareFixture, new URL('../scripts/deploy/configure.ts', import.meta.url).pathname], {
             cwd: directory, env: { ...process.env, ...environment, GITHUB_ACTIONS: 'true' },
         });
         for (const value of [environment.CLOUDFLARE_ACCOUNT_ID, environment.ACCESS_AUD, 'mcp.acme.test', 'acme.cloudflareaccess.com', 'cf-lark-private']) {

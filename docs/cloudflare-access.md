@@ -40,17 +40,18 @@ and provisions no session, even if an old secret binding still exists.
 Logout validates CSRF and redirects the browser to Cloudflare's
 `/cdn-cgi/access/logout`, clearing the legacy cookie as well.
 
-## Configuration and migration
+## Discovered runtime configuration and migration
 
-- `ACCESS_TEAM_DOMAIN`: the team's HTTPS cloudflareaccess.com origin.
-- `ACCESS_AUD`: the dedicated application's audience tag.
+- `ACCESS_TEAM_DOMAIN`: resolved from the team's HTTPS cloudflareaccess.com origin.
+- `ACCESS_AUD`: read from the dedicated application's audience tag.
 - `ACCESS_EMAIL_DOMAIN`: your permitted email domain (for example, `example.com`).
 - `ENCRYPTION_KEY`: preserve the existing 32-byte encryption key.
 
 Follow [fork setup](fork-deployment.md) to prepare ignored production files.
 Actions can discover/create the team, email PIN and dedicated application/policy,
-then derive issuer and AUD. Complete issuer/AUD Secrets retain a manually managed
-application without provisioning changes. See the fork guide for token rights.
+then derive issuer and AUD. These are generated Worker runtime fields, not user
+deployment Secrets. Safe existing applications are found by hostname and reused
+without policy changes. See the fork guide for mandatory Access token rights.
 Remove the unused `ADMIN_SECRET` binding after
 verification. Existing encrypted applications, accounts, grants, DO namespaces
 and the private R2 quota remain. No local secret fallback exists.
