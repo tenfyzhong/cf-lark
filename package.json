@@ -22,7 +22,8 @@
     "configure:deployment": "node scripts/deploy/configure.ts",
     "deploy:actions": "pnpm generate:validators && vite build && pnpm deploy:engines && wrangler deploy --config wrangler.production.jsonc --minify --secrets-file deployment-secrets.production.json",
     "provision:r2": "node scripts/deploy/provision-r2.ts",
-    "verify:deployment": "node scripts/deploy/verify-deployment.ts"
+    "verify:deployment": "node scripts/deploy/verify-deployment.ts",
+    "inspect:deployment": "node scripts/deploy/inspect.ts"
   },
   "dependencies": {
     "@cloudflare/workers-oauth-provider": "1.2.3",

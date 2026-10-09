@@ -165,3 +165,34 @@ it('retains WORKER_NAME as the namespace selection and derives engine and bucket
         services: [{ binding: 'DOCS_ENGINE', service: 'team-lark-docs-engine' }, { binding: 'MAIL_ENGINE', service: 'team-lark-mail-engine' }] });
     expect(output.configs.slice(1).map((config) => config.name)).toEqual(['team-lark-docs-engine', 'team-lark-mail-engine']);
 });
+
+it('inspects existing deployment using GET only and returns no private values', async () => {
+    const { inspectDeployment } = await import('../scripts/deploy/inspection');
+    const request = fixture();
+    const report = await inspectDeployment(env, templates, request);
+    expect(report.ready).toBe(true);
+    expect(report.checks).toMatchObject({ applicationType: true, primaryDomain: true, destinations: true, sessionDuration: true, warpDisabled: true });
+    expect(request.mock.calls.every(([, init]) => init.method === 'GET')).toBe(true);
+    const serialized = JSON.stringify(report);
+    for (const value of [env.PUBLIC_URL, env.CLOUDFLARE_API_TOKEN, env.ENCRYPTION_KEY, account, audience]) expect(serialized).not.toContain(value);
+});
+
+it('inspects compatibility failures without dumping upstream application data', async () => {
+    const { inspectDeployment } = await import('../scripts/deploy/inspection');
+    const original = fixture();
+    const request = vi.fn(async (url: string, init: RequestInit) => new URL(url).pathname.endsWith('/apps/app-id')
+        ? Response.json({ success: true, result: { ...app, session_duration: '24h', private_field: env.ENCRYPTION_KEY } }) : original(url, init));
+    const report = await inspectDeployment(env, templates, request);
+    expect(report.ready).toBe(false);
+    expect(report.checks.sessionDuration).toBe(false);
+    expect(JSON.stringify(report)).not.toContain(env.ENCRYPTION_KEY);
+    expect(request.mock.calls.every(([, init]) => init.method === 'GET')).toBe(true);
+});
+
+it('refuses provisioning in inspection before any network write', async () => {
+    const { inspectDeployment } = await import('../scripts/deploy/inspection');
+    const request = fixture({ create: true });
+    const report = await inspectDeployment(env, templates, request);
+    expect(report.ready).toBe(false);
+    expect(request.mock.calls.every(([, init]) => init.method === 'GET')).toBe(true);
+});

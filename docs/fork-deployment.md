@@ -316,3 +316,18 @@ upgrading, and your upstream Lark application callback settings. Live checks use
 
 The repository's verification history anonymizes deployment identifiers. Example
 hostnames in those records are illustrative and do not name a public service.
+
+### Inspect deployment preflight without changes
+
+The Cloudflare workflow has an optional `inspect` input for manual runs. Select
+it to inspect an existing installation using the repository Secrets. This mode
+only sends GET requests, never creates resources, and never uploads Workers or
+writes private deployment files. It reports readiness and named Access
+compatibility checks without printing hostnames, account IDs, audiences,
+credentials, policies or upstream response bodies. A failed check remains a
+failed Actions job. Production deployment remains restricted to main.
+
+Use this mode when bootstrap rejects an existing Access application. Compare
+the named checks with the application settings instead of deleting the existing
+application or changing its audience. Missing resources require a normal
+deployment; inspection refuses provisioning requests.
