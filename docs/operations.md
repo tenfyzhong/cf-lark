@@ -2,11 +2,11 @@
 
 ## Provisioning
 
-The selected deployment account is `tenfy.cn`
-(`d2400c41980c1ea80728ad214078178f`). The Worker and its private R2 bucket
-must belong to this account. Do not infer the account from Wrangler's defaults.
-The configured canonical URL is `https://lark.tenfy.cn`.
-Its MCP resource is `https://lark.tenfy.cn/mcp`.
+Select your Cloudflare account explicitly using `CLOUDFLARE_ACCOUNT_ID` or the
+account ID in all three ignored production configurations. Workers and the
+private bucket must belong to that account. Set your canonical HTTPS origin in
+`PUBLIC_URL`; its MCP resource is `${PUBLIC_URL}/mcp`. See
+[independent fork deployment](fork-deployment.md).
 
 The current hosted implementation surface contains 531 business shortcuts,
 251 API descriptors, and 25 event keys; seven local Apps commands are excluded.
@@ -18,7 +18,7 @@ R2 Standard bucket. R2 requires activation and can charge beyond its account-wid
 free allowance. No paid Workers upgrade is part of this deployment.
 
 Configure a canonical HTTPS public URL, Cloudflare Access team issuer/AUD,
-and `ACCESS_EMAIL_DOMAIN=tenfy.cn`. Preserve `ENCRYPTION_KEY` (32 random bytes
+and your own `ACCESS_EMAIL_DOMAIN`. Preserve `ENCRYPTION_KEY` (32 random bytes
 encoded as base64). Never put its value in tracked files, command arguments,
 browser storage, or logs. Provision the encryption secret via stdin. Management
 uses verified Access identities; deployment-secret login is removed. See
@@ -27,7 +27,8 @@ uses verified Access identities; deployment-secret login is removed. See
 The deployment helper creates a new private JSON file containing a
 random encryption key, refuses to overwrite an existing file, and sets file mode `0600`.
 Keep this file outside Git and back it up securely. Wrangler's `--secrets-file`
-option can upload it with the same Worker version without printing values.
+option with `--config wrangler.production.jsonc` can upload it with the same
+Worker version without printing values.
 
 Keep production and preview namespaces and buckets separate. Production uses
 the configured Custom Domain with workers.dev disabled. Private engine Workers
@@ -77,11 +78,11 @@ A local build or mocked test does not prove Cloudflare edge or upstream access.
 
 ## Custom domain
 
-The canonical hostname is `lark.tenfy.cn`, bound directly to the existing Worker
+Your canonical hostname is bound directly to the existing Worker
 with a Wrangler Custom Domain route. Cloudflare manages DNS and the certificate.
 `PUBLIC_URL` must match this HTTPS origin so management cookies, CSRF checks and
 OAuth resource discovery agree. The previous workers.dev endpoint is disabled.
-MCP clients must use `https://lark.tenfy.cn/mcp` and authorize against this origin;
+MCP clients must use `${PUBLIC_URL}/mcp` and authorize against this origin;
 management users must sign in again because cookies are host-bound. The existing
 Durable Objects, encryption key and private R2 bucket are retained.
 
@@ -97,7 +98,7 @@ client reports non-JSON responses as service failures without displaying HTML.
 Local browser tests explicitly set the Wrangler local upstream to localhost;
 otherwise a production Custom Domain route can rewrite the local request origin
 and trigger canonical-origin rejection. Live browser tests run with
-`LARK_LIVE_URL=https://lark.tenfy.cn pnpm exec playwright test --config
+`LARK_LIVE_URL=<your-origin> pnpm exec playwright test --config
 playwright.live.config.ts`. They verify Access sign-in, management challenges and
 public MCP/OAuth boundaries. Fixture management responses verify deployed UI
 assets without recording production Access tokens.
@@ -106,7 +107,7 @@ assets without recording production Access tokens.
 
 The canonical repository, package and Worker name is `cf-lark`. The private
 artifact bucket is `cf-lark-private`. The public origin remains
-`https://lark.tenfy.cn`, including the existing MCP and OAuth endpoints.
+your configured `PUBLIC_URL`, including the existing MCP and OAuth endpoints.
 
 Rename the existing Worker through the Cloudflare Workers Edit API using its
 stable Worker ID, with only the `name` property supplied. Do not create a

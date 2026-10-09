@@ -1,8 +1,8 @@
 # cf-lark
 
 An authenticated Lark and Feishu MCP service built for Cloudflare's free tier.
-The management origin is `https://lark.tenfy.cn`; MCP clients connect to
-`https://lark.tenfy.cn/mcp` and authorize through OAuth. Application credentials
+Deploy a fork to your own HTTPS origin. Management uses `PUBLIC_URL`; MCP clients
+connect to `${PUBLIC_URL}/mcp` and authorize through OAuth. Application credentials
 never belong in endpoint URLs.
 
 The hosted business surface covers 531 shortcuts from pinned lark-cli v1.0.97,
@@ -25,7 +25,7 @@ access. See [typed API execution](docs/typed-api-execution.md) and
 
 ## Deployment
 
-The selected account is `tenfy.cn`. The public `cf-lark` Worker serves management,
+Choose your own Cloudflare account. The public `cf-lark` Worker serves management,
 OAuth, MCP, and callbacks. Private `cf-lark-docs-engine` and
 `cf-lark-mail-engine` Workers run pure transformations in their own SQLite
 Durable Objects. Each script must fit the free-tier 3 MiB compressed limit.
@@ -40,6 +40,7 @@ usage remains outside the service's accounting boundary.
 
 ## Documentation
 
+- [Deploy an independent fork](docs/fork-deployment.md)
 - [Architecture](docs/architecture.md)
 - [Deployment](docs/deployment.md)
 - [Operations, recovery, and migration history](docs/operations.md)
@@ -52,7 +53,7 @@ usage remains outside the service's accounting boundary.
 
 Use Node.js and pnpm 10.32.1. Install with `pnpm install --frozen-lockfile`.
 Configure Cloudflare Access with `ACCESS_TEAM_DOMAIN`, `ACCESS_AUD` and
-`ACCESS_EMAIL_DOMAIN=tenfy.cn`; management no longer accepts a deployment secret.
+your own `ACCESS_EMAIL_DOMAIN`; management no longer accepts a deployment secret.
 Create an ignored `.dev.vars` containing the base64-encoded 32-byte
 `ENCRYPTION_KEY`. Back it up securely; replacing it cannot decrypt existing
 state. See [Access setup and local test fixtures](docs/cloudflare-access.md).

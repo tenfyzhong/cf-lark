@@ -54,6 +54,6 @@ Local management tests use fixtures or signed Access test assertions. Live check
 the public sign-in page and anonymous API boundaries; they do not exercise
 production administrator credentials or create Lark business content.
 
-Management sign-in uses a Cloudflare Access link for tenfy.cn emails. There is
+Management sign-in uses a Cloudflare Access link with domain-independent email wording. There is
 no secret input. Logout redirects to Cloudflare Access. See [Access
 authentication](cloudflare-access.md).

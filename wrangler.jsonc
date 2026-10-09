@@ -1,7 +1,6 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "cf-lark",
-  "account_id": "d2400c41980c1ea80728ad214078178f",
   "main": "src/bootstrap/worker.ts",
   "compatibility_date": "2026-10-08",
   "compatibility_flags": [
@@ -11,7 +10,7 @@
   "workers_dev": false,
   "routes": [
     {
-      "pattern": "lark.tenfy.cn",
+      "pattern": "mcp.example.com",
       "custom_domain": true
     }
   ],
@@ -63,10 +62,10 @@
     }
   ],
   "vars": {
-    "PUBLIC_URL": "https://lark.tenfy.cn",
-    "ACCESS_TEAM_DOMAIN": "https://tenfy.cloudflareaccess.com",
-    "ACCESS_AUD": "1a2d1cda259c5ffa37dc6302d2424b42cad159d11919648b3cbfd839f1027d6d",
-    "ACCESS_EMAIL_DOMAIN": "tenfy.cn",
+    "PUBLIC_URL": "https://mcp.example.com",
+    "ACCESS_TEAM_DOMAIN": "https://your-team.cloudflareaccess.com",
+    "ACCESS_AUD": "replace-with-access-audience",
+    "ACCESS_EMAIL_DOMAIN": "example.com",
     "MAX_STORAGE_BYTES": "2000000000",
     "ARTIFACT_TTL_SECONDS": "86400",
     "R2_CLASS_A_BUDGET": "100000",

@@ -1,5 +1,10 @@
 # Verification Evidence
 
+Deployment-specific identities and resource IDs are anonymized. Example
+hostnames are illustrative, not live services; verification describes the
+original private installation. Forks must record their own acceptance evidence.
+
+
 ## Documentation baseline
 
 Architecture, security, interfaces, compatibility acceptance, and operations were
@@ -42,14 +47,14 @@ Two management browser tests passed before the revocation HTTP-only change.
 
 ## Cloudflare resource evidence
 
-Account: `tenfy.cn` (`d2400c41980c1ea80728ad214078178f`).
+Account: `example.com` (`<cloudflare-account-id>`).
 Bucket: `cf-lark-private`, Standard storage class, created on 2026-10-08.
 Wrangler verified that public `r2.dev` access is disabled and no custom domains
 are connected. The bucket has an enabled one-day expiration and incomplete
 multipart-abort lifecycle rule.
 
-Preview URL: `https://lark.tenfy.cn`.
-MCP URL: `https://lark.tenfy.cn/mcp`.
+Preview URL: `https://mcp.example.com`.
+MCP URL: `https://mcp.example.com/mcp`.
 Initial workers.dev preview version: `3657ebe8-7fb2-427c-aaa5-cbfc24cd00a3`.
 Cloudflare reported 44 ms startup and a 1,254.37 KiB minified upload. Startup time
 is not evidence of per-request CPU compliance.
@@ -82,10 +87,10 @@ does not establish full CLI business parity.
 
 ## Custom domain acceptance (2026-10-09)
 
-Bound `lark.tenfy.cn` to the same Worker in the `tenfy.cn` account and deployed
+Bound `mcp.example.com` to the same Worker in the `example.com` account and deployed
 version `cccd450c-ef37-457e-8311-5c64a075d283`. The canonical `PUBLIC_URL` is now
-`https://lark.tenfy.cn`; the workers.dev route is disabled. HTTPS management
-returned 200. Protected resource metadata reports `https://lark.tenfy.cn/mcp`
+`https://mcp.example.com`; the workers.dev route is disabled. HTTPS management
+returned 200. Protected resource metadata reports `https://mcp.example.com/mcp`
 and the matching authorization server. The existing live acceptance test passed
 against the new hostname, including administrator login and private R2 lifecycle.
 The application secrets, Durable Objects and private R2 bucket were retained.
@@ -106,7 +111,7 @@ sanitary JSON at the Worker boundary and a readable UI error for non-JSON
 responses. Version `8266c83d-11bc-47a2-ab5d-c5101dc263c6` was deployed preserving
 the existing secrets. The check suite passed 78 unit tests and 8 runtime tests.
 Both local management browser tests passed after explicitly setting the local
-upstream origin. The live Chromium test passed against `https://lark.tenfy.cn`,
+upstream origin. The live Chromium test passed against `https://mcp.example.com`,
 verifying page load, JSON 401 session/login responses and the visible invalid
 management-secret message without a JavaScript exception.
 
@@ -127,7 +132,7 @@ prevents starting a partially scoped flow. The service route accepts an empty
 request body and ignores caller scope overrides.
 
 Validation passed 81 unit tests, 11 Workerd tests and two local browser tests.
-Version `02058696-da45-4362-aaae-d9dd859d461f` was deployed to `lark.tenfy.cn`,
+Version `02058696-da45-4362-aaae-d9dd859d461f` was deployed to `mcp.example.com`,
 preserving the existing secrets. In the user's existing authenticated browser,
 the configured Feishu application successfully returned a real device
 authorization link after clicking Authorize account. No upstream credentials
@@ -144,7 +149,7 @@ no initial selection, no automatic submission, clearing, individual adjustment,
 and the exact final consent payload. All four browser tests, type checking and
 the repository-language check passed. Deployment version
 `39595413-9260-4775-b977-cd2d8195969d` serves the updated controls at
-`https://lark.tenfy.cn`; HTTPS page and JavaScript asset responses were both 200.
+`https://mcp.example.com`; HTTPS page and JavaScript asset responses were both 200.
 
 ## Consent submission feedback and MCP identity discovery (2026-10-09)
 
@@ -206,9 +211,9 @@ The owner selected migration with existing data retained. The replacement was
 documented first and tested with native SQLite Durable Objects before deployment.
 
 - Provisioned `cf-lark_Authority`:
-  `15644fd5d781451893e4a45fc2915b3a`.
+  `<authority-namespace-id>`.
 - Provisioned `cf-lark_EventInbox`:
-  `fd8fd01551b74b9db0d7ccbdb438a0c3`.
+  `<event-inbox-namespace-id>`.
 - Froze both sources before copying. The authority snapshot contained one
   application profile, one account, two authorization flows, five OAuth/session
   records, one monthly artifact budget and one request-limit record. Artifact
@@ -323,7 +328,7 @@ upstream responses; they make no real Lark writes. Actual Dots requests and real
 Lark document/message creation have not been verified in this session.
 
 Deployed Worker version: 575c1b44-f0e8-485c-82fa-c02dea2827fd.
-The domain remains lark.tenfy.cn and the private R2 cap remains 2,000,000,000
+The domain remains mcp.example.com and the private R2 cap remains 2,000,000,000
 bytes. The deployment preserves existing credentials, OAuth records and secrets.
 
 ### Resource scope discovery correction
@@ -348,7 +353,7 @@ On 2026-10-09, the dedicated self-hosted Access application was configured via
 computer use after user confirmation and the Worker was deployed with its real
 issuer and AUD. Only `/api/admin` and `/consent` are protected by Access; MCP and
 OAuth protocol endpoints retain their existing authentication. Verified
-`@tenfy.cn` email identities use one-time PIN and an eight-hour application
+`@example.com` email identities use one-time PIN and an eight-hour application
 session. Secret login is retired and the `ADMIN_SECRET` binding was removed.
 
 The final main Worker version is `aeceb352-a122-43d7-85cc-1395b0eb28a6` following

@@ -7,7 +7,7 @@ export function browserAccessToken() {
     const header = Buffer.from(JSON.stringify({ alg: 'RS256', kid: 'access-test-key' })).toString('base64url');
     const payload = Buffer.from(JSON.stringify({
         iss: 'http://localhost:8789', aud: accessAudience, sub: 'browser-fixture',
-        email: 'browser@tenfy.cn', iat: now, exp: now + 3600,
+        email: 'browser@example.com', iat: now, exp: now + 3600,
     })).toString('base64url');
     const input = header + '.' + payload;
     const signer = createSign('RSA-SHA256');

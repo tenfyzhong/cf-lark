@@ -1,5 +1,10 @@
 # Hosted parity release verification
 
+Deployment-specific identities and resource IDs are anonymized. Example
+hostnames are illustrative, not live services; verification describes the
+original private installation. Forks must record their own acceptance evidence.
+
+
 Verified on 2026-10-09 against lark-cli v1.0.97, commit
 `72579c80027c863ca51d5f9affda72a70ab0d8a6`.
 
@@ -45,7 +50,7 @@ message or document was created by these checks.
 | `cf-lark-docs-engine` | `f91c7702-c2c4-4c5b-8858-bf9c3f9c3fe4` | 2,109.90 KiB |
 | `cf-lark-mail-engine` | `cfb1251a-9c6a-416e-9961-b0b05875ae3e` | 2,772.59 KiB |
 
-Production MCP remains `https://lark.tenfy.cn/mcp`. Cloudflare's live settings
+Production MCP remains `https://mcp.example.com/mcp`. Cloudflare's live settings
 confirm that all workers.dev and preview endpoints are disabled. Each private
 engine has only its own Durable Object binding; neither receives credentials or
 R2 access. The main service retains the existing Authority/EventInbox namespace
@@ -107,11 +112,11 @@ exclusions remain part of the hosted contract.
 ## Cloudflare Access authentication follow-up
 
 The dedicated `cf-lark-management` Access application was configured through the
-Cloudflare dashboard in the tenfy.cn account after explicit user confirmation.
+Cloudflare dashboard in the example.com account after explicit user confirmation.
 It protects `/api/admin` and its children and `/consent`, permits verified
-`@tenfy.cn` email identities through one-time PIN, and uses an eight-hour session.
-Its application ID is `a2953b3a-ddf6-4988-9757-1b0758be4e1d` and dedicated policy
-ID is `7696e382-a55f-4cf9-a07c-67943d06f8d2`. Other applications and shared policies
+`@example.com` email identities through one-time PIN, and uses an eight-hour session.
+Its application ID is `<access-application-id>` and dedicated policy
+ID is `<access-policy-id>`. Other applications and shared policies
 were left unchanged. The Worker verifies the actual Access issuer and AUD.
 
 The legacy secret-login regression first failed with an unexpected HTTP 200;
@@ -130,8 +135,8 @@ Cloudflare email login page. Scope UI checks use intercepted fixture data.
 The unused `ADMIN_SECRET` binding was removed; `ENCRYPTION_KEY` is retained.
 Secret deletion published version `aeceb352-a122-43d7-85cc-1395b0eb28a6` from
 code deployment `84d32eea-28db-4506-b810-25c2a38b6ba7`. Read-only live settings
-confirmed Authority namespace `15644fd5d781451893e4a45fc2915b3a`, EventInbox
-namespace `fd8fd01551b74b9db0d7ccbdb438a0c3`, and bucket `cf-lark-private`.
+confirmed Authority namespace `<authority-namespace-id>`, EventInbox
+namespace `<event-inbox-namespace-id>`, and bucket `cf-lark-private`.
 The private engine versions and the aggregate R2 ceiling remain unchanged.
 
 The user completed mailbox PIN sign-in. Computer-use acceptance verified the
@@ -159,3 +164,20 @@ In this delivery run Wrangler printed its successful dry-run completion but
 lingered during process shutdown; those completed bundling processes were
 terminated. This is not a clean aggregate `pnpm check` exit. Component test,
 type, architecture and validator checks are reported independently.
+
+## Independent fork deployment
+
+Tracked configuration now contains only example hostnames and placeholder Access
+settings. No Cloudflare account ID is committed. Production deployment commands
+select ignored `wrangler*.production.jsonc` copies; owners explicitly select an
+account, domain, bucket and Access email policy. Management sign-in wording is
+independent of email domain. Test identities use reserved example domains.
+Public verification history anonymizes deployment-specific identifiers.
+
+Configuration regressions first failed on the original account binding and
+personal deployment identifiers. Browser regressions first failed on the
+hardcoded email-domain prompt. All 1,426 unit tests passed (six opt-in cases
+skipped), all 60 native runtime tests passed, and all 279 local browser tests
+passed. TypeScript, repository content and architecture checks passed. The
+existing live installation was not redeployed with example configuration.
+See [fork deployment](fork-deployment.md) for per-installation setup.

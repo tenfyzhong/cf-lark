@@ -3,13 +3,13 @@
 ## Contract
 
 Cloudflare Access replaces deployment-secret management login. All allowed
-`tenfy.cn` email identities have administrator access to this personal service's
+email identities allowed by `ACCESS_EMAIL_DOMAIN` have administrator access to this personal service's
 shared applications, accounts, artifacts and MCP consent. This does not introduce
 per-user tenant isolation.
 
-A dedicated self-hosted application protects `lark.tenfy.cn/api/admin` (including
-children) and `lark.tenfy.cn/consent`. An Allow policy includes only emails ending
-in `tenfy.cn`, with an eight-hour session. Email one-time PIN provides login
+A dedicated self-hosted application protects your hostname's `/api/admin` (including
+children) and `/consent`. An Allow policy includes only emails ending
+in your configured email domain, with an eight-hour session. Email one-time PIN provides login
 without another identity provider. No Everyone, Bypass or service-token rule
 grants management access.
 
@@ -28,7 +28,7 @@ page; approving consent requires Access and CSRF validation.
 
 The infrastructure adapter verifies `Cf-Access-Jwt-Assertion` using the configured
 team's `/cdn-cgi/access/certs` JWKS, RS256, exact issuer and application AUD.
-Expiration, issuance time, subject and an exact `@tenfy.cn` email suffix are
+Expiration, issuance time, subject and the exact configured email domain are
 required. Unsigned, forged, expired, foreign-audience, foreign-issuer and
 non-human tokens fail closed. An identity email header is never authentication.
 Remote JWKS are cached, time bounded and restricted to the configured endpoint.
@@ -44,9 +44,10 @@ Logout validates CSRF and redirects the browser to Cloudflare's
 
 - `ACCESS_TEAM_DOMAIN`: the team's HTTPS cloudflareaccess.com origin.
 - `ACCESS_AUD`: the dedicated application's audience tag.
-- `ACCESS_EMAIL_DOMAIN`: `tenfy.cn`.
+- `ACCESS_EMAIL_DOMAIN`: your permitted email domain (for example, `example.com`).
 - `ENCRYPTION_KEY`: preserve the existing 32-byte encryption key.
 
+Follow [fork setup](fork-deployment.md) to prepare ignored production files.
 Configure Access through the Cloudflare dashboard, then deploy the Worker with
 the actual issuer and AUD. Remove the unused `ADMIN_SECRET` binding after
 verification. Existing encrypted applications, accounts, grants, DO namespaces

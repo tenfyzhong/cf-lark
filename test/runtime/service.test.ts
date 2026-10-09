@@ -12,13 +12,13 @@ const fetchService = (path: string, init?: RequestInit) => worker.fetch(new Requ
 
 it('verifies signed Access fixtures with native cryptography and configured JWKS', async () => {
     const token = await accessToken();
-    expect((await jwtVerify(token, createLocalJWKSet(accessJwks))).payload.email).toBe('admin@tenfy.cn');
+    expect((await jwtVerify(token, createLocalJWKSet(accessJwks))).payload.email).toBe('admin@example.com');
     const response = await fetch(accessIssuer + '/cdn-cgi/access/certs');
     expect(response.status).toBe(200);
     expect(await response.json()).toEqual(accessJwks);
-    expect((await jwtVerify(token, createRemoteJWKSet(new URL(accessIssuer + '/cdn-cgi/access/certs')))).payload.email).toBe('admin@tenfy.cn');
-    const access = new AccessSessions({ issuer: accessIssuer, audience: 'fixture-application-audience', emailDomain: 'tenfy.cn', origin: 'https://service.example' });
-    await expect(access.require(new Request('https://service.example/api/admin/session', { headers: { 'Cf-Access-Jwt-Assertion': token } }))).resolves.toMatchObject({ email: 'admin@tenfy.cn' });
+    expect((await jwtVerify(token, createRemoteJWKSet(new URL(accessIssuer + '/cdn-cgi/access/certs')))).payload.email).toBe('admin@example.com');
+    const access = new AccessSessions({ issuer: accessIssuer, audience: 'fixture-application-audience', emailDomain: 'example.com', origin: 'https://service.example' });
+    await expect(access.require(new Request('https://service.example/api/admin/session', { headers: { 'Cf-Access-Jwt-Assertion': token } }))).resolves.toMatchObject({ email: 'admin@example.com' });
 });
 
 it('does not exchange the legacy administrator secret for a session', async () => {

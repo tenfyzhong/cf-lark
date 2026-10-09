@@ -1,10 +1,9 @@
 # Deployment
 
-The configured production account is `tenfy.cn`
-(`d2400c41980c1ea80728ad214078178f`), with management at
-`https://lark.tenfy.cn` and authenticated MCP at `https://lark.tenfy.cn/mcp`.
-These are configured destinations, not evidence that the current changes have
-been deployed or accepted by Dots.
+Each fork selects its own Cloudflare account and HTTPS origin. The tracked
+Wrangler files are portable examples; production commands use ignored
+`wrangler*.production.jsonc` copies. Follow [fork setup](fork-deployment.md)
+before deploying. Management uses `PUBLIC_URL`, and MCP uses `${PUBLIC_URL}/mcp`.
 
 ## Components
 
@@ -30,7 +29,7 @@ public routes, preview URLs, or workers.dev endpoints.
 2. Verify the selected account, existing namespaces, private bucket, custom domain,
    and secret backups. Keep all existing migration entries and encryption keys.
 3. Configure the dedicated Cloudflare Access application, team issuer, AUD and
-   `tenfy.cn` email Allow policy using [Access setup](cloudflare-access.md).
+   your email-domain Allow policy using [Access setup](cloudflare-access.md).
    Preserve `ENCRYPTION_KEY` on the public Worker. Never upload stale secret
    backups or copy production secrets into tracked files or engine Workers.
 4. Deploy private engines before the public Worker. `pnpm deploy` generates

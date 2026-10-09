@@ -26,7 +26,7 @@ export default defineConfig({
             PUBLIC_URL: 'https://service.example',
             ACCESS_TEAM_DOMAIN: accessIssuer,
             ACCESS_AUD: accessAudience,
-            ACCESS_EMAIL_DOMAIN: 'tenfy.cn',
+            ACCESS_EMAIL_DOMAIN: 'example.com',
             ENCRYPTION_KEY: 'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=',
         } },
     })],

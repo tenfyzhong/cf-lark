@@ -45,7 +45,7 @@ function App() {
             })}>Sign out</button>}
         </header>
         {error && <p className="error" role="alert">{error}</p>}
-        {!signedIn ? <section className="login"><h2>Management sign in</h2><p>Sign in with your @tenfy.cn email.</p>
+        {!signedIn ? <section className="login"><h2>Management sign in</h2><p>Sign in with your organization's email.</p>
             <a className="primary access-sign-in" href={'/api/admin/access-login?returnTo=' + encodeURIComponent(location.pathname + location.search)}>Sign in with Cloudflare Access</a>
         </section> : <>
             <ManagementTabs selected={tab} onSelect={setTab} />

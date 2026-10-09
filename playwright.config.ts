@@ -6,7 +6,7 @@ export default defineConfig({
     use: { baseURL: 'http://localhost:8787', headless: true, channel: process.env.PLAYWRIGHT_CHANNEL,
         extraHTTPHeaders: { 'Cf-Access-Jwt-Assertion': browserAccessToken() } },
     webServer: [{
-        command: `pnpm exec vite build && pnpm exec wrangler dev --local --config wrangler.jsonc --config wrangler.engine-docs.jsonc --config wrangler.engine-mail.jsonc --port 8787 --local-upstream localhost:8787 --upstream-protocol http --persist-to .wrangler/browser-${process.pid} --var PUBLIC_URL:http://localhost:8787 --var ACCESS_TEAM_DOMAIN:http://localhost:8789 --var ACCESS_AUD:fixture-application-audience --var ACCESS_EMAIL_DOMAIN:tenfy.cn --var ENCRYPTION_KEY:AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=`,
+        command: `pnpm exec vite build && pnpm exec wrangler dev --local --config wrangler.jsonc --config wrangler.engine-docs.jsonc --config wrangler.engine-mail.jsonc --port 8787 --local-upstream localhost:8787 --upstream-protocol http --persist-to .wrangler/browser-${process.pid} --var PUBLIC_URL:http://localhost:8787 --var ACCESS_TEAM_DOMAIN:http://localhost:8789 --var ACCESS_AUD:fixture-application-audience --var ACCESS_EMAIL_DOMAIN:example.com --var ENCRYPTION_KEY:AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=`,
         url: 'http://localhost:8787', timeout: 60_000,
     }, {
         command: 'pnpm exec wrangler dev --local --config test/support/wrangler.access-jwks.jsonc --port 8789',

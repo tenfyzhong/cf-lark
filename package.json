@@ -13,12 +13,12 @@
     "typecheck": "tsc --noEmit",
     "build": "pnpm generate:validators && vite build && wrangler deploy --dry-run --minify && pnpm build:engines",
     "check": "pnpm check:validators && pnpm typecheck && pnpm test && pnpm test:architecture && pnpm build && pnpm test:runtime && pnpm test:engines",
-    "deploy": "pnpm generate:validators && vite build && pnpm deploy:engines && wrangler deploy --minify",
+    "deploy": "pnpm generate:validators && vite build && pnpm deploy:engines && wrangler deploy --config wrangler.production.jsonc --minify",
     "generate:validators": "node scripts/validation/generate.ts",
     "check:validators": "node scripts/validation/generate.ts --check",
     "test:engines": "vitest run --config vitest.engine-docs.config.ts && vitest run --config vitest.engine-mail.config.ts",
     "build:engines": "wrangler deploy --config wrangler.engine-docs.jsonc --dry-run --minify && wrangler deploy --config wrangler.engine-mail.jsonc --dry-run --minify",
-    "deploy:engines": "wrangler deploy --config wrangler.engine-docs.jsonc --minify && wrangler deploy --config wrangler.engine-mail.jsonc --minify"
+    "deploy:engines": "wrangler deploy --config wrangler.engine-docs.production.jsonc --minify && wrangler deploy --config wrangler.engine-mail.production.jsonc --minify"
   },
   "dependencies": {
     "@cloudflare/workers-oauth-provider": "1.2.3",

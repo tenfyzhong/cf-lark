@@ -1,7 +1,7 @@
 # Security and Authorization
 
 Management authentication uses Cloudflare Access email identities limited to
-`tenfy.cn`. The service verifies each assertion's RS256 signature, exact issuer,
+the configured `ACCESS_EMAIL_DOMAIN`. The service verifies each assertion's RS256 signature, exact issuer,
 application AUD, expiry and email domain. Mutations require the canonical Origin
 and an assertion-bound CSRF token. Secret login and legacy admin cookies cannot
 authenticate. See [Access authentication](cloudflare-access.md).
