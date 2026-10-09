@@ -43,7 +43,7 @@ jobs:
       group: cloudflare-production
       cancel-in-progress: false
     env:
-      DEPLOY_ENABLED: ${{ secrets.DEPLOY_ENABLED }}
+      DEPLOY_ENABLED: ${{ secrets.DEPLOY_ENABLED || 'true' }}
       CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
       PUBLIC_URL: ${{ secrets.PUBLIC_URL }}
       ACCESS_TEAM_DOMAIN: ${{ secrets.ACCESS_TEAM_DOMAIN }}
@@ -78,6 +78,8 @@ jobs:
         run: pnpm deploy:actions
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      - if: env.DEPLOY_ENABLED == 'true'
+        run: pnpm verify:deployment
       - name: Remove private deployment files
         if: always()
         run: rm -f -- wrangler.production.jsonc wrangler.engine-docs.production.jsonc wrangler.engine-mail.production.jsonc deployment-secrets.production.json

@@ -48,8 +48,10 @@ Logout validates CSRF and redirects the browser to Cloudflare's
 - `ENCRYPTION_KEY`: preserve the existing 32-byte encryption key.
 
 Follow [fork setup](fork-deployment.md) to prepare ignored production files.
-Configure Access through the Cloudflare dashboard, then deploy the Worker with
-the actual issuer and AUD. Remove the unused `ADMIN_SECRET` binding after
+Actions can discover/create the team, email PIN and dedicated application/policy,
+then derive issuer and AUD. Complete issuer/AUD Secrets retain a manually managed
+application without provisioning changes. See the fork guide for token rights.
+Remove the unused `ADMIN_SECRET` binding after
 verification. Existing encrypted applications, accounts, grants, DO namespaces
 and the private R2 quota remain. No local secret fallback exists.
 

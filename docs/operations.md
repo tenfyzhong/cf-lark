@@ -2,13 +2,16 @@
 
 ## Provisioning
 
-Select your Cloudflare account explicitly using `CLOUDFLARE_ACCOUNT_ID` or the
-account ID in all three ignored production configurations. Workers and the
+Actions derives your Cloudflare account from the longest matching active DNS zone
+for `PUBLIC_URL`. Set `CLOUDFLARE_ACCOUNT_ID` to override it; manual deployments
+keep the same account ID in all three ignored production configurations. Workers and the
 private bucket must belong to that account. Set your canonical HTTPS origin in
 `PUBLIC_URL`; its MCP resource is `${PUBLIC_URL}/mcp`. See
 [independent fork deployment](fork-deployment.md).
 
 For automatic releases, configure [GitHub Actions](fork-deployment.md). Actions
+discovers or provisions the Access team, email PIN provider and dedicated
+management application unless both issuer/AUD overrides are supplied. It
 creates/reuses the private bucket and merges its one-day retention rule before
 uploading Workers; existing data and unrelated lifecycle rules are retained. Update
 deployment settings in repository Secrets; production identities

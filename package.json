@@ -21,7 +21,8 @@
     "deploy:engines": "wrangler deploy --config wrangler.engine-docs.production.jsonc --minify && wrangler deploy --config wrangler.engine-mail.production.jsonc --minify",
     "configure:deployment": "node scripts/deploy/configure.ts",
     "deploy:actions": "pnpm generate:validators && vite build && pnpm deploy:engines && wrangler deploy --config wrangler.production.jsonc --minify --secrets-file deployment-secrets.production.json",
-    "provision:r2": "node scripts/deploy/provision-r2.ts"
+    "provision:r2": "node scripts/deploy/provision-r2.ts",
+    "verify:deployment": "node scripts/deploy/verify-deployment.ts"
   },
   "dependencies": {
     "@cloudflare/workers-oauth-provider": "1.2.3",

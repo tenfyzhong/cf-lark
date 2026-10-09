@@ -41,8 +41,10 @@ usage remains outside the service's accounting boundary.
 ## Deploy your own fork
 
 Fork this repository, prepare your own Cloudflare account/domain/R2 activation and
-Access application, and add deployment settings to your fork's **Actions Secrets**.
-Enable deployment and run **Actions → Cloudflare → Run workflow** on `main`.
+Zero Trust activation, and add the four required **Actions Secrets**: API token,
+public URL, allowed email domain and encryption key. Account and Access settings
+are discovered or provisioned automatically.
+Run **Actions → Cloudflare → Run workflow** on `main`.
 No personal configuration needs to be committed. Follow the
 [fork deployment walkthrough](docs/fork-deployment.md) for the complete Secret
 checklist, first deployment, MCP connection and subsequent upgrades.

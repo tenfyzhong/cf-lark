@@ -20,7 +20,7 @@ it('validates PRs without credentials and gates serialized production deployment
     expect(workflow.jobs.deploy.if).toContain("github.ref == 'refs/heads/main'");
     expect(workflow.jobs.deploy.if).toContain("github.event_name != 'pull_request'");
     expect(JSON.stringify(workflow)).not.toContain('vars.');
-    expect(workflow.jobs.deploy.env.DEPLOY_ENABLED).toBe('${{ secrets.DEPLOY_ENABLED }}');
+    expect(workflow.jobs.deploy.env.DEPLOY_ENABLED).toBe("${{ secrets.DEPLOY_ENABLED || 'true' }}");
     for (const name of ['CLOUDFLARE_ACCOUNT_ID', 'PUBLIC_URL', 'ACCESS_TEAM_DOMAIN', 'ACCESS_AUD', 'ACCESS_EMAIL_DOMAIN', 'WORKER_NAME', 'R2_BUCKET_NAME']) {
         expect(workflow.jobs.deploy.env[name]).toBe('${{ secrets.' + name + ' }}');
     }
@@ -33,6 +33,7 @@ it('validates PRs without credentials and gates serialized production deployment
     expect(provision).toBeGreaterThan(steps.findIndex((step: { run?: string }) => step.run === 'pnpm configure:deployment'));
     expect(provision).toBeLessThan(steps.findIndex((step: { run?: string }) => step.run === 'pnpm deploy:actions'));
     expect(steps[provision].env.CLOUDFLARE_API_TOKEN).toBe('${{ secrets.CLOUDFLARE_API_TOKEN }}');
+    expect(steps.findIndex((step: { run?: string }) => step.run === 'pnpm verify:deployment')).toBeGreaterThan(steps.findIndex((step: { run?: string }) => step.run === 'pnpm deploy:actions'));
     expect(steps.at(-1).if).toBe('always()');
     expect(steps.at(-1).run).toContain('deployment-secrets.production.json');
     for (const job of Object.values(workflow.jobs) as Array<{ steps: Array<{ uses?: string }> }>) {

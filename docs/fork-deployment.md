@@ -28,8 +28,9 @@ Forking creates your deployment source; it does not deploy anything by itself.
 ## 2. Prepare your Cloudflare installation
 
 1. Select one Cloudflare account for all three Workers and the R2 bucket. Keep
-   the Workers Free plan. Obtain its **Account ID** from the Cloudflare account
-   dashboard; it is a 32-character hexadecimal identifier, not a Zone ID.
+   the Workers Free plan. Actions derives the account from your active DNS zone.
+   An optional **Account ID** override is available for existing installations;
+   it is a 32-character hexadecimal identifier, not a Zone ID.
 2. Add your domain to that account and ensure its Cloudflare zone is active.
    Choose a hostname such as `mcp.example.com`. The workflow attaches it as a
    Worker Custom Domain; reserve it for this service and resolve conflicting
@@ -40,16 +41,15 @@ Forking creates your deployment source; it does not deploy anything by itself.
    The provisioner maintains a named `cf-lark-temporary-retention` rule for
    one-day object expiration and incomplete multipart upload cleanup, preserving
    all other lifecycle rules. It never enables public access or deletes a bucket.
-4. Configure Cloudflare Access using [Access setup](cloudflare-access.md): enable
-   email one-time PIN, create a self-hosted application protecting your host's
-   `/api/admin` prefix and `/consent` path, and allow your chosen email domain.
-   Use an eight-hour application session. Leave MCP, OAuth discovery and token
-   endpoints publicly reachable; they enforce their own authorization.
-5. Record the Access **team domain** from your Zero Trust organization settings
-   and the application's **Application Audience (AUD)** from its application
-   details. The issuer is an HTTPS `cloudflareaccess.com` origin; the AUD is a
-   64-character hexadecimal tag. These values must match the application you
-   just created, and its policy must match `ACCESS_EMAIL_DOMAIN` below.
+4. Enable the Zero Trust Free service in your account if Cloudflare requires
+   initial subscription/terms acceptance. Actions discovers or creates the Access
+   organization, reuses or creates email one-time PIN, and creates a dedicated
+   management application with an eight-hour email-domain Allow policy. Only
+   `/api/admin` and `/consent` are protected; public MCP/OAuth stays reachable.
+5. Choose the exact permitted email domain yourself. Actions does not infer an
+   administrator policy from your service hostname. Existing installations can
+   keep both `ACCESS_TEAM_DOMAIN` and `ACCESS_AUD` Secrets to use their manually
+   managed Access application without any Access provisioning changes.
 
 The default combined temporary-storage cap is **2,000,000,000 bytes**, with
 24-hour retention. All permitted Access identities share administration of this
@@ -65,11 +65,11 @@ workflow reads `secrets.*` directly without selecting an Environment.
 
 | Secret | Required | Value and source | Illustrative example/default |
 | --- | --- | --- | --- |
-| `DEPLOY_ENABLED` | Yes to deploy | Exact lowercase `true` enables uploads; use `false` while preparing | Start with `false`, then set `true` |
-| `CLOUDFLARE_ACCOUNT_ID` | Yes | Your selected Cloudflare account's 32-character lowercase hexadecimal ID | Copy **Account ID**, not **Zone ID** |
+| `DEPLOY_ENABLED` | No | Defaults to `true`; exact `false` suspends uploads | Optional `false` while staging |
+| `CLOUDFLARE_ACCOUNT_ID` | No | Derived from the longest matching active zone for `PUBLIC_URL`; an explicit ID selects your account | Optional Account ID override |
 | `PUBLIC_URL` | Yes | Canonical HTTPS origin using your chosen Custom Domain; no path, query, credentials or port | `https://mcp.example.com` |
-| `ACCESS_TEAM_DOMAIN` | Yes | Your Access team's HTTPS issuer; include `https://` | `https://your-team.cloudflareaccess.com` |
-| `ACCESS_AUD` | Yes | Dedicated Access application's 64-character lowercase hexadecimal audience tag | Copy **Application Audience (AUD)** |
+| `ACCESS_TEAM_DOMAIN` | No | Discovered from Access; a missing organization uses `cf-lark-ACCOUNT_ID.cloudflareaccess.com` | Optional existing issuer |
+| `ACCESS_AUD` | No | Read from the created/reused management application | Optional existing application AUD |
 | `ACCESS_EMAIL_DOMAIN` | Yes | Exact allowed lowercase email domain, without `@` | `example.com` |
 | `CLOUDFLARE_API_TOKEN` | Yes | Token scoped to your account and hostname's zone | See token setup below |
 | `ENCRYPTION_KEY` | Yes | Standard base64 encoding of exactly 32 random bytes | See key setup below |
@@ -85,7 +85,9 @@ For `WORKER_NAME=cf-lark`, the deployment creates/updates `cf-lark`,
 are derived automatically; do not add separate engine-name Secrets.
 `R2_BUCKET_NAME` chooses the bucket Actions creates; keep the existing name on upgrades.
 
-All ten entries use repository **Secrets**; no deployment Variables are needed.
+Only four Secrets are required: `CLOUDFLARE_API_TOKEN`, `PUBLIC_URL`,
+`ACCESS_EMAIL_DOMAIN` and `ENCRYPTION_KEY`. All optional overrides also use
+repository **Secrets**; no deployment Variables are needed.
 Each fork must configure its own settings. Do not paste real values into source,
 workflow YAML, PRs or issues.
 
@@ -104,14 +106,18 @@ Workers editing template or configure a custom token with these permissions:
 | Account | Workers Scripts | Edit |
 | Account | Account Settings | Read |
 | Account | Workers R2 Storage | Edit |
+| Account | Access: Apps and Policies | Edit for automatic Access setup |
+| Account | Access: Organizations, Identity Providers, and Groups | Edit for automatic Access setup |
 | Zone | Workers Routes | Edit |
 | Zone | Zone | Read |
 
-Restrict account resources to the account identified by `CLOUDFLARE_ACCOUNT_ID`
+Restrict account resources to the selected Cloudflare account
 and zone resources to the zone containing `PUBLIC_URL`. An IP restriction must
 permit GitHub-hosted runners; do not restrict the token to your home IP.
-Cloudflare Access configuration is performed separately and does not require
-Access policy editing rights on this deployment token. Store the generated token
+Automatic Access setup requires both Access permissions above. If you supply
+both existing issuer/AUD overrides, Access discovery/creation is skipped and
+these extra rights are unnecessary. Account discovery requires Zone Read; no
+ambiguous account is selected automatically. Store the generated token
 as `CLOUDFLARE_API_TOKEN`; do not use a Global API Key, R2 S3 access key, or Wrangler
 OAuth login/refresh token. See [Cloudflare token creation](https://developers.cloudflare.com/fundamentals/api/get-started/create-token/)
 and the [Workers GitHub Actions guide](https://developers.cloudflare.com/workers/ci-cd/external-cicd/github-actions/).
@@ -145,8 +151,8 @@ management. They are not required as GitHub deployment Secrets.
 
 ## 4. Deploy from your fork
 
-1. Confirm R2 activation, Access policy and all eight required Secrets are ready.
-   Set `DEPLOY_ENABLED` to `true`.
+1. Confirm account activation and the four required Secrets are ready. Leave
+   `DEPLOY_ENABLED` unset for its default `true`, or explicitly set it to `true`.
 2. Open **Actions → Cloudflare → Run workflow**. Select the **main** branch and
    click **Run workflow**. Changing a Secret does not itself start
    a run; use this manual action after configuration changes.
@@ -154,12 +160,15 @@ management. They are not required as GitHub deployment Secrets.
    module boundaries, minified Worker builds, native runtime/engine tests and
    Chromium browser tests. It needs no production Secrets.
 4. After verification succeeds, watch **Deploy production**. It validates your
-   settings, prepares private files, provisions R2, deploys both internal engines, and uploads
+   settings, resolves account/Access, prepares private files, provisions R2,
+   deploys both internal engines, and uploads
    the public Worker together with its encryption key.
 5. Open your `PUBLIC_URL` to visit management, sign in using an allowed email,
    and configure a Lark application and account. Connect an OAuth-capable MCP
    client to `${PUBLIC_URL}/mcp`, then approve the requested MCP permissions.
-6. Check OAuth discovery at `${PUBLIC_URL}/.well-known/oauth-authorization-server`
+6. Actions runs bounded anonymous discovery/MCP/management smoke checks after
+   upload. Complete actual mailbox PIN and Lark acceptance yourself. Check OAuth discovery
+   at `${PUBLIC_URL}/.well-known/oauth-authorization-server`
    and verify your Lark application's callback settings. Use the authorized
    live checks in [deployment](deployment.md) when accepting an upgrade.
 
@@ -195,6 +204,25 @@ upgrade failure. Follow [operations and recovery](operations.md) instead.
 
 ## What the workflow manages
 
+`configure:deployment` validates required inputs before API mutations. Account
+lookup tries hostname suffixes from most specific to least, selecting one active
+zone only. Access lists are paginated with a fixed page limit. Existing organization
+and identity providers are retained. A named application must match the narrow
+management paths, email-domain-only policy, PIN provider and eight-hour session;
+unsafe/ambiguous apps fail instead of being overwritten. A missing app is created,
+and an app missing its policy can be repaired on rerun. Derived values are masked
+in Actions logs and written only to ignored private configuration. Full explicit
+Access overrides preserve the previous manual setup path.
+
+Worker names, private engines/service bindings, bucket name, Durable Object
+namespaces/migrations, custom domain, static assets and validators are derived or
+deployed automatically. Post-upload smoke checks verify public OAuth discovery,
+unauthenticated MCP rejection and management authentication. They do not perform
+real tenant writes or prove mailbox login. The encryption key remains a required
+persistent input: GitHub cannot read back encrypted Secrets, and an ephemeral key
+would prevent reliable upgrades/backups. Account activation, domain ownership,
+API token creation and actual mailbox/Lark OAuth consent remain human steps.
+
 `pnpm provision:r2` reads the generated production configuration and calls the
 [Cloudflare bucket API](https://developers.cloudflare.com/api/resources/r2/subresources/buckets/methods/create/)
 with the deployment token. Existing buckets and objects are retained. A creation
@@ -219,7 +247,8 @@ reproducible. Type declarations for Vite, Wasm, Go runtime and native Worker tes
 are tracked so clean checkouts do not depend on local ignored files.
 
 The workflow creates/reuses the R2 bucket; it does not activate subscriptions,
-provision Access identities/policies, or register Lark accounts. Keep the selected Workers
+accept subscription terms or register Lark accounts. It provisions the dedicated
+Access application/policy unless complete overrides select an existing one. Keep the selected Workers
 plan and resource limits consistent with [deployment](deployment.md).
 
 ## Troubleshooting
@@ -227,7 +256,9 @@ plan and resource limits consistent with [deployment](deployment.md).
 | Symptom | Check |
 | --- | --- |
 | No **Run workflow** button | Enable Actions in your fork and ensure the workflow exists on the default `main` branch |
-| **Deploy production** or its steps skipped | Use `main`, ensure **Verify** passed, and set repository Secret `DEPLOY_ENABLED` to exact `true`; PR skipping is expected |
+| **Deploy production** or its steps skipped | Use `main`, ensure **Verify** passed, and leave `DEPLOY_ENABLED` unset or set it to exact `true`; PR skipping is expected |
+| Account/Access bootstrap failure | Confirm the active zone belongs to your selected account and the token has the documented Access rights; complete account activation first. For a manually managed application, supply both issuer/AUD overrides. Resolve ambiguous/conflicting resources instead of deleting them blindly |
+| Deployment smoke checks fail | Check Custom Domain propagation, public OAuth discovery and the narrow Access destinations; Actions retries for a bounded period and does not roll back an uploaded version |
 | `Missing NAME` / `Invalid NAME` | Add the named repository Secret; check the formats in the tables, replace placeholder origins, and use base64 encoding of exactly 32 bytes for the key |
 | Cloudflare authentication/permission error | Check API token expiry, account/zone restrictions, token permissions and the account ID; do not substitute Wrangler OAuth credentials |
 | Bucket not found | Confirm R2 activation and Workers R2 Storage Edit rights; inspect the provisioning step before any Worker upload |

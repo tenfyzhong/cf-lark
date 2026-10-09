@@ -62,7 +62,7 @@ it('runs the deployment CLI without exposing credentials and preserves existing 
     const directory = await mkdtemp(join(tmpdir(), 'cf-lark-deploy-cli-'));
     const run = promisify(execFile);
     const entrypoint = new URL('../scripts/deploy/configure.ts', import.meta.url).pathname;
-    const options = { cwd: directory, env: { ...process.env, ...environment } };
+    const options = { cwd: directory, env: { ...process.env, ...environment, GITHUB_ACTIONS: 'false' } };
     try {
         for (const [index, file] of ['wrangler.jsonc', 'wrangler.engine-docs.jsonc', 'wrangler.engine-mail.jsonc'].entries()) {
             await writeFile(join(directory, file), JSON.stringify(templates[index]));
@@ -74,5 +74,23 @@ it('runs the deployment CLI without exposing credentials and preserves existing 
         const before = await readFile(join(directory, 'deployment-secrets.production.json'), 'utf8');
         await expect(run(process.execPath, [entrypoint], options)).rejects.toMatchObject({ code: 1 });
         expect(await readFile(join(directory, 'deployment-secrets.production.json'), 'utf8')).toBe(before);
+    } finally { await rm(directory, { recursive: true, force: true }); }
+});
+
+it('masks resolved deployment identities before emitting Actions output', async () => {
+    const directory = await mkdtemp(join(tmpdir(), 'cf-lark-deploy-masks-'));
+    try {
+        for (const [index, file] of ['wrangler.jsonc', 'wrangler.engine-docs.jsonc', 'wrangler.engine-mail.jsonc'].entries()) {
+            await writeFile(join(directory, file), JSON.stringify(templates[index]));
+        }
+        const result = await promisify(execFile)(process.execPath, [new URL('../scripts/deploy/configure.ts', import.meta.url).pathname], {
+            cwd: directory, env: { ...process.env, ...environment, GITHUB_ACTIONS: 'true' },
+        });
+        for (const value of [environment.CLOUDFLARE_ACCOUNT_ID, environment.ACCESS_AUD, 'mcp.acme.test', 'acme.cloudflareaccess.com', 'cf-lark-private']) {
+            expect(result.stdout).toContain(`::add-mask::${value}\n`);
+        }
+        expect(result.stdout).not.toContain(environment.CLOUDFLARE_API_TOKEN);
+        expect(result.stdout).not.toContain(environment.ENCRYPTION_KEY);
+        expect(result.stderr).toBe('');
     } finally { await rm(directory, { recursive: true, force: true }); }
 });
