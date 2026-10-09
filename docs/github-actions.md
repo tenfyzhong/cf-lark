@@ -1,8 +1,7 @@
 # Deploy with GitHub Actions
 
 This guide deploys your own fork using GitHub Actions. You do not need Wrangler
-installed locally. Deployment settings belong in GitHub repository Variables and
-Secrets; do not edit the tracked Wrangler templates with personal values.
+installed locally. Deployment settings belong in GitHub repository Secrets; do not edit the tracked Wrangler templates with personal values.
 
 The workflow is [`.github/workflows/cloudflare.yml`](../.github/workflows/cloudflare.yml).
 It checks pull requests and main revisions without production credentials, then
@@ -42,14 +41,14 @@ This installation shares administrator access among permitted Access identities.
 Use your own resources and credentials. For an existing installation, retain its
 Worker names, bucket, encryption key and migration history to preserve data.
 
-## 2. Add repository Variables
+## 2. Add deployment configuration Secrets
 
-In **your fork**, open **Settings → Secrets and variables → Actions → Variables**.
-Select **New repository variable** for each row. Use repository Variables, not
+In **your fork**, open **Settings → Secrets and variables → Actions → Secrets**.
+Select **New repository secret** for each row. Use repository Secrets, not
 Cloudflare Worker dashboard variables or GitHub Environment variables; the
-workflow reads `vars.*` directly without selecting an Environment.
+workflow reads `secrets.*` directly without selecting an Environment.
 
-| Variable | Required | Value and source | Illustrative example/default |
+| Secret | Required | Value and source | Illustrative example/default |
 | --- | --- | --- | --- |
 | `DEPLOY_ENABLED` | Yes to deploy | Exact lowercase `true` enables uploads; use `false` while preparing | Start with `false`, then set `true` |
 | `CLOUDFLARE_ACCOUNT_ID` | Yes | Your selected Cloudflare account's 32-character lowercase hexadecimal ID | Copy **Account ID**, not **Zone ID** |
@@ -62,18 +61,19 @@ workflow reads `vars.*` directly without selecting an Environment.
 
 Examples are placeholders. Replace them with your own settings; the configuration
 renderer rejects `example.com`, `example.org` and `example.net` deployment origins.
-An optional variable may be omitted or left empty to use its default.
+An optional Secret may be omitted or left empty to use its default.
 
 For `WORKER_NAME=cf-lark`, the deployment creates/updates `cf-lark`,
 `cf-lark-docs-engine` and `cf-lark-mail-engine`. Engine names and service bindings
-are derived automatically; do not add separate engine-name variables.
+are derived automatically; do not add separate engine-name Secrets.
 `R2_BUCKET_NAME` must match the bucket created in step 1.
 
-`CLOUDFLARE_ACCOUNT_ID` is configuration, so place it in **Variables**. The two
-sensitive values below belong in **Secrets**. Each fork must configure its own
+Store `CLOUDFLARE_ACCOUNT_ID` and every other configuration value in **Secrets**.
+Do not create repository Variables for deployment. The two credentials below
+also belong in **Secrets**. Each fork must configure its own
 settings; the upstream repository's settings are not copied into a fork.
 
-## 3. Add repository Secrets
+## 3. Add credential Secrets
 
 Open **Settings → Secrets and variables → Actions → Secrets** in your fork.
 Select **New repository secret** for each of these exact names:
@@ -127,17 +127,17 @@ gh secret set ENCRYPTION_KEY --repo YOUR_OWNER/YOUR_FORK < "$HOME/.config/cf-lar
 For an **existing installation**, use its original encryption key instead of
 generating another. Changing the key makes stored Lark application/account
 credentials unreadable. This key is not a Lark App Secret or an Access AUD.
-Never put it in Variables, tracked files, command arguments, screenshots or logs.
+Never put it in repository Variables, tracked files, command arguments, screenshots or logs.
 
 Lark App IDs, App Secrets and authorized user accounts are configured later in
 management. They are not required as GitHub deployment Secrets.
 
 ## 4. Run the first deployment
 
-1. Confirm the bucket, Access policy, six required Variables and both Secrets
+1. Confirm the bucket, Access policy, six required configuration Secrets and both Secrets
    are ready. Set `DEPLOY_ENABLED` to `true`.
 2. Open **Actions → Cloudflare → Run workflow**. Select the **main** branch and
-   click **Run workflow**. Changing a Variable or Secret does not itself start
+   click **Run workflow**. Changing a Secret does not itself start
    a run; use this manual action after configuration changes.
 3. Watch **Verify**. It checks generated schemas, TypeScript, unit tests,
    module boundaries, minified Worker builds, native runtime/engine tests and
@@ -154,7 +154,10 @@ management. They are not required as GitHub deployment Secrets.
 
 After setup, every push or merged PR to `main` runs verification and automatically
 deploys if enabled. Feature-branch PRs run **Verify** only; **Deploy production**
-being skipped there is expected. Set `DEPLOY_ENABLED=false` to suspend future
+being skipped there is expected. The main-only job uses step environment
+conditions to read the Secret flag; when disabled, upload steps are skipped.
+GitHub does not allow direct Secret references in job conditions; see
+[using Secrets in conditions](https://docs.github.com/en/actions/how-tos/write-workflows/choose-what-workflows-do/use-secrets). Set `DEPLOY_ENABLED=false` to suspend future
 uploads. Deployments are serialized without cancelling a rollout in progress.
 The workflow does not merge PRs.
 
@@ -163,7 +166,7 @@ The workflow does not merge PRs.
 The renderer changes account, origin, Access settings, Worker/service names and
 bucket bindings while preserving tracked migration tags/classes and limits.
 The default combined R2 temporary-storage cap remains **2,000,000,000 bytes**,
-with 24-hour retention. No extra Actions variable changes that default.
+with 24-hour retention. No extra Actions Secret changes that default.
 
 Private configuration and the encryption-secret file use mode `0600`, are ignored
 by Git and are removed by unconditional cleanup. They are not published as
@@ -182,8 +185,8 @@ plan and resource limits consistent with [deployment](deployment.md).
 | Symptom | Check |
 | --- | --- |
 | No **Run workflow** button | Enable Actions in your fork and ensure the workflow exists on the default `main` branch |
-| **Deploy production** skipped | Use `main`, ensure **Verify** passed, and set repository Variable `DEPLOY_ENABLED` to exact `true`; PR skipping is expected |
-| `Missing NAME` / `Invalid NAME` | Add the named repository Variable/Secret; check the formats in the tables, replace placeholder origins, and use base64 encoding of exactly 32 bytes for the key |
+| **Deploy production** or its steps skipped | Use `main`, ensure **Verify** passed, and set repository Secret `DEPLOY_ENABLED` to exact `true`; PR skipping is expected |
+| `Missing NAME` / `Invalid NAME` | Add the named repository Secret; check the formats in the tables, replace placeholder origins, and use base64 encoding of exactly 32 bytes for the key |
 | Cloudflare authentication/permission error | Check API token expiry, account/zone restrictions, token permissions and the account ID; do not substitute Wrangler OAuth credentials |
 | Bucket not found | Activate R2 and create the exact `R2_BUCKET_NAME` in the selected account |
 | Custom Domain cannot be attached | Confirm the zone is active in the account and resolve conflicting DNS/Worker ownership for the hostname |

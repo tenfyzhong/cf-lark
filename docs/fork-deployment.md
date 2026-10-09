@@ -8,7 +8,7 @@ personal deployment: all permitted Access identities share administrator access.
 ## Automated deployment
 
 For automatic deployment, follow [GitHub Actions setup](github-actions.md).
-Configure repository Variables and Secrets instead of committing deployment
+Configure repository Secrets instead of committing deployment
 settings. The workflow generates private configuration, checks PRs and deploys
 successful main revisions. The manual instructions below remain available.
 

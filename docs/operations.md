@@ -9,7 +9,7 @@ private bucket must belong to that account. Set your canonical HTTPS origin in
 [independent fork deployment](fork-deployment.md).
 
 For automatic releases, configure [GitHub Actions](github-actions.md). Update
-deployment settings in repository Variables and Secrets; production identities
+deployment settings in repository Secrets; production identities
 do not belong in tracked files. Set `DEPLOY_ENABLED=false` to suspend uploads.
 
 The current hosted implementation surface contains 531 business shortcuts,

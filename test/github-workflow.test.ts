@@ -19,9 +19,14 @@ it('validates PRs without credentials and gates serialized production deployment
     expect(workflow.jobs.deploy.needs).toBe('verify');
     expect(workflow.jobs.deploy.if).toContain("github.ref == 'refs/heads/main'");
     expect(workflow.jobs.deploy.if).toContain("github.event_name != 'pull_request'");
-    expect(workflow.jobs.deploy.if).toContain("vars.DEPLOY_ENABLED == 'true'");
+    expect(JSON.stringify(workflow)).not.toContain('vars.');
+    expect(workflow.jobs.deploy.env.DEPLOY_ENABLED).toBe('${{ secrets.DEPLOY_ENABLED }}');
+    for (const name of ['CLOUDFLARE_ACCOUNT_ID', 'PUBLIC_URL', 'ACCESS_TEAM_DOMAIN', 'ACCESS_AUD', 'ACCESS_EMAIL_DOMAIN', 'WORKER_NAME', 'R2_BUCKET_NAME']) {
+        expect(workflow.jobs.deploy.env[name]).toBe('${{ secrets.' + name + ' }}');
+    }
     expect(workflow.jobs.deploy.concurrency['cancel-in-progress']).toBe(false);
     const steps = workflow.jobs.deploy.steps;
+    for (const step of steps.slice(0, -1)) expect(step.if).toBe("env.DEPLOY_ENABLED == 'true'");
     expect(steps.find((step: { run?: string }) => step.run === 'pnpm configure:deployment').env.ENCRYPTION_KEY).toBe('${{ secrets.ENCRYPTION_KEY }}');
     expect(steps.find((step: { run?: string }) => step.run === 'pnpm deploy:actions').env.CLOUDFLARE_API_TOKEN).toBe('${{ secrets.CLOUDFLARE_API_TOKEN }}');
     expect(steps.at(-1).if).toBe('always()');
