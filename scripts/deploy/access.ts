@@ -1,5 +1,6 @@
 import { isDeepStrictEqual } from 'node:util';
 import { CloudflareBootstrapClient } from './cloudflare.ts';
+import { destinationOverridesAbsent, warpAuthenticationDisabled } from './access-scope.ts';
 
 type AccessSettings = { account: string; worker: string; hostname: string; emailDomain: string };
 type Resource = Record<string, unknown>;
@@ -19,7 +20,8 @@ export async function provisionAccess(client: CloudflareBootstrapClient, setting
     if (!organization) organization = await client.call(`${base}/access/organizations`, 'POST', {
         name: `${settings.worker} management`, auth_domain: `cf-lark-${settings.account}.cloudflareaccess.com`,
     });
-    const authDomain = resource(organization?.result).auth_domain;
+    const organizationSettings = resource(organization?.result);
+    const authDomain = organizationSettings.auth_domain;
     if (typeof authDomain !== 'string' || !/^[a-z0-9-]+\.cloudflareaccess\.com$/u.test(authDomain)) throw new Error('Invalid Cloudflare Access issuer');
     const team = `https://${authDomain}`;
 
@@ -42,7 +44,8 @@ export async function provisionAccess(client: CloudflareBootstrapClient, setting
         }).sort((a, b) => String(a.uri).localeCompare(String(b.uri))) : [];
         const expected = [...destinations].sort((a, b) => a.uri.localeCompare(b.uri));
         if (value.type !== 'self_hosted' || value.domain !== destinations[0]!.uri
-            || !isDeepStrictEqual(actual, expected) || value.session_duration !== '8h' || value.allow_authenticate_via_warp !== false) {
+            || !isDeepStrictEqual(actual, expected) || !destinationOverridesAbsent(value.destinations)
+            || value.session_duration !== '8h' || !warpAuthenticationDisabled(value, organizationSettings)) {
             throw new Error('Unsafe existing Cloudflare Access application; check management destinations and session settings');
         }
         if (typeof value.aud !== 'string' || !/^[a-f0-9]{64}$/u.test(value.aud)) throw new Error('Invalid discovered Access audience');
