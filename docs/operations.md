@@ -8,6 +8,10 @@ private bucket must belong to that account. Set your canonical HTTPS origin in
 `PUBLIC_URL`; its MCP resource is `${PUBLIC_URL}/mcp`. See
 [independent fork deployment](fork-deployment.md).
 
+For automatic releases, configure [GitHub Actions](github-actions.md). Update
+deployment settings in repository Variables and Secrets; production identities
+do not belong in tracked files. Set `DEPLOY_ENABLED=false` to suspend uploads.
+
 The current hosted implementation surface contains 531 business shortcuts,
 251 API descriptors, and 25 event keys; seven local Apps commands are excluded.
 Use [deployment](deployment.md) for the three-Worker release sequence. Local

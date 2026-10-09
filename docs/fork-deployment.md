@@ -5,6 +5,13 @@ account, live hostname, Access issuer/AUD or email domain. Example URLs under
 `example.com` must be replaced before deployment. A fork is an independent
 personal deployment: all permitted Access identities share administrator access.
 
+## Automated deployment
+
+For automatic deployment, follow [GitHub Actions setup](github-actions.md).
+Configure repository Variables and Secrets instead of committing deployment
+settings. The workflow generates private configuration, checks PRs and deploys
+successful main revisions. The manual instructions below remain available.
+
 ## Prepare private configuration
 
 Copy the three templates before editing:

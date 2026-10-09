@@ -24,6 +24,11 @@ public routes, preview URLs, or workers.dev endpoints.
 
 ## Release sequence
 
+[GitHub Actions](github-actions.md) automates validation and the three-Worker
+upload sequence using repository Variables and Secrets. It deploys only main
+after successful checks and does not create the R2 bucket or Access policies.
+The following sequence also applies to manual deployments.
+
 1. Install locked dependencies and run `pnpm check` plus browser checks appropriate
    to the change. Verify generated coverage and command schemas are current.
 2. Verify the selected account, existing namespaces, private bucket, custom domain,

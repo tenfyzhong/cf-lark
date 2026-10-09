@@ -18,7 +18,9 @@
     "check:validators": "node scripts/validation/generate.ts --check",
     "test:engines": "vitest run --config vitest.engine-docs.config.ts && vitest run --config vitest.engine-mail.config.ts",
     "build:engines": "wrangler deploy --config wrangler.engine-docs.jsonc --dry-run --minify && wrangler deploy --config wrangler.engine-mail.jsonc --dry-run --minify",
-    "deploy:engines": "wrangler deploy --config wrangler.engine-docs.production.jsonc --minify && wrangler deploy --config wrangler.engine-mail.production.jsonc --minify"
+    "deploy:engines": "wrangler deploy --config wrangler.engine-docs.production.jsonc --minify && wrangler deploy --config wrangler.engine-mail.production.jsonc --minify",
+    "configure:deployment": "node scripts/deploy/configure.ts",
+    "deploy:actions": "pnpm generate:validators && vite build && pnpm deploy:engines && wrangler deploy --config wrangler.production.jsonc --minify --secrets-file deployment-secrets.production.json"
   },
   "dependencies": {
     "@cloudflare/workers-oauth-provider": "1.2.3",
@@ -49,6 +51,7 @@
     "typescript": "^6.0.3",
     "vite": "^8.3.4",
     "vitest": "4.1.11",
-    "wrangler": "^4.148.0"
+    "wrangler": "^4.148.0",
+    "yaml": "^2.9.1"
   }
 }

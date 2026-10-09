@@ -157,3 +157,4 @@ playwright-report/
 wrangler.production.jsonc
 wrangler.engine-docs.production.jsonc
 wrangler.engine-mail.production.jsonc
+deployment-secrets.production.json
