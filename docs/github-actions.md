@@ -5,6 +5,8 @@ credentials. Production deployment requires successful validation, the `main`
 ref and `DEPLOY_ENABLED=true`. It runs after pushes to main and supports manual
 `workflow_dispatch` on main. Pull requests and feature branches never deploy.
 Deployment runs are serialized without cancelling an in-progress rollout.
+Type declarations for Vite, Wasm, Go runtime and native Worker tests are tracked
+source files, so clean CI checkouts do not depend on local generated/ignored types.
 
 ## Repository Variables
 

@@ -1,6 +1,14 @@
 import { readFile } from 'node:fs/promises';
 import { expect, it } from 'vitest';
 import { parse } from 'yaml';
+import { execFileSync } from 'node:child_process';
+
+it('includes declaration sources required by clean CI checkouts', () => {
+    const declarations = ['src/infrastructure/documents/wasm.d.ts',
+        'src/infrastructure/documents/generated/runtime.d.ts', 'test/runtime/env.d.ts', 'ui/env.d.ts'];
+    const tracked = execFileSync('git', ['ls-files'], { encoding: 'utf8' }).split('\n');
+    expect(declarations.filter((file) => !tracked.includes(file))).toEqual([]);
+});
 
 it('validates PRs without credentials and gates serialized production deployment to main', async () => {
     const workflow = parse(await readFile('.github/workflows/cloudflare.yml', 'utf8'));
