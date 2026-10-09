@@ -38,6 +38,15 @@ uploads, resumable multipart sessions, and bounded range reads support large
 files without loading each whole file into memory. Account-wide Cloudflare
 usage remains outside the service's accounting boundary.
 
+## Deploy your own fork
+
+Fork this repository, prepare your own Cloudflare account/domain/private R2 and
+Access application, and add deployment settings to your fork's **Actions Secrets**.
+Enable deployment and run **Actions → Cloudflare → Run workflow** on `main`.
+No personal configuration needs to be committed. Follow the
+[fork deployment walkthrough](docs/fork-deployment.md) for the complete Secret
+checklist, first deployment, MCP connection and subsequent upgrades.
+
 ## Documentation
 
 - [Deploy an independent fork](docs/fork-deployment.md)
