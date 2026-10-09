@@ -38,6 +38,9 @@ uploads, resumable multipart sessions, and bounded range reads support large
 files without loading each whole file into memory. Account-wide Cloudflare
 usage remains outside the service's accounting boundary.
 
+See [continuous integration](docs/ci.md) for the separate unit/integration jobs
+and manual test runs.
+
 ## Deploy your own fork
 
 Fork this repository, prepare your own Cloudflare account/domain/R2 activation and

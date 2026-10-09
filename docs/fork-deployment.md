@@ -156,9 +156,11 @@ management. They are not required as GitHub deployment Secrets.
 2. Open **Actions → Cloudflare → Run workflow**. Select the **main** branch and
    click **Run workflow**. Changing a Secret does not itself start
    a run; use this manual action after configuration changes.
-3. Watch **Verify**. It checks generated schemas, TypeScript, unit tests,
-   module boundaries, minified Worker builds, native runtime/engine tests and
-   Chromium browser tests. It needs no production Secrets.
+3. Watch **Verify**, which calls the [Tests workflow](ci.md). **Unit tests**,
+   **Integration tests** and **Release checks** run independently. Together they
+   check generated schemas, TypeScript, unit tests, module boundaries, minified
+   Worker builds, native runtime/engine tests and Chromium flows. They need no
+   production Secrets. All must pass before deployment.
 4. After verification succeeds, watch **Deploy production**. It validates your
    settings, resolves account/Access, prepares private files, provisions R2,
    deploys both internal engines, and uploads
