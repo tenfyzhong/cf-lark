@@ -1,0 +1,362 @@
+{
+  "vc.+meeting-join": {
+    "status": "implemented",
+    "flags": [
+      "meeting-number",
+      "password",
+      "call-id",
+      "action"
+    ],
+    "evidence": [
+      "test/vc-controls.test.ts"
+    ],
+    "adaptations": [
+      "Source-matched business workflow with documented UTC, bounded workflow, and private artifact cloud adaptations."
+    ]
+  },
+  "vc.+meeting-leave": {
+    "status": "implemented",
+    "flags": [
+      "meeting-id"
+    ],
+    "evidence": [
+      "test/vc-controls.test.ts"
+    ],
+    "adaptations": [
+      "Source-matched business workflow with documented UTC, bounded workflow, and private artifact cloud adaptations."
+    ]
+  },
+  "vc.+meeting-end": {
+    "status": "implemented",
+    "flags": [
+      "meeting-id"
+    ],
+    "evidence": [
+      "test/vc-controls.test.ts"
+    ],
+    "adaptations": [
+      "Source-matched business workflow with documented UTC, bounded workflow, and private artifact cloud adaptations."
+    ]
+  },
+  "vc.+meeting-invite": {
+    "status": "implemented",
+    "flags": [
+      "meeting-id",
+      "type",
+      "open-ids"
+    ],
+    "evidence": [
+      "test/vc-controls.test.ts"
+    ],
+    "adaptations": [
+      "Source-matched business workflow with documented UTC, bounded workflow, and private artifact cloud adaptations."
+    ]
+  },
+  "vc.+meeting-countdown": {
+    "status": "implemented",
+    "flags": [
+      "meeting-id",
+      "action",
+      "duration",
+      "need-play-audio-at-end",
+      "reminder-before-end"
+    ],
+    "evidence": [
+      "test/vc-controls.test.ts"
+    ],
+    "adaptations": [
+      "Source-matched business workflow with documented UTC, bounded workflow, and private artifact cloud adaptations."
+    ]
+  },
+  "vc.+meeting-message-send": {
+    "status": "implemented",
+    "flags": [
+      "meeting-id",
+      "msg-type",
+      "text",
+      "emoji-type",
+      "uuid"
+    ],
+    "evidence": [
+      "test/vc-controls.test.ts"
+    ],
+    "adaptations": [
+      "Source-matched business workflow with documented UTC, bounded workflow, and private artifact cloud adaptations."
+    ]
+  },
+  "vc.+meeting-list-active": {
+    "status": "implemented",
+    "flags": [
+      "user-id"
+    ],
+    "evidence": [
+      "test/vc-controls.test.ts"
+    ],
+    "adaptations": [
+      "Source-matched business workflow with documented UTC, bounded workflow, and private artifact cloud adaptations."
+    ]
+  },
+  "vc.+search": {
+    "status": "implemented",
+    "flags": [
+      "query",
+      "start",
+      "end",
+      "organizer-ids",
+      "participant-ids",
+      "room-ids",
+      "page-token",
+      "page-size"
+    ],
+    "evidence": [
+      "test/vc-query.test.ts"
+    ],
+    "adaptations": [
+      "Source-matched business workflow with documented UTC, bounded workflow, and private artifact cloud adaptations."
+    ]
+  },
+  "vc.+detail": {
+    "status": "implemented",
+    "flags": [
+      "meeting-ids"
+    ],
+    "evidence": [
+      "test/vc-query.test.ts"
+    ],
+    "adaptations": [
+      "Source-matched business workflow with documented UTC, bounded workflow, and private artifact cloud adaptations."
+    ]
+  },
+  "vc.+recording": {
+    "status": "implemented",
+    "flags": [
+      "meeting-ids",
+      "calendar-event-ids"
+    ],
+    "evidence": [
+      "test/vc-query.test.ts"
+    ],
+    "adaptations": [
+      "Source-matched business workflow with documented UTC, bounded workflow, and private artifact cloud adaptations."
+    ]
+  },
+  "vc.+notes": {
+    "status": "implemented",
+    "flags": [
+      "meeting-ids",
+      "minute-tokens",
+      "calendar-event-ids",
+      "output-dir",
+      "overwrite"
+    ],
+    "evidence": [
+      "test/vc-notes.test.ts"
+    ],
+    "adaptations": [
+      "Source-matched business workflow with documented UTC, bounded workflow, and private artifact cloud adaptations."
+    ]
+  },
+  "vc.+meeting-events": {
+    "status": "implemented",
+    "flags": [
+      "meeting-id",
+      "start",
+      "end",
+      "page-token",
+      "page-size",
+      "page-all"
+    ],
+    "evidence": [
+      "test/vc-events.test.ts"
+    ],
+    "adaptations": [
+      "Source-matched business workflow with documented UTC, bounded workflow, and private artifact cloud adaptations."
+    ]
+  },
+  "vc.+meeting-screenshot": {
+    "status": "implemented",
+    "flags": [
+      "meeting-id",
+      "output",
+      "overwrite"
+    ],
+    "evidence": [
+      "test/vc-screenshot.test.ts"
+    ],
+    "adaptations": [
+      "Source-matched business workflow with documented UTC, bounded workflow, and private artifact cloud adaptations."
+    ]
+  },
+  "minutes.+update": {
+    "status": "implemented",
+    "flags": [
+      "minute-token",
+      "topic"
+    ],
+    "evidence": [
+      "test/minutes-edit.test.ts"
+    ],
+    "adaptations": [
+      "Source-matched business workflow with documented UTC, bounded workflow, and private artifact cloud adaptations."
+    ]
+  },
+  "minutes.+summary": {
+    "status": "implemented",
+    "flags": [
+      "minute-token",
+      "summary"
+    ],
+    "evidence": [
+      "test/minutes-edit.test.ts"
+    ],
+    "adaptations": [
+      "Source-matched business workflow with documented UTC, bounded workflow, and private artifact cloud adaptations."
+    ]
+  },
+  "minutes.+apply-permission": {
+    "status": "implemented",
+    "flags": [
+      "minute-token",
+      "perm"
+    ],
+    "evidence": [
+      "test/minutes-edit.test.ts"
+    ],
+    "adaptations": [
+      "Source-matched business workflow with documented UTC, bounded workflow, and private artifact cloud adaptations."
+    ]
+  },
+  "minutes.+upload": {
+    "status": "implemented",
+    "flags": [
+      "file-token"
+    ],
+    "evidence": [
+      "test/minutes-edit.test.ts"
+    ],
+    "adaptations": [
+      "Source-matched business workflow with documented UTC, bounded workflow, and private artifact cloud adaptations."
+    ]
+  },
+  "minutes.+speaker-replace": {
+    "status": "implemented",
+    "flags": [
+      "minute-token",
+      "from-speaker-id",
+      "from-user-id",
+      "to-user-id"
+    ],
+    "evidence": [
+      "test/minutes-edit.test.ts"
+    ],
+    "adaptations": [
+      "Source-matched business workflow with documented UTC, bounded workflow, and private artifact cloud adaptations."
+    ]
+  },
+  "minutes.+word-replace": {
+    "status": "implemented",
+    "flags": [
+      "minute-token",
+      "replace-words"
+    ],
+    "evidence": [
+      "test/minutes-edit.test.ts"
+    ],
+    "adaptations": [
+      "Source-matched business workflow with documented UTC, bounded workflow, and private artifact cloud adaptations."
+    ]
+  },
+  "minutes.+todo": {
+    "status": "implemented",
+    "flags": [
+      "minute-token",
+      "operation",
+      "todo",
+      "is-done",
+      "todo-id",
+      "todos"
+    ],
+    "evidence": [
+      "test/minutes-edit.test.ts"
+    ],
+    "adaptations": [
+      "Source-matched business workflow with documented UTC, bounded workflow, and private artifact cloud adaptations."
+    ]
+  },
+  "minutes.+search": {
+    "status": "implemented",
+    "flags": [
+      "query",
+      "owner-ids",
+      "participant-ids",
+      "start",
+      "end",
+      "page-token",
+      "page-size"
+    ],
+    "evidence": [
+      "test/minutes-read.test.ts"
+    ],
+    "adaptations": [
+      "Source-matched business workflow with documented UTC, bounded workflow, and private artifact cloud adaptations."
+    ]
+  },
+  "minutes.+detail": {
+    "status": "implemented",
+    "flags": [
+      "minute-tokens",
+      "summary",
+      "todo",
+      "chapter",
+      "transcript",
+      "keyword",
+      "output-dir",
+      "overwrite",
+      "wait-ready",
+      "wait-timeout-seconds",
+      "wait-interval-seconds"
+    ],
+    "evidence": [
+      "test/minutes-read.test.ts"
+    ],
+    "adaptations": [
+      "Source-matched business workflow with documented UTC, bounded workflow, and private artifact cloud adaptations."
+    ]
+  },
+  "minutes.+download": {
+    "status": "implemented",
+    "flags": [
+      "minute-tokens",
+      "output",
+      "output-dir",
+      "overwrite",
+      "url-only"
+    ],
+    "evidence": [
+      "test/minutes-download.test.ts"
+    ],
+    "adaptations": [
+      "Source-matched business workflow with documented UTC, bounded workflow, and private artifact cloud adaptations."
+    ]
+  },
+  "event.+subscribe": {
+    "status": "implemented",
+    "flags": [
+      "output-dir",
+      "route",
+      "compact",
+      "json",
+      "event-types",
+      "filter",
+      "quiet",
+      "force"
+    ],
+    "evidence": [
+      "test/event-consume-shortcuts.test.ts",
+      "test/im-format.test.ts"
+    ],
+    "adaptations": [
+      "Cloud callback cursor adaptation preserves RE2 filters, route fanout, compact processors, canonical IM formatting, raw interactive envelopes, and private artifact outputs. Current event consume EventKey catalog is a separate surface."
+    ]
+  }
+}

@@ -1,0 +1,857 @@
+{
+  "task.+assign": {
+    "status": "implemented",
+    "flags": [
+      "task-id",
+      "add",
+      "remove",
+      "idempotency-key"
+    ],
+    "evidence": [
+      "test/task-query.test.ts",
+      "test/task-write.test.ts",
+      "test/task-attachment.test.ts"
+    ],
+    "adaptations": [
+      "Hosted date-only and relative date calculations use UTC.",
+      "Multi-request operations return durable workflow handles.",
+      "Local attachment paths are grant-owned artifact IDs; optional name preserves filenames.",
+      "JSON input accepts inline objects instead of local file or stdin access.",
+      "Tasklist child creation is sequential to preserve Cloudflare request budgets."
+    ]
+  },
+  "task.+comment": {
+    "status": "implemented",
+    "flags": [
+      "task-id",
+      "content"
+    ],
+    "evidence": [
+      "test/task-query.test.ts",
+      "test/task-write.test.ts",
+      "test/task-attachment.test.ts"
+    ],
+    "adaptations": [
+      "Hosted date-only and relative date calculations use UTC.",
+      "Multi-request operations return durable workflow handles.",
+      "Local attachment paths are grant-owned artifact IDs; optional name preserves filenames.",
+      "JSON input accepts inline objects instead of local file or stdin access.",
+      "Tasklist child creation is sequential to preserve Cloudflare request budgets."
+    ]
+  },
+  "task.+complete": {
+    "status": "implemented",
+    "flags": [
+      "task-id"
+    ],
+    "evidence": [
+      "test/task-query.test.ts",
+      "test/task-write.test.ts",
+      "test/task-attachment.test.ts"
+    ],
+    "adaptations": [
+      "Hosted date-only and relative date calculations use UTC.",
+      "Multi-request operations return durable workflow handles.",
+      "Local attachment paths are grant-owned artifact IDs; optional name preserves filenames.",
+      "JSON input accepts inline objects instead of local file or stdin access.",
+      "Tasklist child creation is sequential to preserve Cloudflare request budgets."
+    ]
+  },
+  "task.+create": {
+    "status": "implemented",
+    "flags": [
+      "summary",
+      "description",
+      "assignee",
+      "follower",
+      "due",
+      "tasklist-id",
+      "idempotency-key",
+      "data"
+    ],
+    "evidence": [
+      "test/task-query.test.ts",
+      "test/task-write.test.ts",
+      "test/task-attachment.test.ts"
+    ],
+    "adaptations": [
+      "Hosted date-only and relative date calculations use UTC.",
+      "Multi-request operations return durable workflow handles.",
+      "Local attachment paths are grant-owned artifact IDs; optional name preserves filenames.",
+      "JSON input accepts inline objects instead of local file or stdin access.",
+      "Tasklist child creation is sequential to preserve Cloudflare request budgets."
+    ]
+  },
+  "task.+followers": {
+    "status": "implemented",
+    "flags": [
+      "task-id",
+      "add",
+      "remove",
+      "idempotency-key"
+    ],
+    "evidence": [
+      "test/task-query.test.ts",
+      "test/task-write.test.ts",
+      "test/task-attachment.test.ts"
+    ],
+    "adaptations": [
+      "Hosted date-only and relative date calculations use UTC.",
+      "Multi-request operations return durable workflow handles.",
+      "Local attachment paths are grant-owned artifact IDs; optional name preserves filenames.",
+      "JSON input accepts inline objects instead of local file or stdin access.",
+      "Tasklist child creation is sequential to preserve Cloudflare request budgets."
+    ]
+  },
+  "task.+get-my-tasks": {
+    "status": "implemented",
+    "flags": [
+      "query",
+      "complete",
+      "created_at",
+      "due-start",
+      "due-end",
+      "page-all",
+      "page-limit",
+      "page-token"
+    ],
+    "evidence": [
+      "test/task-query.test.ts",
+      "test/task-write.test.ts",
+      "test/task-attachment.test.ts"
+    ],
+    "adaptations": [
+      "Hosted date-only and relative date calculations use UTC.",
+      "Multi-request operations return durable workflow handles.",
+      "Local attachment paths are grant-owned artifact IDs; optional name preserves filenames.",
+      "JSON input accepts inline objects instead of local file or stdin access.",
+      "Tasklist child creation is sequential to preserve Cloudflare request budgets."
+    ]
+  },
+  "task.+get-related-tasks": {
+    "status": "implemented",
+    "flags": [
+      "include-complete",
+      "page-all",
+      "page-limit",
+      "page-token",
+      "created-by-me",
+      "followed-by-me"
+    ],
+    "evidence": [
+      "test/task-query.test.ts",
+      "test/task-write.test.ts",
+      "test/task-attachment.test.ts"
+    ],
+    "adaptations": [
+      "Hosted date-only and relative date calculations use UTC.",
+      "Multi-request operations return durable workflow handles.",
+      "Local attachment paths are grant-owned artifact IDs; optional name preserves filenames.",
+      "JSON input accepts inline objects instead of local file or stdin access.",
+      "Tasklist child creation is sequential to preserve Cloudflare request budgets."
+    ]
+  },
+  "task.+reminder": {
+    "status": "implemented",
+    "flags": [
+      "task-id",
+      "set",
+      "remove"
+    ],
+    "evidence": [
+      "test/task-query.test.ts",
+      "test/task-write.test.ts",
+      "test/task-attachment.test.ts"
+    ],
+    "adaptations": [
+      "Hosted date-only and relative date calculations use UTC.",
+      "Multi-request operations return durable workflow handles.",
+      "Local attachment paths are grant-owned artifact IDs; optional name preserves filenames.",
+      "JSON input accepts inline objects instead of local file or stdin access.",
+      "Tasklist child creation is sequential to preserve Cloudflare request budgets."
+    ]
+  },
+  "task.+reopen": {
+    "status": "implemented",
+    "flags": [
+      "task-id"
+    ],
+    "evidence": [
+      "test/task-query.test.ts",
+      "test/task-write.test.ts",
+      "test/task-attachment.test.ts"
+    ],
+    "adaptations": [
+      "Hosted date-only and relative date calculations use UTC.",
+      "Multi-request operations return durable workflow handles.",
+      "Local attachment paths are grant-owned artifact IDs; optional name preserves filenames.",
+      "JSON input accepts inline objects instead of local file or stdin access.",
+      "Tasklist child creation is sequential to preserve Cloudflare request budgets."
+    ]
+  },
+  "task.+search": {
+    "status": "implemented",
+    "flags": [
+      "query",
+      "page-all",
+      "page-limit",
+      "page-token",
+      "creator",
+      "assignee",
+      "completed",
+      "due",
+      "follower"
+    ],
+    "evidence": [
+      "test/task-query.test.ts",
+      "test/task-write.test.ts",
+      "test/task-attachment.test.ts"
+    ],
+    "adaptations": [
+      "Hosted date-only and relative date calculations use UTC.",
+      "Multi-request operations return durable workflow handles.",
+      "Local attachment paths are grant-owned artifact IDs; optional name preserves filenames.",
+      "JSON input accepts inline objects instead of local file or stdin access.",
+      "Tasklist child creation is sequential to preserve Cloudflare request budgets."
+    ]
+  },
+  "task.+set-ancestor": {
+    "status": "implemented",
+    "flags": [
+      "task-id",
+      "ancestor-id"
+    ],
+    "evidence": [
+      "test/task-query.test.ts",
+      "test/task-write.test.ts",
+      "test/task-attachment.test.ts"
+    ],
+    "adaptations": [
+      "Hosted date-only and relative date calculations use UTC.",
+      "Multi-request operations return durable workflow handles.",
+      "Local attachment paths are grant-owned artifact IDs; optional name preserves filenames.",
+      "JSON input accepts inline objects instead of local file or stdin access.",
+      "Tasklist child creation is sequential to preserve Cloudflare request budgets."
+    ]
+  },
+  "task.+tasklist-create": {
+    "status": "implemented",
+    "flags": [
+      "name",
+      "member",
+      "data"
+    ],
+    "evidence": [
+      "test/task-query.test.ts",
+      "test/task-write.test.ts",
+      "test/task-attachment.test.ts"
+    ],
+    "adaptations": [
+      "Hosted date-only and relative date calculations use UTC.",
+      "Multi-request operations return durable workflow handles.",
+      "Local attachment paths are grant-owned artifact IDs; optional name preserves filenames.",
+      "JSON input accepts inline objects instead of local file or stdin access.",
+      "Tasklist child creation is sequential to preserve Cloudflare request budgets."
+    ]
+  },
+  "task.+tasklist-members": {
+    "status": "implemented",
+    "flags": [
+      "tasklist-id",
+      "set",
+      "add",
+      "remove"
+    ],
+    "evidence": [
+      "test/task-query.test.ts",
+      "test/task-write.test.ts",
+      "test/task-attachment.test.ts"
+    ],
+    "adaptations": [
+      "Hosted date-only and relative date calculations use UTC.",
+      "Multi-request operations return durable workflow handles.",
+      "Local attachment paths are grant-owned artifact IDs; optional name preserves filenames.",
+      "JSON input accepts inline objects instead of local file or stdin access.",
+      "Tasklist child creation is sequential to preserve Cloudflare request budgets."
+    ]
+  },
+  "task.+tasklist-search": {
+    "status": "implemented",
+    "flags": [
+      "query",
+      "page-all",
+      "page-limit",
+      "page-token",
+      "creator",
+      "create-time"
+    ],
+    "evidence": [
+      "test/task-query.test.ts",
+      "test/task-write.test.ts",
+      "test/task-attachment.test.ts"
+    ],
+    "adaptations": [
+      "Hosted date-only and relative date calculations use UTC.",
+      "Multi-request operations return durable workflow handles.",
+      "Local attachment paths are grant-owned artifact IDs; optional name preserves filenames.",
+      "JSON input accepts inline objects instead of local file or stdin access.",
+      "Tasklist child creation is sequential to preserve Cloudflare request budgets."
+    ]
+  },
+  "task.+tasklist-task-add": {
+    "status": "implemented",
+    "flags": [
+      "tasklist-id",
+      "task-id",
+      "section-guid"
+    ],
+    "evidence": [
+      "test/task-query.test.ts",
+      "test/task-write.test.ts",
+      "test/task-attachment.test.ts"
+    ],
+    "adaptations": [
+      "Hosted date-only and relative date calculations use UTC.",
+      "Multi-request operations return durable workflow handles.",
+      "Local attachment paths are grant-owned artifact IDs; optional name preserves filenames.",
+      "JSON input accepts inline objects instead of local file or stdin access.",
+      "Tasklist child creation is sequential to preserve Cloudflare request budgets."
+    ]
+  },
+  "task.+update": {
+    "status": "implemented",
+    "flags": [
+      "task-id",
+      "summary",
+      "description",
+      "due",
+      "data"
+    ],
+    "evidence": [
+      "test/task-query.test.ts",
+      "test/task-write.test.ts",
+      "test/task-attachment.test.ts"
+    ],
+    "adaptations": [
+      "Hosted date-only and relative date calculations use UTC.",
+      "Multi-request operations return durable workflow handles.",
+      "Local attachment paths are grant-owned artifact IDs; optional name preserves filenames.",
+      "JSON input accepts inline objects instead of local file or stdin access.",
+      "Tasklist child creation is sequential to preserve Cloudflare request budgets."
+    ]
+  },
+  "task.+upload-attachment": {
+    "status": "implemented",
+    "flags": [
+      "resource-id",
+      "file",
+      "resource-type",
+      "user-id-type"
+    ],
+    "evidence": [
+      "test/task-query.test.ts",
+      "test/task-write.test.ts",
+      "test/task-attachment.test.ts"
+    ],
+    "adaptations": [
+      "Hosted date-only and relative date calculations use UTC.",
+      "Multi-request operations return durable workflow handles.",
+      "Local attachment paths are grant-owned artifact IDs; optional name preserves filenames.",
+      "JSON input accepts inline objects instead of local file or stdin access.",
+      "Tasklist child creation is sequential to preserve Cloudflare request budgets."
+    ]
+  },
+  "okr.+batch-create": {
+    "status": "implemented",
+    "flags": [
+      "cycle-id",
+      "input",
+      "category-id",
+      "user-id-type"
+    ],
+    "evidence": [
+      "test/okr-shortcuts.test.ts",
+      "test/okr-workflows.test.ts",
+      "test/okr-batch.test.ts",
+      "test/okr-image.test.ts"
+    ],
+    "adaptations": [
+      "JSON input accepts inline values instead of files and stdin.",
+      "Multi-request operations use durable workflow handles.",
+      "Local image paths are grant-owned artifacts with name specifying the image filename.",
+      "Definite batch failures return rollback and residual identifiers; uncertain writes stop without replay.",
+      "Timestamps use UTC in the hosted runtime."
+    ]
+  },
+  "okr.+comment-create": {
+    "status": "implemented",
+    "flags": [
+      "target-id",
+      "target-type",
+      "content",
+      "selected-text",
+      "select-all",
+      "ref-comment-id",
+      "user-id-type",
+      "style"
+    ],
+    "evidence": [
+      "test/okr-shortcuts.test.ts",
+      "test/okr-workflows.test.ts",
+      "test/okr-batch.test.ts",
+      "test/okr-image.test.ts"
+    ],
+    "adaptations": [
+      "JSON input accepts inline values instead of files and stdin.",
+      "Multi-request operations use durable workflow handles.",
+      "Local image paths are grant-owned artifacts with name specifying the image filename.",
+      "Definite batch failures return rollback and residual identifiers; uncertain writes stop without replay.",
+      "Timestamps use UTC in the hosted runtime."
+    ]
+  },
+  "okr.+comment-delete": {
+    "status": "implemented",
+    "flags": [
+      "comment-id"
+    ],
+    "evidence": [
+      "test/okr-shortcuts.test.ts",
+      "test/okr-workflows.test.ts",
+      "test/okr-batch.test.ts",
+      "test/okr-image.test.ts"
+    ],
+    "adaptations": [
+      "JSON input accepts inline values instead of files and stdin.",
+      "Multi-request operations use durable workflow handles.",
+      "Local image paths are grant-owned artifacts with name specifying the image filename.",
+      "Definite batch failures return rollback and residual identifiers; uncertain writes stop without replay.",
+      "Timestamps use UTC in the hosted runtime."
+    ]
+  },
+  "okr.+comment-detail": {
+    "status": "implemented",
+    "flags": [
+      "cycle-id",
+      "style"
+    ],
+    "evidence": [
+      "test/okr-shortcuts.test.ts",
+      "test/okr-workflows.test.ts",
+      "test/okr-batch.test.ts",
+      "test/okr-image.test.ts"
+    ],
+    "adaptations": [
+      "JSON input accepts inline values instead of files and stdin.",
+      "Multi-request operations use durable workflow handles.",
+      "Local image paths are grant-owned artifacts with name specifying the image filename.",
+      "Definite batch failures return rollback and residual identifiers; uncertain writes stop without replay.",
+      "Timestamps use UTC in the hosted runtime."
+    ]
+  },
+  "okr.+comment-get": {
+    "status": "implemented",
+    "flags": [
+      "comment-id",
+      "user-id-type",
+      "style"
+    ],
+    "evidence": [
+      "test/okr-shortcuts.test.ts",
+      "test/okr-workflows.test.ts",
+      "test/okr-batch.test.ts",
+      "test/okr-image.test.ts"
+    ],
+    "adaptations": [
+      "JSON input accepts inline values instead of files and stdin.",
+      "Multi-request operations use durable workflow handles.",
+      "Local image paths are grant-owned artifacts with name specifying the image filename.",
+      "Definite batch failures return rollback and residual identifiers; uncertain writes stop without replay.",
+      "Timestamps use UTC in the hosted runtime."
+    ]
+  },
+  "okr.+comment-list": {
+    "status": "implemented",
+    "flags": [
+      "target-id",
+      "target-type",
+      "page-size",
+      "page-token",
+      "user-id-type",
+      "style"
+    ],
+    "evidence": [
+      "test/okr-shortcuts.test.ts",
+      "test/okr-workflows.test.ts",
+      "test/okr-batch.test.ts",
+      "test/okr-image.test.ts"
+    ],
+    "adaptations": [
+      "JSON input accepts inline values instead of files and stdin.",
+      "Multi-request operations use durable workflow handles.",
+      "Local image paths are grant-owned artifacts with name specifying the image filename.",
+      "Definite batch failures return rollback and residual identifiers; uncertain writes stop without replay.",
+      "Timestamps use UTC in the hosted runtime."
+    ]
+  },
+  "okr.+comment-patch": {
+    "status": "implemented",
+    "flags": [
+      "comment-id",
+      "content",
+      "user-id-type",
+      "style"
+    ],
+    "evidence": [
+      "test/okr-shortcuts.test.ts",
+      "test/okr-workflows.test.ts",
+      "test/okr-batch.test.ts",
+      "test/okr-image.test.ts"
+    ],
+    "adaptations": [
+      "JSON input accepts inline values instead of files and stdin.",
+      "Multi-request operations use durable workflow handles.",
+      "Local image paths are grant-owned artifacts with name specifying the image filename.",
+      "Definite batch failures return rollback and residual identifiers; uncertain writes stop without replay.",
+      "Timestamps use UTC in the hosted runtime."
+    ]
+  },
+  "okr.+comment-reopen": {
+    "status": "implemented",
+    "flags": [
+      "comment-id",
+      "user-id-type",
+      "style"
+    ],
+    "evidence": [
+      "test/okr-shortcuts.test.ts",
+      "test/okr-workflows.test.ts",
+      "test/okr-batch.test.ts",
+      "test/okr-image.test.ts"
+    ],
+    "adaptations": [
+      "JSON input accepts inline values instead of files and stdin.",
+      "Multi-request operations use durable workflow handles.",
+      "Local image paths are grant-owned artifacts with name specifying the image filename.",
+      "Definite batch failures return rollback and residual identifiers; uncertain writes stop without replay.",
+      "Timestamps use UTC in the hosted runtime."
+    ]
+  },
+  "okr.+comment-solve": {
+    "status": "implemented",
+    "flags": [
+      "comment-id",
+      "user-id-type",
+      "style"
+    ],
+    "evidence": [
+      "test/okr-shortcuts.test.ts",
+      "test/okr-workflows.test.ts",
+      "test/okr-batch.test.ts",
+      "test/okr-image.test.ts"
+    ],
+    "adaptations": [
+      "JSON input accepts inline values instead of files and stdin.",
+      "Multi-request operations use durable workflow handles.",
+      "Local image paths are grant-owned artifacts with name specifying the image filename.",
+      "Definite batch failures return rollback and residual identifiers; uncertain writes stop without replay.",
+      "Timestamps use UTC in the hosted runtime."
+    ]
+  },
+  "okr.+create": {
+    "status": "implemented",
+    "flags": [
+      "level",
+      "cycle-id",
+      "objective-id",
+      "style",
+      "content",
+      "notes",
+      "category-id",
+      "user-id-type"
+    ],
+    "evidence": [
+      "test/okr-shortcuts.test.ts",
+      "test/okr-workflows.test.ts",
+      "test/okr-batch.test.ts",
+      "test/okr-image.test.ts"
+    ],
+    "adaptations": [
+      "JSON input accepts inline values instead of files and stdin.",
+      "Multi-request operations use durable workflow handles.",
+      "Local image paths are grant-owned artifacts with name specifying the image filename.",
+      "Definite batch failures return rollback and residual identifiers; uncertain writes stop without replay.",
+      "Timestamps use UTC in the hosted runtime."
+    ]
+  },
+  "okr.+cycle-detail": {
+    "status": "implemented",
+    "flags": [
+      "cycle-id",
+      "style"
+    ],
+    "evidence": [
+      "test/okr-shortcuts.test.ts",
+      "test/okr-workflows.test.ts",
+      "test/okr-batch.test.ts",
+      "test/okr-image.test.ts"
+    ],
+    "adaptations": [
+      "JSON input accepts inline values instead of files and stdin.",
+      "Multi-request operations use durable workflow handles.",
+      "Local image paths are grant-owned artifacts with name specifying the image filename.",
+      "Definite batch failures return rollback and residual identifiers; uncertain writes stop without replay.",
+      "Timestamps use UTC in the hosted runtime."
+    ]
+  },
+  "okr.+cycle-list": {
+    "status": "implemented",
+    "flags": [
+      "user-id",
+      "user-id-type",
+      "time-range",
+      "page-size",
+      "page-token"
+    ],
+    "evidence": [
+      "test/okr-shortcuts.test.ts",
+      "test/okr-workflows.test.ts",
+      "test/okr-batch.test.ts",
+      "test/okr-image.test.ts"
+    ],
+    "adaptations": [
+      "JSON input accepts inline values instead of files and stdin.",
+      "Multi-request operations use durable workflow handles.",
+      "Local image paths are grant-owned artifacts with name specifying the image filename.",
+      "Definite batch failures return rollback and residual identifiers; uncertain writes stop without replay.",
+      "Timestamps use UTC in the hosted runtime."
+    ]
+  },
+  "okr.+indicator-update": {
+    "status": "implemented",
+    "flags": [
+      "level",
+      "id",
+      "value"
+    ],
+    "evidence": [
+      "test/okr-shortcuts.test.ts",
+      "test/okr-workflows.test.ts",
+      "test/okr-batch.test.ts",
+      "test/okr-image.test.ts"
+    ],
+    "adaptations": [
+      "JSON input accepts inline values instead of files and stdin.",
+      "Multi-request operations use durable workflow handles.",
+      "Local image paths are grant-owned artifacts with name specifying the image filename.",
+      "Definite batch failures return rollback and residual identifiers; uncertain writes stop without replay.",
+      "Timestamps use UTC in the hosted runtime."
+    ]
+  },
+  "okr.+patch": {
+    "status": "implemented",
+    "flags": [
+      "level",
+      "target-id",
+      "style",
+      "content",
+      "notes",
+      "score",
+      "deadline",
+      "user-id-type"
+    ],
+    "evidence": [
+      "test/okr-shortcuts.test.ts",
+      "test/okr-workflows.test.ts",
+      "test/okr-batch.test.ts",
+      "test/okr-image.test.ts"
+    ],
+    "adaptations": [
+      "JSON input accepts inline values instead of files and stdin.",
+      "Multi-request operations use durable workflow handles.",
+      "Local image paths are grant-owned artifacts with name specifying the image filename.",
+      "Definite batch failures return rollback and residual identifiers; uncertain writes stop without replay.",
+      "Timestamps use UTC in the hosted runtime."
+    ]
+  },
+  "okr.+progress-create": {
+    "status": "implemented",
+    "flags": [
+      "content",
+      "target-id",
+      "target-type",
+      "progress-percent",
+      "progress-status",
+      "source-title",
+      "source-url",
+      "user-id-type",
+      "style"
+    ],
+    "evidence": [
+      "test/okr-shortcuts.test.ts",
+      "test/okr-workflows.test.ts",
+      "test/okr-batch.test.ts",
+      "test/okr-image.test.ts"
+    ],
+    "adaptations": [
+      "JSON input accepts inline values instead of files and stdin.",
+      "Multi-request operations use durable workflow handles.",
+      "Local image paths are grant-owned artifacts with name specifying the image filename.",
+      "Definite batch failures return rollback and residual identifiers; uncertain writes stop without replay.",
+      "Timestamps use UTC in the hosted runtime."
+    ]
+  },
+  "okr.+progress-delete": {
+    "status": "implemented",
+    "flags": [
+      "progress-id"
+    ],
+    "evidence": [
+      "test/okr-shortcuts.test.ts",
+      "test/okr-workflows.test.ts",
+      "test/okr-batch.test.ts",
+      "test/okr-image.test.ts"
+    ],
+    "adaptations": [
+      "JSON input accepts inline values instead of files and stdin.",
+      "Multi-request operations use durable workflow handles.",
+      "Local image paths are grant-owned artifacts with name specifying the image filename.",
+      "Definite batch failures return rollback and residual identifiers; uncertain writes stop without replay.",
+      "Timestamps use UTC in the hosted runtime."
+    ]
+  },
+  "okr.+progress-get": {
+    "status": "implemented",
+    "flags": [
+      "progress-id",
+      "user-id-type",
+      "style"
+    ],
+    "evidence": [
+      "test/okr-shortcuts.test.ts",
+      "test/okr-workflows.test.ts",
+      "test/okr-batch.test.ts",
+      "test/okr-image.test.ts"
+    ],
+    "adaptations": [
+      "JSON input accepts inline values instead of files and stdin.",
+      "Multi-request operations use durable workflow handles.",
+      "Local image paths are grant-owned artifacts with name specifying the image filename.",
+      "Definite batch failures return rollback and residual identifiers; uncertain writes stop without replay.",
+      "Timestamps use UTC in the hosted runtime."
+    ]
+  },
+  "okr.+progress-list": {
+    "status": "implemented",
+    "flags": [
+      "target-id",
+      "target-type",
+      "user-id-type",
+      "department-id-type",
+      "page-size",
+      "page-token"
+    ],
+    "evidence": [
+      "test/okr-shortcuts.test.ts",
+      "test/okr-workflows.test.ts",
+      "test/okr-batch.test.ts",
+      "test/okr-image.test.ts"
+    ],
+    "adaptations": [
+      "JSON input accepts inline values instead of files and stdin.",
+      "Multi-request operations use durable workflow handles.",
+      "Local image paths are grant-owned artifacts with name specifying the image filename.",
+      "Definite batch failures return rollback and residual identifiers; uncertain writes stop without replay.",
+      "Timestamps use UTC in the hosted runtime."
+    ]
+  },
+  "okr.+progress-update": {
+    "status": "implemented",
+    "flags": [
+      "progress-id",
+      "content",
+      "progress-percent",
+      "progress-status",
+      "user-id-type",
+      "style"
+    ],
+    "evidence": [
+      "test/okr-shortcuts.test.ts",
+      "test/okr-workflows.test.ts",
+      "test/okr-batch.test.ts",
+      "test/okr-image.test.ts"
+    ],
+    "adaptations": [
+      "JSON input accepts inline values instead of files and stdin.",
+      "Multi-request operations use durable workflow handles.",
+      "Local image paths are grant-owned artifacts with name specifying the image filename.",
+      "Definite batch failures return rollback and residual identifiers; uncertain writes stop without replay.",
+      "Timestamps use UTC in the hosted runtime."
+    ]
+  },
+  "okr.+reorder": {
+    "status": "implemented",
+    "flags": [
+      "level",
+      "cycle-id",
+      "objective-id",
+      "ops"
+    ],
+    "evidence": [
+      "test/okr-shortcuts.test.ts",
+      "test/okr-workflows.test.ts",
+      "test/okr-batch.test.ts",
+      "test/okr-image.test.ts"
+    ],
+    "adaptations": [
+      "JSON input accepts inline values instead of files and stdin.",
+      "Multi-request operations use durable workflow handles.",
+      "Local image paths are grant-owned artifacts with name specifying the image filename.",
+      "Definite batch failures return rollback and residual identifiers; uncertain writes stop without replay.",
+      "Timestamps use UTC in the hosted runtime."
+    ]
+  },
+  "okr.+upload-image": {
+    "status": "implemented",
+    "flags": [
+      "file",
+      "target-id",
+      "target-type"
+    ],
+    "evidence": [
+      "test/okr-shortcuts.test.ts",
+      "test/okr-workflows.test.ts",
+      "test/okr-batch.test.ts",
+      "test/okr-image.test.ts"
+    ],
+    "adaptations": [
+      "JSON input accepts inline values instead of files and stdin.",
+      "Multi-request operations use durable workflow handles.",
+      "Local image paths are grant-owned artifacts with name specifying the image filename.",
+      "Definite batch failures return rollback and residual identifiers; uncertain writes stop without replay.",
+      "Timestamps use UTC in the hosted runtime.",
+      "The hosted image endpoint has an explicit 20 MiB transport ceiling; this is a Cloudflare resource adaptation, not an upstream CLI limit."
+    ]
+  },
+  "okr.+weight": {
+    "status": "implemented",
+    "flags": [
+      "level",
+      "cycle-id",
+      "objective-id",
+      "weights"
+    ],
+    "evidence": [
+      "test/okr-shortcuts.test.ts",
+      "test/okr-workflows.test.ts",
+      "test/okr-batch.test.ts",
+      "test/okr-image.test.ts"
+    ],
+    "adaptations": [
+      "JSON input accepts inline values instead of files and stdin.",
+      "Multi-request operations use durable workflow handles.",
+      "Local image paths are grant-owned artifacts with name specifying the image filename.",
+      "Definite batch failures return rollback and residual identifiers; uncertain writes stop without replay.",
+      "Timestamps use UTC in the hosted runtime."
+    ]
+  }
+}

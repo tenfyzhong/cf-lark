@@ -46,6 +46,7 @@ web_modules/
 
 # TypeScript cache
 *.tsbuildinfo
+!*.d.ts
 
 # Optional npm cache directory
 .npm
@@ -147,3 +148,14 @@ vite.config.ts.timestamp-*
 
 # Turbo Repo
 .turbo
+
+.wrangler/
+.dev.vars*
+test-results/
+playwright-report/
+
+# Per-installation production configuration
+wrangler.production.jsonc
+wrangler.engine-docs.production.jsonc
+wrangler.engine-mail.production.jsonc
+deployment-secrets.production.json

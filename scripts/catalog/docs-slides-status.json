@@ -1,0 +1,578 @@
+{
+  "docs.+fetch": {
+    "status": "implemented",
+    "flags": [
+      "api-version",
+      "format",
+      "json",
+      "doc",
+      "doc-format",
+      "detail",
+      "lang",
+      "revision-id",
+      "scope",
+      "start-block-id",
+      "end-block-id",
+      "keyword",
+      "context-before",
+      "context-after",
+      "max-depth",
+      "offset",
+      "limit"
+    ],
+    "evidence": [
+      "test/docs-core.test.ts",
+      "test/docs-im-markdown.test.ts",
+      "test/docs-resources.test.ts",
+      "test/docs-parser.test.ts"
+    ],
+    "adaptations": [
+      "Local output paths become immutable grant-owned artifacts.",
+      "Terminal output formatting is returned as MCP JSON."
+    ]
+  },
+  "docs.+history-list": {
+    "status": "implemented",
+    "flags": [
+      "doc",
+      "page-size",
+      "page-token"
+    ],
+    "evidence": [
+      "test/docs-core.test.ts"
+    ],
+    "adaptations": [
+      "Local output paths become immutable grant-owned artifacts.",
+      "Terminal output formatting is returned as MCP JSON."
+    ]
+  },
+  "docs.+history-revert": {
+    "status": "implemented",
+    "flags": [
+      "doc",
+      "history-version-id",
+      "wait-timeout-ms"
+    ],
+    "evidence": [
+      "test/docs-core.test.ts"
+    ],
+    "adaptations": [
+      "Local output paths become immutable grant-owned artifacts.",
+      "Terminal output formatting is returned as MCP JSON."
+    ]
+  },
+  "docs.+history-revert-status": {
+    "status": "implemented",
+    "flags": [
+      "doc",
+      "task-id"
+    ],
+    "evidence": [
+      "test/docs-core.test.ts"
+    ],
+    "adaptations": [
+      "Local output paths become immutable grant-owned artifacts.",
+      "Terminal output formatting is returned as MCP JSON."
+    ]
+  },
+  "docs.+media-download": {
+    "status": "implemented",
+    "flags": [
+      "token",
+      "output",
+      "type",
+      "overwrite"
+    ],
+    "evidence": [
+      "test/docs-media.test.ts"
+    ],
+    "adaptations": [
+      "Local output paths become immutable grant-owned artifacts.",
+      "Terminal output formatting is returned as MCP JSON."
+    ]
+  },
+  "docs.+media-insert": {
+    "status": "implemented",
+    "flags": [
+      "file",
+      "from-clipboard",
+      "doc",
+      "type",
+      "align",
+      "caption",
+      "file-view",
+      "width",
+      "height"
+    ],
+    "evidence": [
+      "test/docs-authoring.test.ts",
+      "test/docs-image-metadata.test.ts"
+    ],
+    "adaptations": [
+      "Local output paths become immutable grant-owned artifacts.",
+      "Terminal output formatting is returned as MCP JSON."
+    ]
+  },
+  "docs.+media-preview": {
+    "status": "implemented",
+    "flags": [
+      "token",
+      "output",
+      "overwrite"
+    ],
+    "evidence": [
+      "test/docs-media.test.ts"
+    ],
+    "adaptations": [
+      "Local output paths become immutable grant-owned artifacts.",
+      "Terminal output formatting is returned as MCP JSON."
+    ]
+  },
+  "docs.+resource-delete": {
+    "status": "implemented",
+    "flags": [
+      "doc",
+      "type"
+    ],
+    "evidence": [
+      "test/docs-media.test.ts"
+    ],
+    "adaptations": [
+      "Local output paths become immutable grant-owned artifacts.",
+      "Terminal output formatting is returned as MCP JSON."
+    ]
+  },
+  "docs.+resource-download": {
+    "status": "implemented",
+    "flags": [
+      "doc",
+      "type",
+      "output",
+      "overwrite"
+    ],
+    "evidence": [
+      "test/docs-media.test.ts"
+    ],
+    "adaptations": [
+      "Local output paths become immutable grant-owned artifacts.",
+      "Terminal output formatting is returned as MCP JSON."
+    ]
+  },
+  "docs.+resource-update": {
+    "status": "implemented",
+    "flags": [
+      "doc",
+      "type",
+      "file",
+      "from-clipboard",
+      "url",
+      "offset-ratio-x",
+      "offset-ratio-y"
+    ],
+    "evidence": [
+      "test/docs-authoring.test.ts"
+    ],
+    "adaptations": [
+      "Local output paths become immutable grant-owned artifacts.",
+      "Terminal output formatting is returned as MCP JSON."
+    ]
+  },
+  "docs.+search": {
+    "status": "implemented",
+    "flags": [
+      "query",
+      "filter",
+      "page-token",
+      "page-size"
+    ],
+    "evidence": [
+      "test/docs-core.test.ts"
+    ],
+    "adaptations": [
+      "Local output paths become immutable grant-owned artifacts.",
+      "Terminal output formatting is returned as MCP JSON."
+    ]
+  },
+  "docs.+update": {
+    "status": "implemented",
+    "flags": [
+      "api-version",
+      "format",
+      "json",
+      "doc",
+      "command",
+      "doc-format",
+      "content",
+      "reference-map",
+      "pattern",
+      "block-id",
+      "start-block-id",
+      "end-block-id",
+      "src-block-ids",
+      "revision-id",
+      "mode",
+      "markdown",
+      "selection-with-ellipsis",
+      "selection-by-title",
+      "new-title"
+    ],
+    "evidence": [
+      "test/docs-core.test.ts",
+      "test/docs-writes.test.ts",
+      "test/docs-resources.test.ts",
+      "test/docs-slides-audit.test.ts"
+    ],
+    "adaptations": [
+      "Local output paths become immutable grant-owned artifacts.",
+      "Terminal output formatting is returned as MCP JSON.",
+      "Resource grammar and revision-aware binding reconciliation are covered by reusable fixtures."
+    ]
+  },
+  "docs.+whiteboard-update": {
+    "status": "implemented",
+    "flags": [
+      "idempotent-token",
+      "whiteboard-token",
+      "overwrite",
+      "source",
+      "input_format"
+    ],
+    "evidence": [
+      "test/whiteboard-shortcuts.test.ts"
+    ],
+    "adaptations": [
+      "Local output paths become immutable grant-owned artifacts.",
+      "Terminal output formatting is returned as MCP JSON."
+    ]
+  },
+  "slides.+add-slide": {
+    "status": "implemented",
+    "flags": [
+      "presentation",
+      "slide",
+      "before-slide-id",
+      "revision-id",
+      "no-lint"
+    ],
+    "evidence": [
+      "test/slides-mutations.test.ts",
+      "test/slides-workflows.test.ts"
+    ],
+    "adaptations": [
+      "Local output paths become immutable grant-owned artifacts.",
+      "Terminal output formatting is returned as MCP JSON."
+    ]
+  },
+  "slides.+create": {
+    "status": "implemented",
+    "flags": [
+      "title",
+      "slides",
+      "slide",
+      "no-lint"
+    ],
+    "evidence": [
+      "test/slides-workflows.test.ts"
+    ],
+    "adaptations": [
+      "Local output paths become immutable grant-owned artifacts.",
+      "Terminal output formatting is returned as MCP JSON."
+    ]
+  },
+  "slides.+delete-slide": {
+    "status": "implemented",
+    "flags": [
+      "presentation",
+      "slide-id",
+      "revision-id"
+    ],
+    "evidence": [
+      "test/slides-reads.test.ts"
+    ],
+    "adaptations": [
+      "Local output paths become immutable grant-owned artifacts.",
+      "Terminal output formatting is returned as MCP JSON."
+    ]
+  },
+  "slides.+history-list": {
+    "status": "implemented",
+    "flags": [
+      "presentation",
+      "page-size",
+      "page-token"
+    ],
+    "evidence": [
+      "test/slides-reads.test.ts"
+    ],
+    "adaptations": [
+      "Local output paths become immutable grant-owned artifacts.",
+      "Terminal output formatting is returned as MCP JSON."
+    ]
+  },
+  "slides.+history-revert": {
+    "status": "implemented",
+    "flags": [
+      "presentation",
+      "history-version-id"
+    ],
+    "evidence": [
+      "test/slides-reads.test.ts"
+    ],
+    "adaptations": [
+      "Local output paths become immutable grant-owned artifacts.",
+      "Terminal output formatting is returned as MCP JSON."
+    ]
+  },
+  "slides.+history-revert-status": {
+    "status": "implemented",
+    "flags": [
+      "presentation",
+      "task-id"
+    ],
+    "evidence": [
+      "test/slides-reads.test.ts"
+    ],
+    "adaptations": [
+      "Local output paths become immutable grant-owned artifacts.",
+      "Terminal output formatting is returned as MCP JSON."
+    ]
+  },
+  "slides.+media-download": {
+    "status": "implemented",
+    "flags": [
+      "file-token",
+      "output",
+      "output-dir"
+    ],
+    "evidence": [
+      "test/slides-images.test.ts"
+    ],
+    "adaptations": [
+      "Local output paths become immutable grant-owned artifacts.",
+      "Terminal output formatting is returned as MCP JSON."
+    ]
+  },
+  "slides.+media-upload": {
+    "status": "implemented",
+    "flags": [
+      "file",
+      "presentation"
+    ],
+    "evidence": [
+      "test/slides-workflows.test.ts"
+    ],
+    "adaptations": [
+      "Local output paths become immutable grant-owned artifacts.",
+      "Terminal output formatting is returned as MCP JSON."
+    ]
+  },
+  "slides.+replace-pages": {
+    "status": "implemented",
+    "flags": [
+      "presentation",
+      "pages",
+      "continue-on-error",
+      "validate-only",
+      "no-lint"
+    ],
+    "evidence": [
+      "test/slides-workflows.test.ts"
+    ],
+    "adaptations": [
+      "Local output paths become immutable grant-owned artifacts.",
+      "Terminal output formatting is returned as MCP JSON."
+    ]
+  },
+  "slides.+replace-slide": {
+    "status": "implemented",
+    "flags": [
+      "presentation",
+      "slide-id",
+      "parts",
+      "revision-id",
+      "tid",
+      "no-lint"
+    ],
+    "evidence": [
+      "test/slides-mutations.test.ts",
+      "test/slides-workflows.test.ts"
+    ],
+    "adaptations": [
+      "Local output paths become immutable grant-owned artifacts.",
+      "Terminal output formatting is returned as MCP JSON."
+    ]
+  },
+  "slides.+screenshot": {
+    "status": "implemented",
+    "flags": [
+      "presentation",
+      "slide-id",
+      "slide-number",
+      "slide",
+      "content",
+      "output",
+      "output-dir",
+      "output-name"
+    ],
+    "evidence": [
+      "test/slides-images.test.ts"
+    ],
+    "adaptations": [
+      "Local output paths become immutable grant-owned artifacts.",
+      "Terminal output formatting is returned as MCP JSON."
+    ]
+  },
+  "slides.+update": {
+    "status": "implemented",
+    "flags": [
+      "presentation",
+      "slide-id",
+      "content",
+      "revision-id",
+      "tid",
+      "no-lint"
+    ],
+    "evidence": [
+      "test/slides-mutations.test.ts",
+      "test/slides-workflows.test.ts"
+    ],
+    "adaptations": [
+      "Local output paths become immutable grant-owned artifacts.",
+      "Terminal output formatting is returned as MCP JSON."
+    ]
+  },
+  "slides.+update-slide": {
+    "status": "implemented",
+    "flags": [
+      "presentation",
+      "slide-id",
+      "content",
+      "revision-id",
+      "tid",
+      "no-lint"
+    ],
+    "evidence": [
+      "test/slides-mutations.test.ts",
+      "test/slides-workflows.test.ts"
+    ],
+    "adaptations": [
+      "Local output paths become immutable grant-owned artifacts.",
+      "Terminal output formatting is returned as MCP JSON."
+    ]
+  },
+  "slides.+xml-get": {
+    "status": "implemented",
+    "flags": [
+      "presentation",
+      "output",
+      "raw",
+      "slide-id",
+      "slide-number",
+      "revision-id",
+      "remove-attr-id"
+    ],
+    "evidence": [
+      "test/slides-reads.test.ts"
+    ],
+    "adaptations": [
+      "Local output paths become immutable grant-owned artifacts.",
+      "Terminal output formatting is returned as MCP JSON."
+    ]
+  },
+  "whiteboard.+export": {
+    "status": "implemented",
+    "flags": [
+      "whiteboard-token",
+      "output-type",
+      "output",
+      "overwrite"
+    ],
+    "evidence": [
+      "test/whiteboard-shortcuts.test.ts"
+    ],
+    "adaptations": [
+      "Local output paths become immutable grant-owned artifacts.",
+      "Terminal output formatting is returned as MCP JSON."
+    ]
+  },
+  "whiteboard.+query": {
+    "status": "implemented",
+    "flags": [
+      "whiteboard-token",
+      "output_as",
+      "output",
+      "overwrite"
+    ],
+    "evidence": [
+      "test/whiteboard-shortcuts.test.ts"
+    ],
+    "adaptations": [
+      "Local output paths become immutable grant-owned artifacts.",
+      "Terminal output formatting is returned as MCP JSON."
+    ]
+  },
+  "whiteboard.+update": {
+    "status": "implemented",
+    "flags": [
+      "idempotent-token",
+      "whiteboard-token",
+      "overwrite",
+      "source",
+      "input_format"
+    ],
+    "evidence": [
+      "test/whiteboard-shortcuts.test.ts"
+    ],
+    "adaptations": [
+      "Local output paths become immutable grant-owned artifacts.",
+      "Terminal output formatting is returned as MCP JSON."
+    ]
+  },
+  "docs.+create": {
+    "status": "implemented",
+    "flags": [
+      "api-version",
+      "format",
+      "json",
+      "title",
+      "content",
+      "reference-map",
+      "doc-format",
+      "parent-token",
+      "parent-position",
+      "markdown",
+      "folder-token",
+      "wiki-node",
+      "wiki-space"
+    ],
+    "evidence": [
+      "test/docs-writes.test.ts",
+      "test/docs-resources.test.ts",
+      "test/docs-slides-audit.test.ts"
+    ],
+    "adaptations": [
+      "File inputs use grant-owned artifact IDs; workflows resume async tasks and uploads without replaying completed writes.",
+      "Resource grammar and revision-aware binding reconciliation are covered by reusable fixtures."
+    ]
+  },
+  "docs.+script": {
+    "status": "implemented",
+    "flags": [
+      "command",
+      "content",
+      "doc",
+      "presentation-decision"
+    ],
+    "evidence": [
+      "test/docs-script.test.ts",
+      "test/docs-parser.test.ts",
+      "test/engine-runtime/docs-size.test.ts"
+    ],
+    "adaptations": [
+      "Private artifact workspace handles replace local draft directories.",
+      "The exact pinned parser runs in the private Docs engine Durable Object.",
+      "Remote preflight uses the bounded public HTTPS transport.",
+      "Free-tier profiling rejects more than 32,768 markup delimiters or 2 MiB markup before Go; accepted inputs preserve exact upstream profiles."
+    ]
+  }
+}

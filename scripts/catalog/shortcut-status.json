@@ -1,0 +1,197 @@
+{
+  "application.+slash-command-create": {
+    "status": "implemented",
+    "flags": [
+      "command",
+      "description",
+      "description-i18n",
+      "icon-key",
+      "force"
+    ],
+    "evidence": [
+      "test/application-shortcuts.test.ts",
+      "test/browser/domain-shortcuts.spec.ts"
+    ],
+    "adaptations": [
+      "JSON output replaces terminal-specific formatting."
+    ]
+  },
+  "application.+slash-command-delete": {
+    "status": "implemented",
+    "flags": [
+      "command-id",
+      "command"
+    ],
+    "evidence": [
+      "test/application-shortcuts.test.ts",
+      "test/browser/domain-shortcuts.spec.ts"
+    ],
+    "adaptations": [
+      "JSON output replaces terminal-specific formatting."
+    ]
+  },
+  "application.+slash-command-list": {
+    "status": "implemented",
+    "flags": [],
+    "evidence": [
+      "test/application-shortcuts.test.ts",
+      "test/browser/domain-shortcuts.spec.ts"
+    ],
+    "adaptations": [
+      "JSON output replaces terminal-specific formatting."
+    ]
+  },
+  "application.+slash-command-update": {
+    "status": "implemented",
+    "flags": [
+      "command-id",
+      "command",
+      "description",
+      "description-i18n",
+      "icon-key"
+    ],
+    "evidence": [
+      "test/application-shortcuts.test.ts",
+      "test/browser/domain-shortcuts.spec.ts"
+    ],
+    "adaptations": [
+      "JSON output replaces terminal-specific formatting."
+    ]
+  },
+  "contact.+get-user": {
+    "status": "implemented",
+    "flags": [
+      "user-id",
+      "user-id-type"
+    ],
+    "evidence": [
+      "test/contact-shortcuts.test.ts",
+      "test/contact-search.test.ts",
+      "test/contact-bot-search.test.ts",
+      "test/browser/domain-shortcuts.spec.ts"
+    ],
+    "adaptations": [
+      "JSON output replaces terminal-specific formatting."
+    ]
+  },
+  "contact.+search-bot": {
+    "status": "implemented",
+    "flags": [
+      "query",
+      "chat-ids",
+      "has-chatted",
+      "page-size",
+      "queries"
+    ],
+    "evidence": [
+      "test/contact-shortcuts.test.ts",
+      "test/contact-search.test.ts",
+      "test/contact-bot-search.test.ts",
+      "test/browser/domain-shortcuts.spec.ts"
+    ],
+    "adaptations": [
+      "JSON output replaces terminal-specific formatting."
+    ]
+  },
+  "contact.+search-user": {
+    "status": "implemented",
+    "flags": [
+      "query",
+      "user-ids",
+      "has-chatted",
+      "has-enterprise-email",
+      "exclude-external-users",
+      "left-organization",
+      "lang",
+      "page-size",
+      "queries"
+    ],
+    "evidence": [
+      "test/contact-shortcuts.test.ts",
+      "test/contact-search.test.ts",
+      "test/contact-bot-search.test.ts",
+      "test/browser/domain-shortcuts.spec.ts"
+    ],
+    "adaptations": [
+      "JSON output replaces terminal-specific formatting."
+    ]
+  },
+  "note.+detail": {
+    "status": "implemented",
+    "flags": [
+      "note-id"
+    ],
+    "evidence": [
+      "test/note-detail.test.ts"
+    ],
+    "adaptations": [
+      "Creation timestamps use UTC in the cloud runtime."
+    ]
+  },
+  "drive.+upload": {
+    "status": "implemented",
+    "flags": [
+      "file",
+      "file-token",
+      "folder-token",
+      "wiki-token",
+      "name"
+    ],
+    "evidence": [
+      "test/upload-workflow.test.ts",
+      "test/artifact-upload-sessions.test.ts",
+      "test/artifact-upload-http.test.ts",
+      "test/artifact-upload-r2.test.ts",
+      "test/runtime/artifact-uploads.test.ts",
+      "test/runtime/domain-mcp.test.ts",
+      "test/browser/files.spec.ts"
+    ],
+    "adaptations": [
+      "Local file paths become grant-owned artifacts with resumable R2 ingress under the shared 2 GB quota; name preserves the original filename when needed.",
+      "Upload steps use at most 20 MiB per part and checkpoint each effect; uncertain writes are not replayed.",
+      "Root, folder, Wiki and overwrite destinations are preserved; bot auto-grant selects only one unambiguous authorized account and never changes overwrite permissions."
+    ]
+  },
+  "docs.+media-upload": {
+    "status": "implemented",
+    "flags": [
+      "file",
+      "parent-type",
+      "parent-node",
+      "doc-id"
+    ],
+    "evidence": [
+      "test/upload-workflow.test.ts",
+      "test/artifact-upload-sessions.test.ts",
+      "test/artifact-upload-http.test.ts",
+      "test/artifact-upload-r2.test.ts",
+      "test/runtime/artifact-uploads.test.ts",
+      "test/runtime/domain-mcp.test.ts",
+      "test/browser/files.spec.ts"
+    ],
+    "adaptations": [
+      "Local file paths become grant-owned artifacts with resumable R2 ingress under the shared 2 GB quota; name preserves the original filename when needed.",
+      "Upload steps use at most 20 MiB per part and checkpoint each effect; uncertain writes are not replayed.",
+      "Office Word token variants select office_docx_file; routing metadata and single or multipart media upload branches are preserved."
+    ]
+  },
+  "note.+transcript": {
+    "status": "implemented",
+    "flags": [
+      "note-id",
+      "transcript-format",
+      "locale",
+      "output",
+      "overwrite"
+    ],
+    "evidence": [
+      "test/note-transcript.test.ts"
+    ],
+    "adaptations": [
+      "Durable workflow fetches one page per resume with the pinned 100 ms inter-page cadence and a 500-page maximum.",
+      "Local output paths become grant-owned private artifacts; output is a safe relative filename and overwrite cannot replace another immutable artifact.",
+      "Artifact read/write and workflow consent are required; temporary page and merge artifacts share the aggregate 2 GB quota.",
+      "Locale defaults to the selected brand; explicit locale replaces the CLI-only profile-language preference."
+    ]
+  }
+}

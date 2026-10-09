@@ -1,0 +1,1766 @@
+{
+  "base.+table-list": {
+    "status": "implemented",
+    "flags": [
+      "base-token",
+      "offset",
+      "limit"
+    ],
+    "evidence": [
+      "test/base-core.test.ts",
+      "test/base-workflows.test.ts"
+    ],
+    "adaptations": [
+      "Private artifact IDs replace local file paths. Durable workflows checkpoint multi-request operations. MCP grants replace CLI confirmation prompts."
+    ]
+  },
+  "base.+table-delete": {
+    "status": "implemented",
+    "flags": [
+      "base-token",
+      "table-id"
+    ],
+    "evidence": [
+      "test/base-core.test.ts",
+      "test/base-workflows.test.ts"
+    ],
+    "adaptations": [
+      "Private artifact IDs replace local file paths. Durable workflows checkpoint multi-request operations. MCP grants replace CLI confirmation prompts."
+    ]
+  },
+  "base.+field-list": {
+    "status": "implemented",
+    "flags": [
+      "base-token",
+      "table-id",
+      "offset",
+      "limit"
+    ],
+    "evidence": [
+      "test/base-core.test.ts",
+      "test/base-workflows.test.ts"
+    ],
+    "adaptations": [
+      "Private artifact IDs replace local file paths. Durable workflows checkpoint multi-request operations. MCP grants replace CLI confirmation prompts."
+    ]
+  },
+  "base.+field-get": {
+    "status": "implemented",
+    "flags": [
+      "base-token",
+      "table-id",
+      "field-id"
+    ],
+    "evidence": [
+      "test/base-core.test.ts",
+      "test/base-workflows.test.ts"
+    ],
+    "adaptations": [
+      "Private artifact IDs replace local file paths. Durable workflows checkpoint multi-request operations. MCP grants replace CLI confirmation prompts."
+    ]
+  },
+  "base.+field-delete": {
+    "status": "implemented",
+    "flags": [
+      "base-token",
+      "table-id",
+      "field-id"
+    ],
+    "evidence": [
+      "test/base-core.test.ts",
+      "test/base-workflows.test.ts"
+    ],
+    "adaptations": [
+      "Private artifact IDs replace local file paths. Durable workflows checkpoint multi-request operations. MCP grants replace CLI confirmation prompts."
+    ]
+  },
+  "base.+view-list": {
+    "status": "implemented",
+    "flags": [
+      "base-token",
+      "table-id",
+      "offset",
+      "limit"
+    ],
+    "evidence": [
+      "test/base-core.test.ts",
+      "test/base-workflows.test.ts"
+    ],
+    "adaptations": [
+      "Private artifact IDs replace local file paths. Durable workflows checkpoint multi-request operations. MCP grants replace CLI confirmation prompts."
+    ]
+  },
+  "base.+view-get": {
+    "status": "implemented",
+    "flags": [
+      "base-token",
+      "table-id",
+      "view-id"
+    ],
+    "evidence": [
+      "test/base-core.test.ts",
+      "test/base-workflows.test.ts"
+    ],
+    "adaptations": [
+      "Private artifact IDs replace local file paths. Durable workflows checkpoint multi-request operations. MCP grants replace CLI confirmation prompts."
+    ]
+  },
+  "base.+view-delete": {
+    "status": "implemented",
+    "flags": [
+      "base-token",
+      "table-id",
+      "view-id"
+    ],
+    "evidence": [
+      "test/base-core.test.ts",
+      "test/base-workflows.test.ts"
+    ],
+    "adaptations": [
+      "Private artifact IDs replace local file paths. Durable workflows checkpoint multi-request operations. MCP grants replace CLI confirmation prompts."
+    ]
+  },
+  "base.+table-update": {
+    "status": "implemented",
+    "flags": [
+      "base-token",
+      "table-id",
+      "name"
+    ],
+    "evidence": [
+      "test/base-core.test.ts",
+      "test/base-workflows.test.ts"
+    ],
+    "adaptations": [
+      "Private artifact IDs replace local file paths. Durable workflows checkpoint multi-request operations. MCP grants replace CLI confirmation prompts."
+    ]
+  },
+  "base.+view-rename": {
+    "status": "implemented",
+    "flags": [
+      "base-token",
+      "table-id",
+      "view-id",
+      "name"
+    ],
+    "evidence": [
+      "test/base-core.test.ts",
+      "test/base-workflows.test.ts"
+    ],
+    "adaptations": [
+      "Private artifact IDs replace local file paths. Durable workflows checkpoint multi-request operations. MCP grants replace CLI confirmation prompts."
+    ]
+  },
+  "base.+view-get-filter": {
+    "status": "implemented",
+    "flags": [
+      "base-token",
+      "table-id",
+      "view-id"
+    ],
+    "evidence": [
+      "test/base-core.test.ts",
+      "test/base-workflows.test.ts"
+    ],
+    "adaptations": [
+      "Private artifact IDs replace local file paths. Durable workflows checkpoint multi-request operations. MCP grants replace CLI confirmation prompts."
+    ]
+  },
+  "base.+view-set-filter": {
+    "status": "implemented",
+    "flags": [
+      "base-token",
+      "table-id",
+      "view-id",
+      "json"
+    ],
+    "evidence": [
+      "test/base-core.test.ts",
+      "test/base-workflows.test.ts"
+    ],
+    "adaptations": [
+      "Private artifact IDs replace local file paths. Durable workflows checkpoint multi-request operations. MCP grants replace CLI confirmation prompts."
+    ]
+  },
+  "base.+view-get-visible-fields": {
+    "status": "implemented",
+    "flags": [
+      "base-token",
+      "table-id",
+      "view-id"
+    ],
+    "evidence": [
+      "test/base-core.test.ts",
+      "test/base-workflows.test.ts"
+    ],
+    "adaptations": [
+      "Private artifact IDs replace local file paths. Durable workflows checkpoint multi-request operations. MCP grants replace CLI confirmation prompts."
+    ]
+  },
+  "base.+view-set-visible-fields": {
+    "status": "implemented",
+    "flags": [
+      "base-token",
+      "table-id",
+      "view-id",
+      "json"
+    ],
+    "evidence": [
+      "test/base-core.test.ts",
+      "test/base-workflows.test.ts"
+    ],
+    "adaptations": [
+      "Private artifact IDs replace local file paths. Durable workflows checkpoint multi-request operations. MCP grants replace CLI confirmation prompts."
+    ]
+  },
+  "base.+view-get-group": {
+    "status": "implemented",
+    "flags": [
+      "base-token",
+      "table-id",
+      "view-id"
+    ],
+    "evidence": [
+      "test/base-core.test.ts",
+      "test/base-workflows.test.ts"
+    ],
+    "adaptations": [
+      "Private artifact IDs replace local file paths. Durable workflows checkpoint multi-request operations. MCP grants replace CLI confirmation prompts."
+    ]
+  },
+  "base.+view-set-group": {
+    "status": "implemented",
+    "flags": [
+      "base-token",
+      "table-id",
+      "view-id",
+      "json"
+    ],
+    "evidence": [
+      "test/base-core.test.ts",
+      "test/base-workflows.test.ts"
+    ],
+    "adaptations": [
+      "Private artifact IDs replace local file paths. Durable workflows checkpoint multi-request operations. MCP grants replace CLI confirmation prompts."
+    ]
+  },
+  "base.+view-get-sort": {
+    "status": "implemented",
+    "flags": [
+      "base-token",
+      "table-id",
+      "view-id"
+    ],
+    "evidence": [
+      "test/base-core.test.ts",
+      "test/base-workflows.test.ts"
+    ],
+    "adaptations": [
+      "Private artifact IDs replace local file paths. Durable workflows checkpoint multi-request operations. MCP grants replace CLI confirmation prompts."
+    ]
+  },
+  "base.+view-set-sort": {
+    "status": "implemented",
+    "flags": [
+      "base-token",
+      "table-id",
+      "view-id",
+      "json"
+    ],
+    "evidence": [
+      "test/base-core.test.ts",
+      "test/base-workflows.test.ts"
+    ],
+    "adaptations": [
+      "Private artifact IDs replace local file paths. Durable workflows checkpoint multi-request operations. MCP grants replace CLI confirmation prompts."
+    ]
+  },
+  "base.+view-get-timebar": {
+    "status": "implemented",
+    "flags": [
+      "base-token",
+      "table-id",
+      "view-id"
+    ],
+    "evidence": [
+      "test/base-core.test.ts",
+      "test/base-workflows.test.ts"
+    ],
+    "adaptations": [
+      "Private artifact IDs replace local file paths. Durable workflows checkpoint multi-request operations. MCP grants replace CLI confirmation prompts."
+    ]
+  },
+  "base.+view-set-timebar": {
+    "status": "implemented",
+    "flags": [
+      "base-token",
+      "table-id",
+      "view-id",
+      "json"
+    ],
+    "evidence": [
+      "test/base-core.test.ts",
+      "test/base-workflows.test.ts"
+    ],
+    "adaptations": [
+      "Private artifact IDs replace local file paths. Durable workflows checkpoint multi-request operations. MCP grants replace CLI confirmation prompts."
+    ]
+  },
+  "base.+view-get-card": {
+    "status": "implemented",
+    "flags": [
+      "base-token",
+      "table-id",
+      "view-id"
+    ],
+    "evidence": [
+      "test/base-core.test.ts",
+      "test/base-workflows.test.ts"
+    ],
+    "adaptations": [
+      "Private artifact IDs replace local file paths. Durable workflows checkpoint multi-request operations. MCP grants replace CLI confirmation prompts."
+    ]
+  },
+  "base.+view-set-card": {
+    "status": "implemented",
+    "flags": [
+      "base-token",
+      "table-id",
+      "view-id",
+      "json"
+    ],
+    "evidence": [
+      "test/base-core.test.ts",
+      "test/base-workflows.test.ts"
+    ],
+    "adaptations": [
+      "Private artifact IDs replace local file paths. Durable workflows checkpoint multi-request operations. MCP grants replace CLI confirmation prompts."
+    ]
+  },
+  "base.+field-search-options": {
+    "status": "implemented",
+    "flags": [
+      "base-token",
+      "table-id",
+      "field-id",
+      "keyword",
+      "offset",
+      "limit"
+    ],
+    "evidence": [
+      "test/base-core.test.ts",
+      "test/base-workflows.test.ts"
+    ],
+    "adaptations": [
+      "Private artifact IDs replace local file paths. Durable workflows checkpoint multi-request operations. MCP grants replace CLI confirmation prompts."
+    ]
+  },
+  "base.+role-create": {
+    "status": "implemented",
+    "flags": [
+      "base-token",
+      "json"
+    ],
+    "evidence": [
+      "test/base-core.test.ts",
+      "test/base-permissions.test.ts"
+    ],
+    "adaptations": [
+      "Private artifact IDs replace local file paths. Durable workflows checkpoint multi-request operations. MCP grants replace CLI confirmation prompts."
+    ]
+  },
+  "base.+role-update": {
+    "status": "implemented",
+    "flags": [
+      "base-token",
+      "role-id",
+      "json"
+    ],
+    "evidence": [
+      "test/base-core.test.ts",
+      "test/base-permissions.test.ts"
+    ],
+    "adaptations": [
+      "Private artifact IDs replace local file paths. Durable workflows checkpoint multi-request operations. MCP grants replace CLI confirmation prompts."
+    ]
+  },
+  "base.+role-get": {
+    "status": "implemented",
+    "flags": [
+      "base-token",
+      "role-id"
+    ],
+    "evidence": [
+      "test/base-core.test.ts",
+      "test/base-permissions.test.ts"
+    ],
+    "adaptations": [
+      "Private artifact IDs replace local file paths. Durable workflows checkpoint multi-request operations. MCP grants replace CLI confirmation prompts."
+    ]
+  },
+  "base.+role-list": {
+    "status": "implemented",
+    "flags": [
+      "base-token"
+    ],
+    "evidence": [
+      "test/base-core.test.ts",
+      "test/base-permissions.test.ts"
+    ],
+    "adaptations": [
+      "Private artifact IDs replace local file paths. Durable workflows checkpoint multi-request operations. MCP grants replace CLI confirmation prompts."
+    ]
+  },
+  "base.+role-delete": {
+    "status": "implemented",
+    "flags": [
+      "base-token",
+      "role-id"
+    ],
+    "evidence": [
+      "test/base-core.test.ts",
+      "test/base-permissions.test.ts"
+    ],
+    "adaptations": [
+      "Private artifact IDs replace local file paths. Durable workflows checkpoint multi-request operations. MCP grants replace CLI confirmation prompts."
+    ]
+  },
+  "base.+advperm-enable": {
+    "status": "implemented",
+    "flags": [
+      "base-token"
+    ],
+    "evidence": [
+      "test/base-core.test.ts",
+      "test/base-permissions.test.ts"
+    ],
+    "adaptations": [
+      "Private artifact IDs replace local file paths. Durable workflows checkpoint multi-request operations. MCP grants replace CLI confirmation prompts."
+    ]
+  },
+  "base.+advperm-disable": {
+    "status": "implemented",
+    "flags": [
+      "base-token"
+    ],
+    "evidence": [
+      "test/base-core.test.ts",
+      "test/base-permissions.test.ts"
+    ],
+    "adaptations": [
+      "Private artifact IDs replace local file paths. Durable workflows checkpoint multi-request operations. MCP grants replace CLI confirmation prompts."
+    ]
+  },
+  "base.+workflow-get": {
+    "status": "implemented",
+    "flags": [
+      "base-token",
+      "workflow-id",
+      "user-id-type"
+    ],
+    "evidence": [
+      "test/base-core.test.ts",
+      "test/base-permissions.test.ts"
+    ],
+    "adaptations": [
+      "Private artifact IDs replace local file paths. Durable workflows checkpoint multi-request operations. MCP grants replace CLI confirmation prompts."
+    ]
+  },
+  "base.+workflow-enable": {
+    "status": "implemented",
+    "flags": [
+      "base-token",
+      "workflow-id"
+    ],
+    "evidence": [
+      "test/base-core.test.ts",
+      "test/base-permissions.test.ts"
+    ],
+    "adaptations": [
+      "Private artifact IDs replace local file paths. Durable workflows checkpoint multi-request operations. MCP grants replace CLI confirmation prompts."
+    ]
+  },
+  "base.+workflow-disable": {
+    "status": "implemented",
+    "flags": [
+      "base-token",
+      "workflow-id"
+    ],
+    "evidence": [
+      "test/base-core.test.ts",
+      "test/base-permissions.test.ts"
+    ],
+    "adaptations": [
+      "Private artifact IDs replace local file paths. Durable workflows checkpoint multi-request operations. MCP grants replace CLI confirmation prompts."
+    ]
+  },
+  "base.+base-block-list": {
+    "status": "implemented",
+    "flags": [
+      "base-token",
+      "type",
+      "parent-id"
+    ],
+    "evidence": [
+      "test/base-core.test.ts",
+      "test/base-directory.test.ts"
+    ],
+    "adaptations": [
+      "Private artifact IDs replace local file paths. Durable workflows checkpoint multi-request operations. MCP grants replace CLI confirmation prompts."
+    ]
+  },
+  "base.+base-block-create": {
+    "status": "implemented",
+    "flags": [
+      "base-token",
+      "type",
+      "name",
+      "parent-id"
+    ],
+    "evidence": [
+      "test/base-core.test.ts",
+      "test/base-block-config.test.ts",
+      "test/base-directory.test.ts"
+    ],
+    "adaptations": [
+      "Private artifact IDs replace local file paths. Durable workflows checkpoint multi-request operations. MCP grants replace CLI confirmation prompts."
+    ]
+  },
+  "base.+base-block-move": {
+    "status": "implemented",
+    "flags": [
+      "base-token",
+      "block-id",
+      "parent-id",
+      "before-id",
+      "after-id"
+    ],
+    "evidence": [
+      "test/base-core.test.ts",
+      "test/base-directory.test.ts"
+    ],
+    "adaptations": [
+      "Private artifact IDs replace local file paths. Durable workflows checkpoint multi-request operations. MCP grants replace CLI confirmation prompts."
+    ]
+  },
+  "base.+base-block-rename": {
+    "status": "implemented",
+    "flags": [
+      "base-token",
+      "block-id",
+      "name"
+    ],
+    "evidence": [
+      "test/base-core.test.ts",
+      "test/base-directory.test.ts"
+    ],
+    "adaptations": [
+      "Private artifact IDs replace local file paths. Durable workflows checkpoint multi-request operations. MCP grants replace CLI confirmation prompts."
+    ]
+  },
+  "base.+base-block-delete": {
+    "status": "implemented",
+    "flags": [
+      "base-token",
+      "block-id"
+    ],
+    "evidence": [
+      "test/base-core.test.ts",
+      "test/base-directory.test.ts"
+    ],
+    "adaptations": [
+      "Private artifact IDs replace local file paths. Durable workflows checkpoint multi-request operations. MCP grants replace CLI confirmation prompts."
+    ]
+  },
+  "base.+template-categories": {
+    "status": "implemented",
+    "flags": [],
+    "evidence": [
+      "test/base-core.test.ts",
+      "test/base-directory.test.ts"
+    ],
+    "adaptations": [
+      "Private artifact IDs replace local file paths. Durable workflows checkpoint multi-request operations. MCP grants replace CLI confirmation prompts."
+    ]
+  },
+  "base.+template-list": {
+    "status": "implemented",
+    "flags": [
+      "category-key",
+      "limit",
+      "offset"
+    ],
+    "evidence": [
+      "test/base-core.test.ts",
+      "test/base-directory.test.ts"
+    ],
+    "adaptations": [
+      "Private artifact IDs replace local file paths. Durable workflows checkpoint multi-request operations. MCP grants replace CLI confirmation prompts."
+    ]
+  },
+  "base.+template-search": {
+    "status": "implemented",
+    "flags": [
+      "keyword",
+      "limit",
+      "offset"
+    ],
+    "evidence": [
+      "test/base-core.test.ts",
+      "test/base-directory.test.ts"
+    ],
+    "adaptations": [
+      "Private artifact IDs replace local file paths. Durable workflows checkpoint multi-request operations. MCP grants replace CLI confirmation prompts."
+    ]
+  },
+  "base.+workspace-create": {
+    "status": "implemented",
+    "flags": [
+      "name"
+    ],
+    "evidence": [
+      "test/base-core.test.ts",
+      "test/base-app.test.ts"
+    ],
+    "adaptations": [
+      "Private artifact IDs replace local file paths. Durable workflows checkpoint multi-request operations. MCP grants replace CLI confirmation prompts."
+    ]
+  },
+  "base.+workspace-entity-list": {
+    "status": "implemented",
+    "flags": [
+      "workspace-token",
+      "type",
+      "page-size",
+      "page-token"
+    ],
+    "evidence": [
+      "test/base-core.test.ts",
+      "test/base-app.test.ts"
+    ],
+    "adaptations": [
+      "Private artifact IDs replace local file paths. Durable workflows checkpoint multi-request operations. MCP grants replace CLI confirmation prompts."
+    ]
+  },
+  "base.+workspace-move-in": {
+    "status": "implemented",
+    "flags": [
+      "workspace-token",
+      "entity-token"
+    ],
+    "evidence": [
+      "test/base-core.test.ts",
+      "test/base-app.test.ts"
+    ],
+    "adaptations": [
+      "Private artifact IDs replace local file paths. Durable workflows checkpoint multi-request operations. MCP grants replace CLI confirmation prompts."
+    ]
+  },
+  "base.+app-create": {
+    "status": "implemented",
+    "flags": [
+      "name",
+      "workspace-token",
+      "theme-style"
+    ],
+    "evidence": [
+      "test/base-core.test.ts",
+      "test/base-app.test.ts"
+    ],
+    "adaptations": [
+      "Private artifact IDs replace local file paths. Durable workflows checkpoint multi-request operations. MCP grants replace CLI confirmation prompts."
+    ]
+  },
+  "base.+app-get": {
+    "status": "implemented",
+    "flags": [
+      "app-token"
+    ],
+    "evidence": [
+      "test/base-core.test.ts",
+      "test/base-app.test.ts"
+    ],
+    "adaptations": [
+      "Private artifact IDs replace local file paths. Durable workflows checkpoint multi-request operations. MCP grants replace CLI confirmation prompts."
+    ]
+  },
+  "base.+app-page-get": {
+    "status": "implemented",
+    "flags": [
+      "app-token",
+      "page-id"
+    ],
+    "evidence": [
+      "test/base-core.test.ts",
+      "test/base-app.test.ts"
+    ],
+    "adaptations": [
+      "Private artifact IDs replace local file paths. Durable workflows checkpoint multi-request operations. MCP grants replace CLI confirmation prompts."
+    ]
+  },
+  "base.+app-page-list": {
+    "status": "implemented",
+    "flags": [
+      "app-token",
+      "page-size",
+      "page-token"
+    ],
+    "evidence": [
+      "test/base-core.test.ts",
+      "test/base-app.test.ts"
+    ],
+    "adaptations": [
+      "Private artifact IDs replace local file paths. Durable workflows checkpoint multi-request operations. MCP grants replace CLI confirmation prompts."
+    ]
+  },
+  "base.+app-page-delete": {
+    "status": "implemented",
+    "flags": [
+      "app-token",
+      "page-id"
+    ],
+    "evidence": [
+      "test/base-core.test.ts",
+      "test/base-app.test.ts"
+    ],
+    "adaptations": [
+      "Private artifact IDs replace local file paths. Durable workflows checkpoint multi-request operations. MCP grants replace CLI confirmation prompts."
+    ]
+  },
+  "base.+app-block-get": {
+    "status": "implemented",
+    "flags": [
+      "app-token",
+      "page-id",
+      "block-id"
+    ],
+    "evidence": [
+      "test/base-core.test.ts",
+      "test/base-app.test.ts"
+    ],
+    "adaptations": [
+      "Private artifact IDs replace local file paths. Durable workflows checkpoint multi-request operations. MCP grants replace CLI confirmation prompts."
+    ]
+  },
+  "base.+app-block-list": {
+    "status": "implemented",
+    "flags": [
+      "app-token",
+      "page-id",
+      "page-size",
+      "page-token"
+    ],
+    "evidence": [
+      "test/base-core.test.ts",
+      "test/base-app.test.ts"
+    ],
+    "adaptations": [
+      "Private artifact IDs replace local file paths. Durable workflows checkpoint multi-request operations. MCP grants replace CLI confirmation prompts."
+    ]
+  },
+  "base.+url-resolve": {
+    "status": "implemented",
+    "flags": [
+      "url"
+    ],
+    "evidence": [
+      "test/base-core.test.ts",
+      "test/base-url.test.ts"
+    ],
+    "adaptations": [
+      "Private artifact IDs replace local file paths. Durable workflows checkpoint multi-request operations. MCP grants replace CLI confirmation prompts."
+    ]
+  },
+  "base.+base-copy": {
+    "status": "implemented",
+    "flags": [
+      "base-token",
+      "name",
+      "folder-token",
+      "without-content",
+      "time-zone"
+    ],
+    "evidence": [
+      "test/base-core.test.ts",
+      "test/base-create.test.ts"
+    ],
+    "adaptations": [
+      "Private artifact IDs replace local file paths. Durable workflows checkpoint multi-request operations. MCP grants replace CLI confirmation prompts."
+    ]
+  },
+  "base.+base-create": {
+    "status": "implemented",
+    "flags": [
+      "name",
+      "folder-token",
+      "time-zone",
+      "fields",
+      "table-name"
+    ],
+    "evidence": [
+      "test/base-core.test.ts",
+      "test/base-create.test.ts"
+    ],
+    "adaptations": [
+      "Private artifact IDs replace local file paths. Durable workflows checkpoint multi-request operations. MCP grants replace CLI confirmation prompts."
+    ]
+  },
+  "base.+table-copy": {
+    "status": "implemented",
+    "flags": [
+      "base-token",
+      "table-id",
+      "name",
+      "range",
+      "wait"
+    ],
+    "evidence": [
+      "test/base-core.test.ts",
+      "test/base-copy.test.ts"
+    ],
+    "adaptations": [
+      "Private artifact IDs replace local file paths. Durable workflows checkpoint multi-request operations. MCP grants replace CLI confirmation prompts."
+    ]
+  },
+  "base.+field-create": {
+    "status": "implemented",
+    "flags": [
+      "base-token",
+      "table-id",
+      "json",
+      "i-have-read-guide"
+    ],
+    "evidence": [
+      "test/base-core.test.ts",
+      "test/base-field-create.test.ts"
+    ],
+    "adaptations": [
+      "Private artifact IDs replace local file paths. Durable workflows checkpoint multi-request operations. MCP grants replace CLI confirmation prompts."
+    ]
+  },
+  "base.+table-get": {
+    "status": "implemented",
+    "flags": [
+      "base-token",
+      "table-id"
+    ],
+    "evidence": [
+      "test/base-core.test.ts",
+      "test/base-workflows.test.ts"
+    ],
+    "adaptations": [
+      "Private artifact IDs replace local file paths. Durable workflows checkpoint multi-request operations. MCP grants replace CLI confirmation prompts."
+    ]
+  },
+  "base.+table-create": {
+    "status": "implemented",
+    "flags": [
+      "base-token",
+      "name",
+      "view",
+      "fields"
+    ],
+    "evidence": [
+      "test/base-core.test.ts",
+      "test/base-workflows.test.ts"
+    ],
+    "adaptations": [
+      "Private artifact IDs replace local file paths. Durable workflows checkpoint multi-request operations. MCP grants replace CLI confirmation prompts."
+    ]
+  },
+  "base.+view-create": {
+    "status": "implemented",
+    "flags": [
+      "base-token",
+      "table-id",
+      "json"
+    ],
+    "evidence": [
+      "test/base-core.test.ts",
+      "test/base-workflows.test.ts"
+    ],
+    "adaptations": [
+      "Private artifact IDs replace local file paths. Durable workflows checkpoint multi-request operations. MCP grants replace CLI confirmation prompts."
+    ]
+  },
+  "base.+form-list": {
+    "status": "implemented",
+    "flags": [
+      "base-token",
+      "table-id",
+      "page-size"
+    ],
+    "evidence": [
+      "test/base-core.test.ts",
+      "test/base-forms.test.ts"
+    ],
+    "adaptations": [
+      "Private artifact IDs replace local file paths. Durable workflows checkpoint multi-request operations. MCP grants replace CLI confirmation prompts."
+    ]
+  },
+  "base.+workflow-list": {
+    "status": "implemented",
+    "flags": [
+      "base-token",
+      "status",
+      "page-size"
+    ],
+    "evidence": [
+      "test/base-core.test.ts",
+      "test/base-permissions.test.ts"
+    ],
+    "adaptations": [
+      "Private artifact IDs replace local file paths. Durable workflows checkpoint multi-request operations. MCP grants replace CLI confirmation prompts."
+    ]
+  },
+  "base.+app-page-create": {
+    "status": "implemented",
+    "flags": [
+      "app-token",
+      "name"
+    ],
+    "evidence": [
+      "test/base-core.test.ts",
+      "test/base-app.test.ts"
+    ],
+    "adaptations": [
+      "Private artifact IDs replace local file paths. Durable workflows checkpoint multi-request operations. MCP grants replace CLI confirmation prompts."
+    ]
+  },
+  "base.+app-page-update": {
+    "status": "implemented",
+    "flags": [
+      "app-token",
+      "page-id",
+      "name"
+    ],
+    "evidence": [
+      "test/base-core.test.ts",
+      "test/base-app.test.ts"
+    ],
+    "adaptations": [
+      "Private artifact IDs replace local file paths. Durable workflows checkpoint multi-request operations. MCP grants replace CLI confirmation prompts."
+    ]
+  },
+  "base.+button-rule-bind": {
+    "status": "implemented",
+    "flags": [
+      "base-token",
+      "table-id",
+      "field-id",
+      "workflow-id"
+    ],
+    "evidence": [
+      "test/base-core.test.ts",
+      "test/base-workflows.test.ts"
+    ],
+    "adaptations": [
+      "Private artifact IDs replace local file paths. Durable workflows checkpoint multi-request operations. MCP grants replace CLI confirmation prompts."
+    ]
+  },
+  "base.+button-rule-get": {
+    "status": "implemented",
+    "flags": [
+      "base-token",
+      "table-id",
+      "field-id"
+    ],
+    "evidence": [
+      "test/base-core.test.ts",
+      "test/base-workflows.test.ts"
+    ],
+    "adaptations": [
+      "Private artifact IDs replace local file paths. Durable workflows checkpoint multi-request operations. MCP grants replace CLI confirmation prompts."
+    ]
+  },
+  "base.+button-rule-unbind": {
+    "status": "implemented",
+    "flags": [
+      "base-token",
+      "table-id",
+      "field-id"
+    ],
+    "evidence": [
+      "test/base-core.test.ts",
+      "test/base-workflows.test.ts"
+    ],
+    "adaptations": [
+      "Private artifact IDs replace local file paths. Durable workflows checkpoint multi-request operations. MCP grants replace CLI confirmation prompts."
+    ]
+  },
+  "base.+base-get": {
+    "status": "implemented",
+    "flags": [
+      "base-token"
+    ],
+    "evidence": [
+      "test/base-core.test.ts",
+      "test/base-forms.test.ts"
+    ],
+    "adaptations": [
+      "Private artifact IDs replace local file paths. Durable workflows checkpoint multi-request operations. MCP grants replace CLI confirmation prompts."
+    ]
+  },
+  "base.+form-create": {
+    "status": "implemented",
+    "flags": [
+      "base-token",
+      "table-id",
+      "name",
+      "description"
+    ],
+    "evidence": [
+      "test/base-core.test.ts",
+      "test/base-forms.test.ts"
+    ],
+    "adaptations": [
+      "Private artifact IDs replace local file paths. Durable workflows checkpoint multi-request operations. MCP grants replace CLI confirmation prompts."
+    ]
+  },
+  "base.+form-update": {
+    "status": "implemented",
+    "flags": [
+      "base-token",
+      "table-id",
+      "form-id",
+      "name",
+      "description"
+    ],
+    "evidence": [
+      "test/base-core.test.ts",
+      "test/base-forms.test.ts"
+    ],
+    "adaptations": [
+      "Private artifact IDs replace local file paths. Durable workflows checkpoint multi-request operations. MCP grants replace CLI confirmation prompts."
+    ]
+  },
+  "base.+form-get": {
+    "status": "implemented",
+    "flags": [
+      "base-token",
+      "table-id",
+      "form-id"
+    ],
+    "evidence": [
+      "test/base-core.test.ts",
+      "test/base-forms.test.ts"
+    ],
+    "adaptations": [
+      "Private artifact IDs replace local file paths. Durable workflows checkpoint multi-request operations. MCP grants replace CLI confirmation prompts."
+    ]
+  },
+  "base.+form-delete": {
+    "status": "implemented",
+    "flags": [
+      "base-token",
+      "table-id",
+      "form-id"
+    ],
+    "evidence": [
+      "test/base-core.test.ts",
+      "test/base-forms.test.ts"
+    ],
+    "adaptations": [
+      "Private artifact IDs replace local file paths. Durable workflows checkpoint multi-request operations. MCP grants replace CLI confirmation prompts."
+    ]
+  },
+  "base.+form-share-get": {
+    "status": "implemented",
+    "flags": [
+      "base-token",
+      "table-id",
+      "form-id"
+    ],
+    "evidence": [
+      "test/base-core.test.ts",
+      "test/base-forms.test.ts"
+    ],
+    "adaptations": [
+      "Private artifact IDs replace local file paths. Durable workflows checkpoint multi-request operations. MCP grants replace CLI confirmation prompts."
+    ]
+  },
+  "base.+form-share-update": {
+    "status": "implemented",
+    "flags": [
+      "base-token",
+      "table-id",
+      "form-id",
+      "enabled",
+      "access-scope",
+      "allow-anonymous",
+      "require-login"
+    ],
+    "evidence": [
+      "test/base-core.test.ts",
+      "test/base-forms.test.ts"
+    ],
+    "adaptations": [
+      "Private artifact IDs replace local file paths. Durable workflows checkpoint multi-request operations. MCP grants replace CLI confirmation prompts."
+    ]
+  },
+  "base.+dashboard-share-get": {
+    "status": "implemented",
+    "flags": [
+      "base-token",
+      "dashboard-id"
+    ],
+    "evidence": [
+      "test/base-core.test.ts",
+      "test/base-dashboard.test.ts"
+    ],
+    "adaptations": [
+      "Private artifact IDs replace local file paths. Durable workflows checkpoint multi-request operations. MCP grants replace CLI confirmation prompts."
+    ]
+  },
+  "base.+dashboard-share-update": {
+    "status": "implemented",
+    "flags": [
+      "base-token",
+      "dashboard-id",
+      "enabled",
+      "access-scope",
+      "show-source"
+    ],
+    "evidence": [
+      "test/base-core.test.ts",
+      "test/base-dashboard.test.ts"
+    ],
+    "adaptations": [
+      "Private artifact IDs replace local file paths. Durable workflows checkpoint multi-request operations. MCP grants replace CLI confirmation prompts."
+    ]
+  },
+  "base.+dashboard-list": {
+    "status": "implemented",
+    "flags": [
+      "base-token",
+      "page-size",
+      "page-token"
+    ],
+    "evidence": [
+      "test/base-core.test.ts",
+      "test/base-dashboard.test.ts"
+    ],
+    "adaptations": [
+      "Private artifact IDs replace local file paths. Durable workflows checkpoint multi-request operations. MCP grants replace CLI confirmation prompts."
+    ]
+  },
+  "base.+dashboard-get": {
+    "status": "implemented",
+    "flags": [
+      "base-token",
+      "dashboard-id"
+    ],
+    "evidence": [
+      "test/base-core.test.ts",
+      "test/base-dashboard.test.ts"
+    ],
+    "adaptations": [
+      "Private artifact IDs replace local file paths. Durable workflows checkpoint multi-request operations. MCP grants replace CLI confirmation prompts."
+    ]
+  },
+  "base.+dashboard-create": {
+    "status": "implemented",
+    "flags": [
+      "base-token",
+      "name",
+      "theme-style"
+    ],
+    "evidence": [
+      "test/base-core.test.ts",
+      "test/base-dashboard.test.ts"
+    ],
+    "adaptations": [
+      "Private artifact IDs replace local file paths. Durable workflows checkpoint multi-request operations. MCP grants replace CLI confirmation prompts."
+    ]
+  },
+  "base.+dashboard-update": {
+    "status": "implemented",
+    "flags": [
+      "base-token",
+      "dashboard-id",
+      "name",
+      "theme-style"
+    ],
+    "evidence": [
+      "test/base-core.test.ts",
+      "test/base-dashboard.test.ts"
+    ],
+    "adaptations": [
+      "Private artifact IDs replace local file paths. Durable workflows checkpoint multi-request operations. MCP grants replace CLI confirmation prompts."
+    ]
+  },
+  "base.+dashboard-delete": {
+    "status": "implemented",
+    "flags": [
+      "base-token",
+      "dashboard-id"
+    ],
+    "evidence": [
+      "test/base-core.test.ts",
+      "test/base-dashboard.test.ts"
+    ],
+    "adaptations": [
+      "Private artifact IDs replace local file paths. Durable workflows checkpoint multi-request operations. MCP grants replace CLI confirmation prompts."
+    ]
+  },
+  "base.+dashboard-arrange": {
+    "status": "implemented",
+    "flags": [
+      "base-token",
+      "dashboard-id",
+      "user-id-type"
+    ],
+    "evidence": [
+      "test/base-core.test.ts",
+      "test/base-dashboard.test.ts"
+    ],
+    "adaptations": [
+      "Private artifact IDs replace local file paths. Durable workflows checkpoint multi-request operations. MCP grants replace CLI confirmation prompts."
+    ]
+  },
+  "base.+dashboard-block-list": {
+    "status": "implemented",
+    "flags": [
+      "base-token",
+      "dashboard-id",
+      "page-size",
+      "page-token"
+    ],
+    "evidence": [
+      "test/base-core.test.ts",
+      "test/base-dashboard.test.ts"
+    ],
+    "adaptations": [
+      "Private artifact IDs replace local file paths. Durable workflows checkpoint multi-request operations. MCP grants replace CLI confirmation prompts."
+    ]
+  },
+  "base.+dashboard-block-get": {
+    "status": "implemented",
+    "flags": [
+      "base-token",
+      "dashboard-id",
+      "block-id",
+      "user-id-type"
+    ],
+    "evidence": [
+      "test/base-core.test.ts",
+      "test/base-dashboard.test.ts"
+    ],
+    "adaptations": [
+      "Private artifact IDs replace local file paths. Durable workflows checkpoint multi-request operations. MCP grants replace CLI confirmation prompts."
+    ]
+  },
+  "base.+dashboard-block-delete": {
+    "status": "implemented",
+    "flags": [
+      "base-token",
+      "dashboard-id",
+      "block-id"
+    ],
+    "evidence": [
+      "test/base-core.test.ts",
+      "test/base-dashboard.test.ts"
+    ],
+    "adaptations": [
+      "Private artifact IDs replace local file paths. Durable workflows checkpoint multi-request operations. MCP grants replace CLI confirmation prompts."
+    ]
+  },
+  "base.+dashboard-block-get-data": {
+    "status": "implemented",
+    "flags": [
+      "base-token",
+      "block-id",
+      "dashboard-id"
+    ],
+    "evidence": [
+      "test/base-core.test.ts",
+      "test/base-dashboard.test.ts"
+    ],
+    "adaptations": [
+      "Private artifact IDs replace local file paths. Durable workflows checkpoint multi-request operations. MCP grants replace CLI confirmation prompts."
+    ]
+  },
+  "base.+app-block-get-data": {
+    "status": "implemented",
+    "flags": [
+      "app-token",
+      "base-token",
+      "block-id"
+    ],
+    "evidence": [
+      "test/base-core.test.ts",
+      "test/base-dashboard.test.ts",
+      "test/base-app.test.ts"
+    ],
+    "adaptations": [
+      "Private artifact IDs replace local file paths. Durable workflows checkpoint multi-request operations. MCP grants replace CLI confirmation prompts."
+    ]
+  },
+  "base.+field-extension-get": {
+    "status": "implemented",
+    "flags": [
+      "base-token",
+      "table-id",
+      "field-id"
+    ],
+    "evidence": [
+      "test/base-core.test.ts",
+      "test/base-fields.test.ts"
+    ],
+    "adaptations": [
+      "Private artifact IDs replace local file paths. Durable workflows checkpoint multi-request operations. MCP grants replace CLI confirmation prompts."
+    ]
+  },
+  "base.+field-extension-update": {
+    "status": "implemented",
+    "flags": [
+      "base-token",
+      "table-id",
+      "field-id",
+      "json"
+    ],
+    "evidence": [
+      "test/base-core.test.ts",
+      "test/base-fields.test.ts"
+    ],
+    "adaptations": [
+      "Private artifact IDs replace local file paths. Durable workflows checkpoint multi-request operations. MCP grants replace CLI confirmation prompts."
+    ]
+  },
+  "base.+field-extension-update-cells": {
+    "status": "implemented",
+    "flags": [
+      "base-token",
+      "table-id",
+      "field-id",
+      "type",
+      "view-id",
+      "record-id"
+    ],
+    "evidence": [
+      "test/base-core.test.ts",
+      "test/base-fields.test.ts"
+    ],
+    "adaptations": [
+      "Private artifact IDs replace local file paths. Durable workflows checkpoint multi-request operations. MCP grants replace CLI confirmation prompts."
+    ]
+  },
+  "base.+field-update": {
+    "status": "implemented",
+    "flags": [
+      "base-token",
+      "table-id",
+      "field-id",
+      "json",
+      "i-have-read-guide"
+    ],
+    "evidence": [
+      "test/base-core.test.ts",
+      "test/base-fields.test.ts"
+    ],
+    "adaptations": [
+      "Private artifact IDs replace local file paths. Durable workflows checkpoint multi-request operations. MCP grants replace CLI confirmation prompts."
+    ]
+  },
+  "base.+form-detail": {
+    "status": "implemented",
+    "flags": [
+      "share-token"
+    ],
+    "evidence": [
+      "test/base-core.test.ts",
+      "test/base-questions.test.ts",
+      "test/base-forms.test.ts"
+    ],
+    "adaptations": [
+      "Private artifact IDs replace local file paths. Durable workflows checkpoint multi-request operations. MCP grants replace CLI confirmation prompts."
+    ]
+  },
+  "base.+form-questions-create": {
+    "status": "implemented",
+    "flags": [
+      "base-token",
+      "table-id",
+      "form-id",
+      "questions"
+    ],
+    "evidence": [
+      "test/base-core.test.ts",
+      "test/base-questions.test.ts",
+      "test/base-forms.test.ts"
+    ],
+    "adaptations": [
+      "Private artifact IDs replace local file paths. Durable workflows checkpoint multi-request operations. MCP grants replace CLI confirmation prompts."
+    ]
+  },
+  "base.+form-questions-update": {
+    "status": "implemented",
+    "flags": [
+      "base-token",
+      "table-id",
+      "form-id",
+      "questions"
+    ],
+    "evidence": [
+      "test/base-core.test.ts",
+      "test/base-questions.test.ts",
+      "test/base-forms.test.ts"
+    ],
+    "adaptations": [
+      "Private artifact IDs replace local file paths. Durable workflows checkpoint multi-request operations. MCP grants replace CLI confirmation prompts."
+    ]
+  },
+  "base.+form-questions-list": {
+    "status": "implemented",
+    "flags": [
+      "base-token",
+      "table-id",
+      "form-id"
+    ],
+    "evidence": [
+      "test/base-core.test.ts",
+      "test/base-questions.test.ts",
+      "test/base-forms.test.ts"
+    ],
+    "adaptations": [
+      "Private artifact IDs replace local file paths. Durable workflows checkpoint multi-request operations. MCP grants replace CLI confirmation prompts."
+    ]
+  },
+  "base.+form-questions-delete": {
+    "status": "implemented",
+    "flags": [
+      "base-token",
+      "table-id",
+      "form-id",
+      "question-ids",
+      "keep-field"
+    ],
+    "evidence": [
+      "test/base-core.test.ts",
+      "test/base-questions.test.ts",
+      "test/base-forms.test.ts"
+    ],
+    "adaptations": [
+      "Private artifact IDs replace local file paths. Durable workflows checkpoint multi-request operations. MCP grants replace CLI confirmation prompts."
+    ]
+  },
+  "base.+title-resolve": {
+    "status": "implemented",
+    "flags": [
+      "title"
+    ],
+    "evidence": [
+      "test/base-core.test.ts",
+      "test/base-discovery.test.ts"
+    ],
+    "adaptations": [
+      "Private artifact IDs replace local file paths. Durable workflows checkpoint multi-request operations. MCP grants replace CLI confirmation prompts."
+    ]
+  },
+  "base.+data-query": {
+    "status": "implemented",
+    "flags": [
+      "base-token",
+      "dsl"
+    ],
+    "evidence": [
+      "test/base-core.test.ts",
+      "test/base-discovery.test.ts"
+    ],
+    "adaptations": [
+      "Private artifact IDs replace local file paths. Durable workflows checkpoint multi-request operations. MCP grants replace CLI confirmation prompts."
+    ]
+  },
+  "base.+table-copy-status": {
+    "status": "implemented",
+    "flags": [
+      "base-token",
+      "task-id"
+    ],
+    "evidence": [
+      "test/base-core.test.ts",
+      "test/base-copy.test.ts"
+    ],
+    "adaptations": [
+      "Private artifact IDs replace local file paths. Durable workflows checkpoint multi-request operations. MCP grants replace CLI confirmation prompts."
+    ]
+  },
+  "base.+record-upsert": {
+    "status": "implemented",
+    "flags": [
+      "base-token",
+      "table-id",
+      "record-id",
+      "json"
+    ],
+    "evidence": [
+      "test/base-core.test.ts",
+      "test/base-record-actions.test.ts"
+    ],
+    "adaptations": [
+      "Private artifact IDs replace local file paths. Durable workflows checkpoint multi-request operations. MCP grants replace CLI confirmation prompts."
+    ]
+  },
+  "base.+record-batch-create": {
+    "status": "implemented",
+    "flags": [
+      "base-token",
+      "table-id",
+      "json"
+    ],
+    "evidence": [
+      "test/base-core.test.ts",
+      "test/base-record-actions.test.ts"
+    ],
+    "adaptations": [
+      "Private artifact IDs replace local file paths. Durable workflows checkpoint multi-request operations. MCP grants replace CLI confirmation prompts."
+    ]
+  },
+  "base.+record-batch-update": {
+    "status": "implemented",
+    "flags": [
+      "base-token",
+      "table-id",
+      "json"
+    ],
+    "evidence": [
+      "test/base-core.test.ts",
+      "test/base-record-actions.test.ts"
+    ],
+    "adaptations": [
+      "Private artifact IDs replace local file paths. Durable workflows checkpoint multi-request operations. MCP grants replace CLI confirmation prompts."
+    ]
+  },
+  "base.+record-delete": {
+    "status": "implemented",
+    "flags": [
+      "base-token",
+      "table-id",
+      "record-id",
+      "json"
+    ],
+    "evidence": [
+      "test/base-core.test.ts",
+      "test/base-record-actions.test.ts"
+    ],
+    "adaptations": [
+      "Private artifact IDs replace local file paths. Durable workflows checkpoint multi-request operations. MCP grants replace CLI confirmation prompts."
+    ]
+  },
+  "base.+record-share-link-create": {
+    "status": "implemented",
+    "flags": [
+      "base-token",
+      "table-id",
+      "record-id"
+    ],
+    "evidence": [
+      "test/base-core.test.ts",
+      "test/base-record-actions.test.ts"
+    ],
+    "adaptations": [
+      "Private artifact IDs replace local file paths. Durable workflows checkpoint multi-request operations. MCP grants replace CLI confirmation prompts."
+    ]
+  },
+  "base.+record-history-list": {
+    "status": "implemented",
+    "flags": [
+      "base-token",
+      "table-id",
+      "record-id",
+      "max-version",
+      "page-size"
+    ],
+    "evidence": [
+      "test/base-core.test.ts",
+      "test/base-record-actions.test.ts"
+    ],
+    "adaptations": [
+      "Private artifact IDs replace local file paths. Durable workflows checkpoint multi-request operations. MCP grants replace CLI confirmation prompts."
+    ]
+  },
+  "base.+workflow-create": {
+    "status": "implemented",
+    "flags": [
+      "base-token",
+      "json"
+    ],
+    "evidence": [
+      "test/base-core.test.ts",
+      "test/base-workflow-write.test.ts",
+      "test/base-permissions.test.ts"
+    ],
+    "adaptations": [
+      "Private artifact IDs replace local file paths. Durable workflows checkpoint multi-request operations. MCP grants replace CLI confirmation prompts."
+    ]
+  },
+  "base.+workflow-update": {
+    "status": "implemented",
+    "flags": [
+      "base-token",
+      "workflow-id",
+      "json"
+    ],
+    "evidence": [
+      "test/base-core.test.ts",
+      "test/base-workflow-write.test.ts",
+      "test/base-permissions.test.ts"
+    ],
+    "adaptations": [
+      "Private artifact IDs replace local file paths. Durable workflows checkpoint multi-request operations. MCP grants replace CLI confirmation prompts."
+    ]
+  },
+  "base.+dashboard-block-create": {
+    "status": "implemented",
+    "flags": [
+      "base-token",
+      "dashboard-id",
+      "name",
+      "type",
+      "data-config",
+      "position",
+      "user-id-type",
+      "no-validate"
+    ],
+    "evidence": [
+      "test/base-core.test.ts",
+      "test/base-block-config.test.ts",
+      "test/base-dashboard.test.ts"
+    ],
+    "adaptations": [
+      "Private artifact IDs replace local file paths. Durable workflows checkpoint multi-request operations. MCP grants replace CLI confirmation prompts."
+    ]
+  },
+  "base.+dashboard-block-update": {
+    "status": "implemented",
+    "flags": [
+      "base-token",
+      "dashboard-id",
+      "block-id",
+      "name",
+      "data-config",
+      "position",
+      "user-id-type",
+      "no-validate"
+    ],
+    "evidence": [
+      "test/base-core.test.ts",
+      "test/base-block-config.test.ts",
+      "test/base-dashboard.test.ts"
+    ],
+    "adaptations": [
+      "Private artifact IDs replace local file paths. Durable workflows checkpoint multi-request operations. MCP grants replace CLI confirmation prompts."
+    ]
+  },
+  "base.+app-block-create": {
+    "status": "implemented",
+    "flags": [
+      "app-token",
+      "page-id",
+      "name",
+      "type",
+      "sub-type",
+      "data-config",
+      "no-validate"
+    ],
+    "evidence": [
+      "test/base-core.test.ts",
+      "test/base-block-config.test.ts",
+      "test/base-app.test.ts"
+    ],
+    "adaptations": [
+      "Private artifact IDs replace local file paths. Durable workflows checkpoint multi-request operations. MCP grants replace CLI confirmation prompts."
+    ]
+  },
+  "base.+app-block-update": {
+    "status": "implemented",
+    "flags": [
+      "app-token",
+      "page-id",
+      "block-id",
+      "name",
+      "data-config",
+      "no-validate"
+    ],
+    "evidence": [
+      "test/base-core.test.ts",
+      "test/base-block-config.test.ts",
+      "test/base-app.test.ts"
+    ],
+    "adaptations": [
+      "Private artifact IDs replace local file paths. Durable workflows checkpoint multi-request operations. MCP grants replace CLI confirmation prompts."
+    ]
+  },
+  "base.+record-upload-attachment": {
+    "status": "implemented",
+    "flags": [
+      "base-token",
+      "table-id",
+      "record-id",
+      "field-id",
+      "file",
+      "name"
+    ],
+    "evidence": [
+      "test/base-core.test.ts",
+      "test/base-attachments.test.ts",
+      "test/base-record-actions.test.ts"
+    ],
+    "adaptations": [
+      "Private artifact IDs replace local file paths. Durable workflows checkpoint multi-request operations. MCP grants replace CLI confirmation prompts."
+    ]
+  },
+  "base.+record-download-attachment": {
+    "status": "implemented",
+    "flags": [
+      "base-token",
+      "table-id",
+      "record-id",
+      "file-token",
+      "output",
+      "overwrite"
+    ],
+    "evidence": [
+      "test/base-core.test.ts",
+      "test/base-attachments.test.ts",
+      "test/base-record-actions.test.ts"
+    ],
+    "adaptations": [
+      "Private artifact IDs replace local file paths. Durable workflows checkpoint multi-request operations. MCP grants replace CLI confirmation prompts."
+    ]
+  },
+  "base.+record-remove-attachment": {
+    "status": "implemented",
+    "flags": [
+      "base-token",
+      "table-id",
+      "record-id",
+      "field-id",
+      "file-token"
+    ],
+    "evidence": [
+      "test/base-core.test.ts",
+      "test/base-attachments.test.ts",
+      "test/base-record-actions.test.ts"
+    ],
+    "adaptations": [
+      "Private artifact IDs replace local file paths. Durable workflows checkpoint multi-request operations. MCP grants replace CLI confirmation prompts."
+    ]
+  },
+  "base.+form-submit": {
+    "status": "implemented",
+    "flags": [
+      "share-token",
+      "base-token",
+      "json"
+    ],
+    "evidence": [
+      "test/base-core.test.ts",
+      "test/base-attachments.test.ts",
+      "test/base-forms.test.ts"
+    ],
+    "adaptations": [
+      "Private artifact IDs replace local file paths. Durable workflows checkpoint multi-request operations. MCP grants replace CLI confirmation prompts."
+    ]
+  }
+}

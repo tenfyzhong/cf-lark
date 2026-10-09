@@ -1,0 +1,24 @@
+{
+  "note": "Public test-only signing material. Never configure these keys in production.",
+  "privateKey": {
+    "kty": "RSA",
+    "n": "sf2ePxNCCwnzpIdMTTFYH09fMsjlTUqoo8rW8u_5dcux28UCVMUV3ieb04MN6mCzZuYKtT4S8rqBPlPZaa8kFlfJ34J67J9o8qh2Y4thECEU6BOhDvlz_sy7qtJay6Ded1JryaSv8I433y-ct_QH-JTL714z1PRZoXA9VNRBPfQkobubvQxdOzMTpb-RrE8QHA_pSZ7ZVGs1P_6SfNct4Bz1N9_pO86kfkmLC5StIfzUSwYeUQGajj6YgxR9uacXad14L4LajX-JEcG5NBb1pHtNggNKl8c3UA77aLsLq-11YpPJlGaI2KA0gC9pAs8cmEyc4s6cuz7bCULnoOevGw",
+    "e": "AQAB",
+    "d": "IndEdd1STBXsvn7OiSIVeNajTg-1y046MqFcFyXd7e_4LGDNT0Hstpx_4ai-gJSiGLpR93-iJqtzzHBrKLpX6BWuyx-WkwxZQ6fYaPU74eYuCLSIWwB19DCL5IugNk8b1Qo6Qg0oXpIDgq3TEJHqGzog9WSN794zHv4_ehYx3f9-bHbOcnkmvGSSx5Y0KpsKHKwqCn3tXMcYyQvJoV4XwK742Elrb-Cv-G6xwk6dp8xtDn-Pvigqb5d81KCof9dvP3nQ36dMnJqEImw44CIDX4nZXZPKCBb8YKuH0xVazq7fVXL5OD-GR_sOpGQiZ-gGnx8WTlMPEkhkajCf16PXIQ",
+    "p": "4f8HO00jtkzOwDcxjE7vuuDW-VrFWoU09QMp5kjoWVFxjKfOVM4ehTTsPbMRR0XOFj004GuekhcAQ_x78M6QMuzjFcU43fqV5pkTSVxE4RfUA1fkQCJzM1alI4VMcA5vsKR2Q_qaJGsYwGNgQckBzf7c3GX_DqeXbNxKon3JGSE",
+    "q": "yZ8EudDv1uFqKZIPD0223g6_FJ0Z1CALUoqVnqdi2bSwuS1eeR5wAbs5p0E_Kji7ke2RsX2UpUg7m8NLnquRPMPiI9m_wkHGpo6-NLCeE0R2IY8C4LQa2NzCmkybtLLzhotLXufCrbmK6SJ42-u3IHEJaGfiax7zjsNGW4DT1Ls",
+    "dp": "IzfgA6DI0O71RUUUpp3ihAfn2GIJ4Upi70-35tgzxT-I53d7EwIwBWgy7IaMScQaEqMlK1f6FSAafX3KPsOh-x2pYcojS4xyccYnGEaVwVI6Su8Wddwogbad84QhXlERnMB0YbGa9dPuvoR-CqJtcpGmD36hmcIKOf-2bc4WWaE",
+    "dq": "nKfiuyH9iH9ixmQHMYPXp1fb3f9m9yviwEKPmFNEehVsDqWStxcQPjgjxrHqizrDetIVFsyVd4rVTeSDWAjEc2tbxTFGToBfAkD8xuHIIP5brx14RfGKvp9g0RTfEprMnuiSKm53FBaLOTOgpnfStPE_NxEomsTUx0Mw4p4JeUs",
+    "qi": "tpteBnC9b6-T9xtgni096GZ9MiuSbiTL8yN3pCtoLCV5L8PLat5wLXmzYq7CWNhiUk1opbYhyRltL8ov3-tUe_rj7zX2t1ubJBi8XqTeedV5Hb0-MJ3nY2gaJvkJCCqCOLxVzrBeZYCRvdPl5BpqDvbGVyZExpnpNnm0KE3zqNA",
+    "kid": "access-test-key",
+    "alg": "RS256"
+  },
+  "publicKey": {
+    "kty": "RSA",
+    "n": "sf2ePxNCCwnzpIdMTTFYH09fMsjlTUqoo8rW8u_5dcux28UCVMUV3ieb04MN6mCzZuYKtT4S8rqBPlPZaa8kFlfJ34J67J9o8qh2Y4thECEU6BOhDvlz_sy7qtJay6Ded1JryaSv8I433y-ct_QH-JTL714z1PRZoXA9VNRBPfQkobubvQxdOzMTpb-RrE8QHA_pSZ7ZVGs1P_6SfNct4Bz1N9_pO86kfkmLC5StIfzUSwYeUQGajj6YgxR9uacXad14L4LajX-JEcG5NBb1pHtNggNKl8c3UA77aLsLq-11YpPJlGaI2KA0gC9pAs8cmEyc4s6cuz7bCULnoOevGw",
+    "e": "AQAB",
+    "kid": "access-test-key",
+    "alg": "RS256",
+    "use": "sig"
+  }
+}

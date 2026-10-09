@@ -1,0 +1,45 @@
+{
+  "group": "mail",
+  "dependencies": [
+    {
+      "path": "github.com/google/uuid",
+      "version": "v1.6.0"
+    },
+    {
+      "path": "golang.org/x/crypto",
+      "version": "v0.41.0"
+    },
+    {
+      "path": "golang.org/x/mod",
+      "version": "v0.26.0"
+    },
+    {
+      "path": "golang.org/x/net",
+      "version": "v0.43.0"
+    },
+    {
+      "path": "golang.org/x/sync",
+      "version": "v0.16.0"
+    },
+    {
+      "path": "golang.org/x/sys",
+      "version": "v0.35.0"
+    },
+    {
+      "path": "golang.org/x/term",
+      "version": "v0.34.0"
+    },
+    {
+      "path": "golang.org/x/text",
+      "version": "v0.28.0"
+    },
+    {
+      "path": "golang.org/x/tools",
+      "version": "v0.35.0"
+    }
+  ],
+  "upstreamCommit": "72579c80027c863ca51d5f9affda72a70ab0d8a6",
+  "goVersion": "go version go1.27.1 darwin/arm64",
+  "sha256": "9c8372f9d5540625625c2fb387d433cd422e7e310809540d79cbf7ffb17e1cb4",
+  "bytes": 9604830
+}

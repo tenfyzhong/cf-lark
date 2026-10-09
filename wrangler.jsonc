@@ -1,0 +1,84 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "cf-lark",
+  "main": "src/bootstrap/worker.ts",
+  "compatibility_date": "2026-10-08",
+  "compatibility_flags": [
+    "nodejs_compat",
+    "global_fetch_strictly_public"
+  ],
+  "workers_dev": false,
+  "routes": [
+    {
+      "pattern": "mcp.example.com",
+      "custom_domain": true
+    }
+  ],
+  "assets": {
+    "directory": "./dist/assets",
+    "binding": "ASSETS",
+    "not_found_handling": "single-page-application",
+    "run_worker_first": true
+  },
+  "durable_objects": {
+    "bindings": [
+      {
+        "name": "AUTHORITY",
+        "class_name": "Authority"
+      },
+      {
+        "name": "EVENT_INBOX",
+        "class_name": "EventInbox"
+      }
+    ]
+  },
+  "migrations": [
+    {
+      "tag": "v1",
+      "new_sqlite_classes": [
+        "ServiceAuthority",
+        "EventAuthority"
+      ]
+    },
+    {
+      "tag": "v2",
+      "new_sqlite_classes": [
+        "Authority",
+        "EventInbox"
+      ]
+    },
+    {
+      "tag": "v3",
+      "deleted_classes": [
+        "ServiceAuthority",
+        "EventAuthority"
+      ]
+    }
+  ],
+  "r2_buckets": [
+    {
+      "binding": "ARTIFACTS",
+      "bucket_name": "cf-lark-private"
+    }
+  ],
+  "vars": {
+    "PUBLIC_URL": "https://mcp.example.com",
+    "ACCESS_TEAM_DOMAIN": "https://your-team.cloudflareaccess.com",
+    "ACCESS_AUD": "replace-with-access-audience",
+    "ACCESS_EMAIL_DOMAIN": "example.com",
+    "MAX_STORAGE_BYTES": "2000000000",
+    "ARTIFACT_TTL_SECONDS": "86400",
+    "R2_CLASS_A_BUDGET": "100000",
+    "R2_CLASS_B_BUDGET": "1000000"
+  },
+  "services": [
+    {
+      "binding": "DOCS_ENGINE",
+      "service": "cf-lark-docs-engine"
+    },
+    {
+      "binding": "MAIL_ENGINE",
+      "service": "cf-lark-mail-engine"
+    }
+  ]
+}

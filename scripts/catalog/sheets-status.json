@@ -1,0 +1,2126 @@
+{
+  "sheets.+styles-put": {
+    "status": "implemented",
+    "flags": [
+      "url",
+      "spreadsheet-token",
+      "styles"
+    ],
+    "evidence": [
+      "test/sheets-shortcuts.test.ts",
+      "test/sheets-normalization.test.ts",
+      "test/sheets-properties.test.ts",
+      "test/sheets-file-inputs.test.ts",
+      "test/sheets-border-vocabulary.test.ts",
+      "test/sheets-workflows.test.ts"
+    ],
+    "adaptations": [
+      "Pinned 1.0.97 handler semantics are implemented; offline source-derived fixtures are not live tenant acceptance.",
+      "CLI filesystem inputs and outputs use grant-owned private artifacts; artifact permissions are enforced.",
+      "Multi-request work executes as resumable bounded workflow steps; uncertain writes are not replayed.",
+      "See docs/sheets-shortcuts.md for source audit groups and hosted resource limits."
+    ]
+  },
+  "sheets.+formula-verify": {
+    "status": "implemented",
+    "flags": [
+      "url",
+      "spreadsheet-token",
+      "sheet-id",
+      "sheet-name",
+      "range",
+      "max-locations",
+      "exit-on-error",
+      "ai-only"
+    ],
+    "evidence": [
+      "test/sheets-shortcuts.test.ts",
+      "test/sheets-normalization.test.ts",
+      "test/sheets-properties.test.ts",
+      "test/sheets-file-inputs.test.ts"
+    ],
+    "adaptations": [
+      "Pinned 1.0.97 handler semantics are implemented; offline source-derived fixtures are not live tenant acceptance.",
+      "CLI filesystem inputs and outputs use grant-owned private artifacts; artifact permissions are enforced.",
+      "See docs/sheets-shortcuts.md for source audit groups and hosted resource limits."
+    ]
+  },
+  "sheets.+rows-resize": {
+    "status": "implemented",
+    "flags": [
+      "url",
+      "spreadsheet-token",
+      "sheet-id",
+      "sheet-name",
+      "height",
+      "heights",
+      "type",
+      "range"
+    ],
+    "evidence": [
+      "test/sheets-shortcuts.test.ts",
+      "test/sheets-normalization.test.ts",
+      "test/sheets-properties.test.ts",
+      "test/sheets-file-inputs.test.ts"
+    ],
+    "adaptations": [
+      "Pinned 1.0.97 handler semantics are implemented; offline source-derived fixtures are not live tenant acceptance.",
+      "CLI filesystem inputs and outputs use grant-owned private artifacts; artifact permissions are enforced.",
+      "See docs/sheets-shortcuts.md for source audit groups and hosted resource limits."
+    ]
+  },
+  "sheets.+cols-resize": {
+    "status": "implemented",
+    "flags": [
+      "url",
+      "spreadsheet-token",
+      "sheet-id",
+      "sheet-name",
+      "width",
+      "widths",
+      "type",
+      "range"
+    ],
+    "evidence": [
+      "test/sheets-shortcuts.test.ts",
+      "test/sheets-normalization.test.ts",
+      "test/sheets-properties.test.ts",
+      "test/sheets-file-inputs.test.ts"
+    ],
+    "adaptations": [
+      "Pinned 1.0.97 handler semantics are implemented; offline source-derived fixtures are not live tenant acceptance.",
+      "CLI filesystem inputs and outputs use grant-owned private artifacts; artifact permissions are enforced.",
+      "See docs/sheets-shortcuts.md for source audit groups and hosted resource limits."
+    ]
+  },
+  "sheets.+batch-update": {
+    "status": "implemented",
+    "flags": [
+      "url",
+      "spreadsheet-token",
+      "operations",
+      "continue-on-error"
+    ],
+    "evidence": [
+      "test/sheets-shortcuts.test.ts",
+      "test/sheets-normalization.test.ts",
+      "test/sheets-properties.test.ts",
+      "test/sheets-file-inputs.test.ts",
+      "test/sheets-charts.test.ts",
+      "test/sheets-workflows.test.ts"
+    ],
+    "adaptations": [
+      "Pinned 1.0.97 handler semantics are implemented; offline source-derived fixtures are not live tenant acceptance.",
+      "CLI filesystem inputs and outputs use grant-owned private artifacts; artifact permissions are enforced.",
+      "Multi-request work executes as resumable bounded workflow steps; uncertain writes are not replayed.",
+      "See docs/sheets-shortcuts.md for source audit groups and hosted resource limits."
+    ]
+  },
+  "sheets.+csv-put": {
+    "status": "implemented",
+    "flags": [
+      "url",
+      "spreadsheet-token",
+      "sheet-id",
+      "sheet-name",
+      "start-cell",
+      "csv",
+      "allow-overwrite",
+      "range"
+    ],
+    "evidence": [
+      "test/sheets-shortcuts.test.ts",
+      "test/sheets-normalization.test.ts",
+      "test/sheets-properties.test.ts",
+      "test/sheets-file-inputs.test.ts"
+    ],
+    "adaptations": [
+      "Pinned 1.0.97 handler semantics are implemented; offline source-derived fixtures are not live tenant acceptance.",
+      "CLI filesystem inputs and outputs use grant-owned private artifacts; artifact permissions are enforced.",
+      "See docs/sheets-shortcuts.md for source audit groups and hosted resource limits."
+    ]
+  },
+  "sheets.+cells-set-style": {
+    "status": "implemented",
+    "flags": [
+      "url",
+      "spreadsheet-token",
+      "sheet-id",
+      "sheet-name",
+      "range",
+      "background-color",
+      "font-color",
+      "font-family",
+      "font-size",
+      "font-style",
+      "font-weight",
+      "font-line",
+      "horizontal-alignment",
+      "vertical-alignment",
+      "word-wrap",
+      "number-format",
+      "border-styles"
+    ],
+    "evidence": [
+      "test/sheets-shortcuts.test.ts",
+      "test/sheets-normalization.test.ts",
+      "test/sheets-properties.test.ts",
+      "test/sheets-file-inputs.test.ts",
+      "test/sheets-border-vocabulary.test.ts"
+    ],
+    "adaptations": [
+      "Pinned 1.0.97 handler semantics are implemented; offline source-derived fixtures are not live tenant acceptance.",
+      "CLI filesystem inputs and outputs use grant-owned private artifacts; artifact permissions are enforced.",
+      "See docs/sheets-shortcuts.md for source audit groups and hosted resource limits."
+    ]
+  },
+  "sheets.+cells-batch-set-style": {
+    "status": "implemented",
+    "flags": [
+      "url",
+      "spreadsheet-token",
+      "ranges",
+      "background-color",
+      "font-color",
+      "font-family",
+      "font-size",
+      "font-style",
+      "font-weight",
+      "font-line",
+      "horizontal-alignment",
+      "vertical-alignment",
+      "word-wrap",
+      "number-format",
+      "border-styles"
+    ],
+    "evidence": [
+      "test/sheets-shortcuts.test.ts",
+      "test/sheets-normalization.test.ts",
+      "test/sheets-properties.test.ts",
+      "test/sheets-file-inputs.test.ts",
+      "test/sheets-border-vocabulary.test.ts"
+    ],
+    "adaptations": [
+      "Pinned 1.0.97 handler semantics are implemented; offline source-derived fixtures are not live tenant acceptance.",
+      "CLI filesystem inputs and outputs use grant-owned private artifacts; artifact permissions are enforced.",
+      "See docs/sheets-shortcuts.md for source audit groups and hosted resource limits."
+    ]
+  },
+  "sheets.+cells-batch-clear": {
+    "status": "implemented",
+    "flags": [
+      "url",
+      "spreadsheet-token",
+      "ranges",
+      "scope"
+    ],
+    "evidence": [
+      "test/sheets-shortcuts.test.ts",
+      "test/sheets-normalization.test.ts",
+      "test/sheets-properties.test.ts",
+      "test/sheets-file-inputs.test.ts"
+    ],
+    "adaptations": [
+      "Pinned 1.0.97 handler semantics are implemented; offline source-derived fixtures are not live tenant acceptance.",
+      "CLI filesystem inputs and outputs use grant-owned private artifacts; artifact permissions are enforced.",
+      "See docs/sheets-shortcuts.md for source audit groups and hosted resource limits."
+    ]
+  },
+  "sheets.+cells-set": {
+    "status": "implemented",
+    "flags": [
+      "url",
+      "spreadsheet-token",
+      "sheet-id",
+      "sheet-name",
+      "range",
+      "start-cell",
+      "cells",
+      "writes",
+      "allow-overwrite",
+      "max-cells",
+      "copy-to-range"
+    ],
+    "evidence": [
+      "test/sheets-shortcuts.test.ts",
+      "test/sheets-normalization.test.ts",
+      "test/sheets-properties.test.ts",
+      "test/sheets-file-inputs.test.ts",
+      "test/sheets-border-vocabulary.test.ts"
+    ],
+    "adaptations": [
+      "Pinned 1.0.97 handler semantics are implemented; offline source-derived fixtures are not live tenant acceptance.",
+      "CLI filesystem inputs and outputs use grant-owned private artifacts; artifact permissions are enforced.",
+      "See docs/sheets-shortcuts.md for source audit groups and hosted resource limits."
+    ]
+  },
+  "sheets.+dim-delete": {
+    "status": "implemented",
+    "flags": [
+      "url",
+      "spreadsheet-token",
+      "sheet-id",
+      "sheet-name",
+      "range",
+      "ranges"
+    ],
+    "evidence": [
+      "test/sheets-shortcuts.test.ts",
+      "test/sheets-normalization.test.ts",
+      "test/sheets-properties.test.ts",
+      "test/sheets-file-inputs.test.ts"
+    ],
+    "adaptations": [
+      "Pinned 1.0.97 handler semantics are implemented; offline source-derived fixtures are not live tenant acceptance.",
+      "CLI filesystem inputs and outputs use grant-owned private artifacts; artifact permissions are enforced.",
+      "See docs/sheets-shortcuts.md for source audit groups and hosted resource limits."
+    ]
+  },
+  "sheets.+dropdown-set": {
+    "status": "implemented",
+    "flags": [
+      "url",
+      "spreadsheet-token",
+      "sheet-id",
+      "sheet-name",
+      "range",
+      "options",
+      "colors",
+      "multiple",
+      "highlight",
+      "source-range"
+    ],
+    "evidence": [
+      "test/sheets-shortcuts.test.ts",
+      "test/sheets-normalization.test.ts",
+      "test/sheets-properties.test.ts",
+      "test/sheets-file-inputs.test.ts"
+    ],
+    "adaptations": [
+      "Pinned 1.0.97 handler semantics are implemented; offline source-derived fixtures are not live tenant acceptance.",
+      "CLI filesystem inputs and outputs use grant-owned private artifacts; artifact permissions are enforced.",
+      "See docs/sheets-shortcuts.md for source audit groups and hosted resource limits."
+    ]
+  },
+  "sheets.+dropdown-update": {
+    "status": "implemented",
+    "flags": [
+      "url",
+      "spreadsheet-token",
+      "ranges",
+      "options",
+      "colors",
+      "multiple",
+      "highlight",
+      "source-range"
+    ],
+    "evidence": [
+      "test/sheets-shortcuts.test.ts",
+      "test/sheets-normalization.test.ts",
+      "test/sheets-properties.test.ts",
+      "test/sheets-file-inputs.test.ts"
+    ],
+    "adaptations": [
+      "Pinned 1.0.97 handler semantics are implemented; offline source-derived fixtures are not live tenant acceptance.",
+      "CLI filesystem inputs and outputs use grant-owned private artifacts; artifact permissions are enforced.",
+      "See docs/sheets-shortcuts.md for source audit groups and hosted resource limits."
+    ]
+  },
+  "sheets.+dropdown-delete": {
+    "status": "implemented",
+    "flags": [
+      "url",
+      "spreadsheet-token",
+      "ranges"
+    ],
+    "evidence": [
+      "test/sheets-shortcuts.test.ts",
+      "test/sheets-normalization.test.ts",
+      "test/sheets-properties.test.ts",
+      "test/sheets-file-inputs.test.ts"
+    ],
+    "adaptations": [
+      "Pinned 1.0.97 handler semantics are implemented; offline source-derived fixtures are not live tenant acceptance.",
+      "CLI filesystem inputs and outputs use grant-owned private artifacts; artifact permissions are enforced.",
+      "See docs/sheets-shortcuts.md for source audit groups and hosted resource limits."
+    ]
+  },
+  "sheets.+range-move": {
+    "status": "implemented",
+    "flags": [
+      "url",
+      "spreadsheet-token",
+      "sheet-id",
+      "sheet-name",
+      "source-range",
+      "target-sheet-id",
+      "target-range"
+    ],
+    "evidence": [
+      "test/sheets-shortcuts.test.ts",
+      "test/sheets-normalization.test.ts",
+      "test/sheets-properties.test.ts",
+      "test/sheets-file-inputs.test.ts"
+    ],
+    "adaptations": [
+      "Pinned 1.0.97 handler semantics are implemented; offline source-derived fixtures are not live tenant acceptance.",
+      "CLI filesystem inputs and outputs use grant-owned private artifacts; artifact permissions are enforced.",
+      "See docs/sheets-shortcuts.md for source audit groups and hosted resource limits."
+    ]
+  },
+  "sheets.+range-copy": {
+    "status": "implemented",
+    "flags": [
+      "url",
+      "spreadsheet-token",
+      "sheet-id",
+      "sheet-name",
+      "source-range",
+      "target-sheet-id",
+      "target-range",
+      "paste-type"
+    ],
+    "evidence": [
+      "test/sheets-shortcuts.test.ts",
+      "test/sheets-normalization.test.ts",
+      "test/sheets-properties.test.ts",
+      "test/sheets-file-inputs.test.ts"
+    ],
+    "adaptations": [
+      "Pinned 1.0.97 handler semantics are implemented; offline source-derived fixtures are not live tenant acceptance.",
+      "CLI filesystem inputs and outputs use grant-owned private artifacts; artifact permissions are enforced.",
+      "See docs/sheets-shortcuts.md for source audit groups and hosted resource limits."
+    ]
+  },
+  "sheets.+range-fill": {
+    "status": "implemented",
+    "flags": [
+      "url",
+      "spreadsheet-token",
+      "sheet-id",
+      "sheet-name",
+      "source-range",
+      "target-range",
+      "series-type"
+    ],
+    "evidence": [
+      "test/sheets-shortcuts.test.ts",
+      "test/sheets-normalization.test.ts",
+      "test/sheets-properties.test.ts",
+      "test/sheets-file-inputs.test.ts"
+    ],
+    "adaptations": [
+      "Pinned 1.0.97 handler semantics are implemented; offline source-derived fixtures are not live tenant acceptance.",
+      "CLI filesystem inputs and outputs use grant-owned private artifacts; artifact permissions are enforced.",
+      "See docs/sheets-shortcuts.md for source audit groups and hosted resource limits."
+    ]
+  },
+  "sheets.+range-sort": {
+    "status": "implemented",
+    "flags": [
+      "url",
+      "spreadsheet-token",
+      "sheet-id",
+      "sheet-name",
+      "range",
+      "sort-keys",
+      "has-header"
+    ],
+    "evidence": [
+      "test/sheets-shortcuts.test.ts",
+      "test/sheets-normalization.test.ts",
+      "test/sheets-properties.test.ts",
+      "test/sheets-file-inputs.test.ts"
+    ],
+    "adaptations": [
+      "Pinned 1.0.97 handler semantics are implemented; offline source-derived fixtures are not live tenant acceptance.",
+      "CLI filesystem inputs and outputs use grant-owned private artifacts; artifact permissions are enforced.",
+      "See docs/sheets-shortcuts.md for source audit groups and hosted resource limits."
+    ]
+  },
+  "sheets.+float-image-update": {
+    "status": "implemented",
+    "flags": [
+      "url",
+      "spreadsheet-token",
+      "sheet-id",
+      "sheet-name",
+      "float-image-id",
+      "image-name",
+      "image-token",
+      "image-uri",
+      "position-row",
+      "position-col",
+      "size-width",
+      "size-height",
+      "offset-row",
+      "offset-col",
+      "z-index"
+    ],
+    "evidence": [
+      "test/sheets-shortcuts.test.ts",
+      "test/sheets-normalization.test.ts",
+      "test/sheets-properties.test.ts",
+      "test/sheets-file-inputs.test.ts"
+    ],
+    "adaptations": [
+      "Pinned 1.0.97 handler semantics are implemented; offline source-derived fixtures are not live tenant acceptance.",
+      "CLI filesystem inputs and outputs use grant-owned private artifacts; artifact permissions are enforced.",
+      "See docs/sheets-shortcuts.md for source audit groups and hosted resource limits."
+    ]
+  },
+  "sheets.+cells-search": {
+    "status": "implemented",
+    "flags": [
+      "url",
+      "spreadsheet-token",
+      "sheet-id",
+      "sheet-name",
+      "find",
+      "range",
+      "match-case",
+      "match-entire-cell",
+      "regex",
+      "include-formulas",
+      "max-matches",
+      "offset"
+    ],
+    "evidence": [
+      "test/sheets-shortcuts.test.ts",
+      "test/sheets-normalization.test.ts",
+      "test/sheets-properties.test.ts",
+      "test/sheets-file-inputs.test.ts"
+    ],
+    "adaptations": [
+      "Pinned 1.0.97 handler semantics are implemented; offline source-derived fixtures are not live tenant acceptance.",
+      "CLI filesystem inputs and outputs use grant-owned private artifacts; artifact permissions are enforced.",
+      "See docs/sheets-shortcuts.md for source audit groups and hosted resource limits."
+    ]
+  },
+  "sheets.+cells-replace": {
+    "status": "implemented",
+    "flags": [
+      "url",
+      "spreadsheet-token",
+      "sheet-id",
+      "sheet-name",
+      "find",
+      "replacement",
+      "range",
+      "match-case",
+      "match-entire-cell",
+      "regex",
+      "include-formulas"
+    ],
+    "evidence": [
+      "test/sheets-shortcuts.test.ts",
+      "test/sheets-normalization.test.ts",
+      "test/sheets-properties.test.ts",
+      "test/sheets-file-inputs.test.ts"
+    ],
+    "adaptations": [
+      "Pinned 1.0.97 handler semantics are implemented; offline source-derived fixtures are not live tenant acceptance.",
+      "CLI filesystem inputs and outputs use grant-owned private artifacts; artifact permissions are enforced.",
+      "See docs/sheets-shortcuts.md for source audit groups and hosted resource limits."
+    ]
+  },
+  "sheets.+sheet-move": {
+    "status": "implemented",
+    "flags": [
+      "url",
+      "spreadsheet-token",
+      "sheet-id",
+      "sheet-name",
+      "index",
+      "source-index"
+    ],
+    "evidence": [
+      "test/sheets-shortcuts.test.ts",
+      "test/sheets-normalization.test.ts",
+      "test/sheets-properties.test.ts",
+      "test/sheets-file-inputs.test.ts"
+    ],
+    "adaptations": [
+      "Pinned 1.0.97 handler semantics are implemented; offline source-derived fixtures are not live tenant acceptance.",
+      "CLI filesystem inputs and outputs use grant-owned private artifacts; artifact permissions are enforced.",
+      "See docs/sheets-shortcuts.md for source audit groups and hosted resource limits."
+    ]
+  },
+  "sheets.+dim-move": {
+    "status": "implemented",
+    "flags": [
+      "url",
+      "spreadsheet-token",
+      "sheet-id",
+      "sheet-name",
+      "source-range",
+      "target"
+    ],
+    "evidence": [
+      "test/sheets-shortcuts.test.ts",
+      "test/sheets-normalization.test.ts",
+      "test/sheets-properties.test.ts",
+      "test/sheets-file-inputs.test.ts"
+    ],
+    "adaptations": [
+      "Pinned 1.0.97 handler semantics are implemented; offline source-derived fixtures are not live tenant acceptance.",
+      "CLI filesystem inputs and outputs use grant-owned private artifacts; artifact permissions are enforced.",
+      "See docs/sheets-shortcuts.md for source audit groups and hosted resource limits."
+    ]
+  },
+  "sheets.+pivot-create": {
+    "status": "implemented",
+    "flags": [
+      "url",
+      "spreadsheet-token",
+      "properties",
+      "target-position",
+      "target-sheet-id",
+      "target-sheet-name",
+      "source",
+      "range"
+    ],
+    "evidence": [
+      "test/sheets-shortcuts.test.ts",
+      "test/sheets-normalization.test.ts",
+      "test/sheets-properties.test.ts",
+      "test/sheets-file-inputs.test.ts"
+    ],
+    "adaptations": [
+      "Pinned 1.0.97 handler semantics are implemented; offline source-derived fixtures are not live tenant acceptance.",
+      "CLI filesystem inputs and outputs use grant-owned private artifacts; artifact permissions are enforced.",
+      "See docs/sheets-shortcuts.md for source audit groups and hosted resource limits."
+    ]
+  },
+  "sheets.+filter-create": {
+    "status": "implemented",
+    "flags": [
+      "url",
+      "spreadsheet-token",
+      "sheet-id",
+      "sheet-name",
+      "range",
+      "properties"
+    ],
+    "evidence": [
+      "test/sheets-shortcuts.test.ts",
+      "test/sheets-normalization.test.ts",
+      "test/sheets-properties.test.ts",
+      "test/sheets-file-inputs.test.ts"
+    ],
+    "adaptations": [
+      "Pinned 1.0.97 handler semantics are implemented; offline source-derived fixtures are not live tenant acceptance.",
+      "CLI filesystem inputs and outputs use grant-owned private artifacts; artifact permissions are enforced.",
+      "See docs/sheets-shortcuts.md for source audit groups and hosted resource limits."
+    ]
+  },
+  "sheets.+filter-update": {
+    "status": "implemented",
+    "flags": [
+      "url",
+      "spreadsheet-token",
+      "sheet-id",
+      "sheet-name",
+      "properties",
+      "range"
+    ],
+    "evidence": [
+      "test/sheets-shortcuts.test.ts",
+      "test/sheets-normalization.test.ts",
+      "test/sheets-properties.test.ts",
+      "test/sheets-file-inputs.test.ts"
+    ],
+    "adaptations": [
+      "Pinned 1.0.97 handler semantics are implemented; offline source-derived fixtures are not live tenant acceptance.",
+      "CLI filesystem inputs and outputs use grant-owned private artifacts; artifact permissions are enforced.",
+      "See docs/sheets-shortcuts.md for source audit groups and hosted resource limits."
+    ]
+  },
+  "sheets.+filter-delete": {
+    "status": "implemented",
+    "flags": [
+      "url",
+      "spreadsheet-token",
+      "sheet-id",
+      "sheet-name"
+    ],
+    "evidence": [
+      "test/sheets-shortcuts.test.ts",
+      "test/sheets-normalization.test.ts",
+      "test/sheets-properties.test.ts",
+      "test/sheets-file-inputs.test.ts"
+    ],
+    "adaptations": [
+      "Pinned 1.0.97 handler semantics are implemented; offline source-derived fixtures are not live tenant acceptance.",
+      "CLI filesystem inputs and outputs use grant-owned private artifacts; artifact permissions are enforced.",
+      "See docs/sheets-shortcuts.md for source audit groups and hosted resource limits."
+    ]
+  },
+  "sheets.+cells-get": {
+    "status": "implemented",
+    "flags": [
+      "url",
+      "spreadsheet-token",
+      "sheet-id",
+      "sheet-name",
+      "range",
+      "include",
+      "max-chars",
+      "output-path",
+      "skip-hidden"
+    ],
+    "evidence": [
+      "test/sheets-shortcuts.test.ts",
+      "test/sheets-normalization.test.ts",
+      "test/sheets-properties.test.ts",
+      "test/sheets-file-inputs.test.ts"
+    ],
+    "adaptations": [
+      "Pinned 1.0.97 handler semantics are implemented; offline source-derived fixtures are not live tenant acceptance.",
+      "CLI filesystem inputs and outputs use grant-owned private artifacts; artifact permissions are enforced.",
+      "See docs/sheets-shortcuts.md for source audit groups and hosted resource limits."
+    ]
+  },
+  "sheets.+csv-get": {
+    "status": "implemented",
+    "flags": [
+      "url",
+      "spreadsheet-token",
+      "sheet-id",
+      "sheet-name",
+      "range",
+      "max-chars",
+      "output-path",
+      "include-row-prefix",
+      "skip-hidden"
+    ],
+    "evidence": [
+      "test/sheets-shortcuts.test.ts",
+      "test/sheets-normalization.test.ts",
+      "test/sheets-properties.test.ts",
+      "test/sheets-file-inputs.test.ts"
+    ],
+    "adaptations": [
+      "Pinned 1.0.97 handler semantics are implemented; offline source-derived fixtures are not live tenant acceptance.",
+      "CLI filesystem inputs and outputs use grant-owned private artifacts; artifact permissions are enforced.",
+      "See docs/sheets-shortcuts.md for source audit groups and hosted resource limits."
+    ]
+  },
+  "sheets.+cond-format-result-get": {
+    "status": "implemented",
+    "flags": [
+      "url",
+      "spreadsheet-token",
+      "sheet-id",
+      "sheet-name",
+      "range",
+      "max-chars"
+    ],
+    "evidence": [
+      "test/sheets-shortcuts.test.ts",
+      "test/sheets-normalization.test.ts",
+      "test/sheets-properties.test.ts",
+      "test/sheets-file-inputs.test.ts"
+    ],
+    "adaptations": [
+      "Pinned 1.0.97 handler semantics are implemented; offline source-derived fixtures are not live tenant acceptance.",
+      "CLI filesystem inputs and outputs use grant-owned private artifacts; artifact permissions are enforced.",
+      "See docs/sheets-shortcuts.md for source audit groups and hosted resource limits."
+    ]
+  },
+  "sheets.+chart-create": {
+    "status": "implemented",
+    "flags": [
+      "url",
+      "spreadsheet-token",
+      "sheet-id",
+      "sheet-name",
+      "properties",
+      "print-example"
+    ],
+    "evidence": [
+      "test/sheets-shortcuts.test.ts",
+      "test/sheets-normalization.test.ts",
+      "test/sheets-properties.test.ts",
+      "test/sheets-file-inputs.test.ts",
+      "test/sheets-charts.test.ts"
+    ],
+    "adaptations": [
+      "Pinned 1.0.97 handler semantics are implemented; offline source-derived fixtures are not live tenant acceptance.",
+      "CLI filesystem inputs and outputs use grant-owned private artifacts; artifact permissions are enforced.",
+      "See docs/sheets-shortcuts.md for source audit groups and hosted resource limits."
+    ]
+  },
+  "sheets.+chart-update": {
+    "status": "implemented",
+    "flags": [
+      "url",
+      "spreadsheet-token",
+      "sheet-id",
+      "sheet-name",
+      "chart-id",
+      "properties"
+    ],
+    "evidence": [
+      "test/sheets-shortcuts.test.ts",
+      "test/sheets-normalization.test.ts",
+      "test/sheets-properties.test.ts",
+      "test/sheets-file-inputs.test.ts",
+      "test/sheets-charts.test.ts"
+    ],
+    "adaptations": [
+      "Pinned 1.0.97 handler semantics are implemented; offline source-derived fixtures are not live tenant acceptance.",
+      "CLI filesystem inputs and outputs use grant-owned private artifacts; artifact permissions are enforced.",
+      "See docs/sheets-shortcuts.md for source audit groups and hosted resource limits."
+    ]
+  },
+  "sheets.+chart-delete": {
+    "status": "implemented",
+    "flags": [
+      "url",
+      "spreadsheet-token",
+      "sheet-id",
+      "sheet-name",
+      "chart-id"
+    ],
+    "evidence": [
+      "test/sheets-shortcuts.test.ts",
+      "test/sheets-normalization.test.ts",
+      "test/sheets-properties.test.ts",
+      "test/sheets-file-inputs.test.ts",
+      "test/sheets-charts.test.ts"
+    ],
+    "adaptations": [
+      "Pinned 1.0.97 handler semantics are implemented; offline source-derived fixtures are not live tenant acceptance.",
+      "CLI filesystem inputs and outputs use grant-owned private artifacts; artifact permissions are enforced.",
+      "See docs/sheets-shortcuts.md for source audit groups and hosted resource limits."
+    ]
+  },
+  "sheets.+pivot-update": {
+    "status": "implemented",
+    "flags": [
+      "url",
+      "spreadsheet-token",
+      "sheet-id",
+      "sheet-name",
+      "pivot-table-id",
+      "properties"
+    ],
+    "evidence": [
+      "test/sheets-shortcuts.test.ts",
+      "test/sheets-normalization.test.ts",
+      "test/sheets-properties.test.ts",
+      "test/sheets-file-inputs.test.ts"
+    ],
+    "adaptations": [
+      "Pinned 1.0.97 handler semantics are implemented; offline source-derived fixtures are not live tenant acceptance.",
+      "CLI filesystem inputs and outputs use grant-owned private artifacts; artifact permissions are enforced.",
+      "See docs/sheets-shortcuts.md for source audit groups and hosted resource limits."
+    ]
+  },
+  "sheets.+pivot-delete": {
+    "status": "implemented",
+    "flags": [
+      "url",
+      "spreadsheet-token",
+      "sheet-id",
+      "sheet-name",
+      "pivot-table-id"
+    ],
+    "evidence": [
+      "test/sheets-shortcuts.test.ts",
+      "test/sheets-normalization.test.ts",
+      "test/sheets-properties.test.ts",
+      "test/sheets-file-inputs.test.ts"
+    ],
+    "adaptations": [
+      "Pinned 1.0.97 handler semantics are implemented; offline source-derived fixtures are not live tenant acceptance.",
+      "CLI filesystem inputs and outputs use grant-owned private artifacts; artifact permissions are enforced.",
+      "See docs/sheets-shortcuts.md for source audit groups and hosted resource limits."
+    ]
+  },
+  "sheets.+cond-format-create": {
+    "status": "implemented",
+    "flags": [
+      "url",
+      "spreadsheet-token",
+      "sheet-id",
+      "sheet-name",
+      "properties",
+      "rule-type",
+      "ranges"
+    ],
+    "evidence": [
+      "test/sheets-shortcuts.test.ts",
+      "test/sheets-normalization.test.ts",
+      "test/sheets-properties.test.ts",
+      "test/sheets-file-inputs.test.ts"
+    ],
+    "adaptations": [
+      "Pinned 1.0.97 handler semantics are implemented; offline source-derived fixtures are not live tenant acceptance.",
+      "CLI filesystem inputs and outputs use grant-owned private artifacts; artifact permissions are enforced.",
+      "See docs/sheets-shortcuts.md for source audit groups and hosted resource limits."
+    ]
+  },
+  "sheets.+cond-format-update": {
+    "status": "implemented",
+    "flags": [
+      "url",
+      "spreadsheet-token",
+      "sheet-id",
+      "sheet-name",
+      "rule-id",
+      "properties",
+      "rule-type",
+      "ranges"
+    ],
+    "evidence": [
+      "test/sheets-shortcuts.test.ts",
+      "test/sheets-normalization.test.ts",
+      "test/sheets-properties.test.ts",
+      "test/sheets-file-inputs.test.ts"
+    ],
+    "adaptations": [
+      "Pinned 1.0.97 handler semantics are implemented; offline source-derived fixtures are not live tenant acceptance.",
+      "CLI filesystem inputs and outputs use grant-owned private artifacts; artifact permissions are enforced.",
+      "See docs/sheets-shortcuts.md for source audit groups and hosted resource limits."
+    ]
+  },
+  "sheets.+cond-format-delete": {
+    "status": "implemented",
+    "flags": [
+      "url",
+      "spreadsheet-token",
+      "sheet-id",
+      "sheet-name",
+      "rule-id"
+    ],
+    "evidence": [
+      "test/sheets-shortcuts.test.ts",
+      "test/sheets-normalization.test.ts",
+      "test/sheets-properties.test.ts",
+      "test/sheets-file-inputs.test.ts"
+    ],
+    "adaptations": [
+      "Pinned 1.0.97 handler semantics are implemented; offline source-derived fixtures are not live tenant acceptance.",
+      "CLI filesystem inputs and outputs use grant-owned private artifacts; artifact permissions are enforced.",
+      "See docs/sheets-shortcuts.md for source audit groups and hosted resource limits."
+    ]
+  },
+  "sheets.+sparkline-create": {
+    "status": "implemented",
+    "flags": [
+      "url",
+      "spreadsheet-token",
+      "sheet-id",
+      "sheet-name",
+      "properties"
+    ],
+    "evidence": [
+      "test/sheets-shortcuts.test.ts",
+      "test/sheets-normalization.test.ts",
+      "test/sheets-properties.test.ts",
+      "test/sheets-file-inputs.test.ts"
+    ],
+    "adaptations": [
+      "Pinned 1.0.97 handler semantics are implemented; offline source-derived fixtures are not live tenant acceptance.",
+      "CLI filesystem inputs and outputs use grant-owned private artifacts; artifact permissions are enforced.",
+      "See docs/sheets-shortcuts.md for source audit groups and hosted resource limits."
+    ]
+  },
+  "sheets.+sparkline-update": {
+    "status": "implemented",
+    "flags": [
+      "url",
+      "spreadsheet-token",
+      "sheet-id",
+      "sheet-name",
+      "group-id",
+      "properties"
+    ],
+    "evidence": [
+      "test/sheets-shortcuts.test.ts",
+      "test/sheets-normalization.test.ts",
+      "test/sheets-properties.test.ts",
+      "test/sheets-file-inputs.test.ts"
+    ],
+    "adaptations": [
+      "Pinned 1.0.97 handler semantics are implemented; offline source-derived fixtures are not live tenant acceptance.",
+      "CLI filesystem inputs and outputs use grant-owned private artifacts; artifact permissions are enforced.",
+      "See docs/sheets-shortcuts.md for source audit groups and hosted resource limits."
+    ]
+  },
+  "sheets.+sparkline-delete": {
+    "status": "implemented",
+    "flags": [
+      "url",
+      "spreadsheet-token",
+      "sheet-id",
+      "sheet-name",
+      "group-id"
+    ],
+    "evidence": [
+      "test/sheets-shortcuts.test.ts",
+      "test/sheets-normalization.test.ts",
+      "test/sheets-properties.test.ts",
+      "test/sheets-file-inputs.test.ts"
+    ],
+    "adaptations": [
+      "Pinned 1.0.97 handler semantics are implemented; offline source-derived fixtures are not live tenant acceptance.",
+      "CLI filesystem inputs and outputs use grant-owned private artifacts; artifact permissions are enforced.",
+      "See docs/sheets-shortcuts.md for source audit groups and hosted resource limits."
+    ]
+  },
+  "sheets.+filter-view-create": {
+    "status": "implemented",
+    "flags": [
+      "url",
+      "spreadsheet-token",
+      "sheet-id",
+      "sheet-name",
+      "properties",
+      "range",
+      "view-name"
+    ],
+    "evidence": [
+      "test/sheets-shortcuts.test.ts",
+      "test/sheets-normalization.test.ts",
+      "test/sheets-properties.test.ts",
+      "test/sheets-file-inputs.test.ts"
+    ],
+    "adaptations": [
+      "Pinned 1.0.97 handler semantics are implemented; offline source-derived fixtures are not live tenant acceptance.",
+      "CLI filesystem inputs and outputs use grant-owned private artifacts; artifact permissions are enforced.",
+      "See docs/sheets-shortcuts.md for source audit groups and hosted resource limits."
+    ]
+  },
+  "sheets.+filter-view-update": {
+    "status": "implemented",
+    "flags": [
+      "url",
+      "spreadsheet-token",
+      "sheet-id",
+      "sheet-name",
+      "view-id",
+      "properties",
+      "range",
+      "view-name"
+    ],
+    "evidence": [
+      "test/sheets-shortcuts.test.ts",
+      "test/sheets-normalization.test.ts",
+      "test/sheets-properties.test.ts",
+      "test/sheets-file-inputs.test.ts"
+    ],
+    "adaptations": [
+      "Pinned 1.0.97 handler semantics are implemented; offline source-derived fixtures are not live tenant acceptance.",
+      "CLI filesystem inputs and outputs use grant-owned private artifacts; artifact permissions are enforced.",
+      "See docs/sheets-shortcuts.md for source audit groups and hosted resource limits."
+    ]
+  },
+  "sheets.+filter-view-delete": {
+    "status": "implemented",
+    "flags": [
+      "url",
+      "spreadsheet-token",
+      "sheet-id",
+      "sheet-name",
+      "view-id"
+    ],
+    "evidence": [
+      "test/sheets-shortcuts.test.ts",
+      "test/sheets-normalization.test.ts",
+      "test/sheets-properties.test.ts",
+      "test/sheets-file-inputs.test.ts"
+    ],
+    "adaptations": [
+      "Pinned 1.0.97 handler semantics are implemented; offline source-derived fixtures are not live tenant acceptance.",
+      "CLI filesystem inputs and outputs use grant-owned private artifacts; artifact permissions are enforced.",
+      "See docs/sheets-shortcuts.md for source audit groups and hosted resource limits."
+    ]
+  },
+  "sheets.+float-image-delete": {
+    "status": "implemented",
+    "flags": [
+      "url",
+      "spreadsheet-token",
+      "sheet-id",
+      "sheet-name",
+      "float-image-id"
+    ],
+    "evidence": [
+      "test/sheets-shortcuts.test.ts",
+      "test/sheets-normalization.test.ts",
+      "test/sheets-properties.test.ts",
+      "test/sheets-file-inputs.test.ts"
+    ],
+    "adaptations": [
+      "Pinned 1.0.97 handler semantics are implemented; offline source-derived fixtures are not live tenant acceptance.",
+      "CLI filesystem inputs and outputs use grant-owned private artifacts; artifact permissions are enforced.",
+      "See docs/sheets-shortcuts.md for source audit groups and hosted resource limits."
+    ]
+  },
+  "sheets.+sheet-info": {
+    "status": "implemented",
+    "flags": [
+      "url",
+      "spreadsheet-token",
+      "sheet-id",
+      "sheet-name",
+      "include",
+      "range"
+    ],
+    "evidence": [
+      "test/sheets-shortcuts.test.ts",
+      "test/sheets-normalization.test.ts",
+      "test/sheets-properties.test.ts",
+      "test/sheets-file-inputs.test.ts"
+    ],
+    "adaptations": [
+      "Pinned 1.0.97 handler semantics are implemented; offline source-derived fixtures are not live tenant acceptance.",
+      "CLI filesystem inputs and outputs use grant-owned private artifacts; artifact permissions are enforced.",
+      "See docs/sheets-shortcuts.md for source audit groups and hosted resource limits."
+    ]
+  },
+  "sheets.+dropdown-get": {
+    "status": "implemented",
+    "flags": [
+      "url",
+      "spreadsheet-token",
+      "sheet-id",
+      "sheet-name",
+      "range"
+    ],
+    "evidence": [
+      "test/sheets-shortcuts.test.ts",
+      "test/sheets-normalization.test.ts",
+      "test/sheets-properties.test.ts",
+      "test/sheets-file-inputs.test.ts"
+    ],
+    "adaptations": [
+      "Pinned 1.0.97 handler semantics are implemented; offline source-derived fixtures are not live tenant acceptance.",
+      "CLI filesystem inputs and outputs use grant-owned private artifacts; artifact permissions are enforced.",
+      "See docs/sheets-shortcuts.md for source audit groups and hosted resource limits."
+    ]
+  },
+  "sheets.+dim-hide": {
+    "status": "implemented",
+    "flags": [
+      "url",
+      "spreadsheet-token",
+      "sheet-id",
+      "sheet-name",
+      "range"
+    ],
+    "evidence": [
+      "test/sheets-shortcuts.test.ts",
+      "test/sheets-normalization.test.ts",
+      "test/sheets-properties.test.ts",
+      "test/sheets-file-inputs.test.ts"
+    ],
+    "adaptations": [
+      "Pinned 1.0.97 handler semantics are implemented; offline source-derived fixtures are not live tenant acceptance.",
+      "CLI filesystem inputs and outputs use grant-owned private artifacts; artifact permissions are enforced.",
+      "See docs/sheets-shortcuts.md for source audit groups and hosted resource limits."
+    ]
+  },
+  "sheets.+dim-unhide": {
+    "status": "implemented",
+    "flags": [
+      "url",
+      "spreadsheet-token",
+      "sheet-id",
+      "sheet-name",
+      "range"
+    ],
+    "evidence": [
+      "test/sheets-shortcuts.test.ts",
+      "test/sheets-normalization.test.ts",
+      "test/sheets-properties.test.ts",
+      "test/sheets-file-inputs.test.ts"
+    ],
+    "adaptations": [
+      "Pinned 1.0.97 handler semantics are implemented; offline source-derived fixtures are not live tenant acceptance.",
+      "CLI filesystem inputs and outputs use grant-owned private artifacts; artifact permissions are enforced.",
+      "See docs/sheets-shortcuts.md for source audit groups and hosted resource limits."
+    ]
+  },
+  "sheets.+dim-group": {
+    "status": "implemented",
+    "flags": [
+      "url",
+      "spreadsheet-token",
+      "sheet-id",
+      "sheet-name",
+      "depth",
+      "group-state",
+      "range"
+    ],
+    "evidence": [
+      "test/sheets-shortcuts.test.ts",
+      "test/sheets-normalization.test.ts",
+      "test/sheets-properties.test.ts",
+      "test/sheets-file-inputs.test.ts"
+    ],
+    "adaptations": [
+      "Pinned 1.0.97 handler semantics are implemented; offline source-derived fixtures are not live tenant acceptance.",
+      "CLI filesystem inputs and outputs use grant-owned private artifacts; artifact permissions are enforced.",
+      "See docs/sheets-shortcuts.md for source audit groups and hosted resource limits."
+    ]
+  },
+  "sheets.+dim-ungroup": {
+    "status": "implemented",
+    "flags": [
+      "url",
+      "spreadsheet-token",
+      "sheet-id",
+      "sheet-name",
+      "depth",
+      "range"
+    ],
+    "evidence": [
+      "test/sheets-shortcuts.test.ts",
+      "test/sheets-normalization.test.ts",
+      "test/sheets-properties.test.ts",
+      "test/sheets-file-inputs.test.ts"
+    ],
+    "adaptations": [
+      "Pinned 1.0.97 handler semantics are implemented; offline source-derived fixtures are not live tenant acceptance.",
+      "CLI filesystem inputs and outputs use grant-owned private artifacts; artifact permissions are enforced.",
+      "See docs/sheets-shortcuts.md for source audit groups and hosted resource limits."
+    ]
+  },
+  "sheets.+dim-insert": {
+    "status": "implemented",
+    "flags": [
+      "url",
+      "spreadsheet-token",
+      "sheet-id",
+      "sheet-name",
+      "inherit-style",
+      "position",
+      "count"
+    ],
+    "evidence": [
+      "test/sheets-shortcuts.test.ts",
+      "test/sheets-normalization.test.ts",
+      "test/sheets-properties.test.ts",
+      "test/sheets-file-inputs.test.ts"
+    ],
+    "adaptations": [
+      "Pinned 1.0.97 handler semantics are implemented; offline source-derived fixtures are not live tenant acceptance.",
+      "CLI filesystem inputs and outputs use grant-owned private artifacts; artifact permissions are enforced.",
+      "See docs/sheets-shortcuts.md for source audit groups and hosted resource limits."
+    ]
+  },
+  "sheets.+dim-freeze": {
+    "status": "implemented",
+    "flags": [
+      "url",
+      "spreadsheet-token",
+      "sheet-id",
+      "sheet-name",
+      "dimension",
+      "count",
+      "rows",
+      "cols"
+    ],
+    "evidence": [
+      "test/sheets-shortcuts.test.ts",
+      "test/sheets-normalization.test.ts",
+      "test/sheets-properties.test.ts",
+      "test/sheets-file-inputs.test.ts"
+    ],
+    "adaptations": [
+      "Pinned 1.0.97 handler semantics are implemented; offline source-derived fixtures are not live tenant acceptance.",
+      "CLI filesystem inputs and outputs use grant-owned private artifacts; artifact permissions are enforced.",
+      "See docs/sheets-shortcuts.md for source audit groups and hosted resource limits."
+    ]
+  },
+  "sheets.+cells-clear": {
+    "status": "implemented",
+    "flags": [
+      "url",
+      "spreadsheet-token",
+      "sheet-id",
+      "sheet-name",
+      "range",
+      "scope"
+    ],
+    "evidence": [
+      "test/sheets-shortcuts.test.ts",
+      "test/sheets-normalization.test.ts",
+      "test/sheets-properties.test.ts",
+      "test/sheets-file-inputs.test.ts"
+    ],
+    "adaptations": [
+      "Pinned 1.0.97 handler semantics are implemented; offline source-derived fixtures are not live tenant acceptance.",
+      "CLI filesystem inputs and outputs use grant-owned private artifacts; artifact permissions are enforced.",
+      "See docs/sheets-shortcuts.md for source audit groups and hosted resource limits."
+    ]
+  },
+  "sheets.+cells-merge": {
+    "status": "implemented",
+    "flags": [
+      "url",
+      "spreadsheet-token",
+      "sheet-id",
+      "sheet-name",
+      "range",
+      "merge-type"
+    ],
+    "evidence": [
+      "test/sheets-shortcuts.test.ts",
+      "test/sheets-normalization.test.ts",
+      "test/sheets-properties.test.ts",
+      "test/sheets-file-inputs.test.ts"
+    ],
+    "adaptations": [
+      "Pinned 1.0.97 handler semantics are implemented; offline source-derived fixtures are not live tenant acceptance.",
+      "CLI filesystem inputs and outputs use grant-owned private artifacts; artifact permissions are enforced.",
+      "See docs/sheets-shortcuts.md for source audit groups and hosted resource limits."
+    ]
+  },
+  "sheets.+cells-unmerge": {
+    "status": "implemented",
+    "flags": [
+      "url",
+      "spreadsheet-token",
+      "sheet-id",
+      "sheet-name",
+      "range"
+    ],
+    "evidence": [
+      "test/sheets-shortcuts.test.ts",
+      "test/sheets-normalization.test.ts",
+      "test/sheets-properties.test.ts",
+      "test/sheets-file-inputs.test.ts"
+    ],
+    "adaptations": [
+      "Pinned 1.0.97 handler semantics are implemented; offline source-derived fixtures are not live tenant acceptance.",
+      "CLI filesystem inputs and outputs use grant-owned private artifacts; artifact permissions are enforced.",
+      "See docs/sheets-shortcuts.md for source audit groups and hosted resource limits."
+    ]
+  },
+  "sheets.+sheet-create": {
+    "status": "implemented",
+    "flags": [
+      "url",
+      "spreadsheet-token",
+      "title",
+      "index",
+      "row-count",
+      "col-count",
+      "type"
+    ],
+    "evidence": [
+      "test/sheets-shortcuts.test.ts",
+      "test/sheets-normalization.test.ts",
+      "test/sheets-properties.test.ts",
+      "test/sheets-file-inputs.test.ts"
+    ],
+    "adaptations": [
+      "Pinned 1.0.97 handler semantics are implemented; offline source-derived fixtures are not live tenant acceptance.",
+      "CLI filesystem inputs and outputs use grant-owned private artifacts; artifact permissions are enforced.",
+      "See docs/sheets-shortcuts.md for source audit groups and hosted resource limits."
+    ]
+  },
+  "sheets.+sheet-delete": {
+    "status": "implemented",
+    "flags": [
+      "url",
+      "spreadsheet-token",
+      "sheet-id",
+      "sheet-name"
+    ],
+    "evidence": [
+      "test/sheets-shortcuts.test.ts",
+      "test/sheets-normalization.test.ts",
+      "test/sheets-properties.test.ts",
+      "test/sheets-file-inputs.test.ts"
+    ],
+    "adaptations": [
+      "Pinned 1.0.97 handler semantics are implemented; offline source-derived fixtures are not live tenant acceptance.",
+      "CLI filesystem inputs and outputs use grant-owned private artifacts; artifact permissions are enforced.",
+      "See docs/sheets-shortcuts.md for source audit groups and hosted resource limits."
+    ]
+  },
+  "sheets.+sheet-rename": {
+    "status": "implemented",
+    "flags": [
+      "url",
+      "spreadsheet-token",
+      "sheet-id",
+      "sheet-name",
+      "title"
+    ],
+    "evidence": [
+      "test/sheets-shortcuts.test.ts",
+      "test/sheets-normalization.test.ts",
+      "test/sheets-properties.test.ts",
+      "test/sheets-file-inputs.test.ts"
+    ],
+    "adaptations": [
+      "Pinned 1.0.97 handler semantics are implemented; offline source-derived fixtures are not live tenant acceptance.",
+      "CLI filesystem inputs and outputs use grant-owned private artifacts; artifact permissions are enforced.",
+      "See docs/sheets-shortcuts.md for source audit groups and hosted resource limits."
+    ]
+  },
+  "sheets.+sheet-copy": {
+    "status": "implemented",
+    "flags": [
+      "url",
+      "spreadsheet-token",
+      "sheet-id",
+      "sheet-name",
+      "title",
+      "index"
+    ],
+    "evidence": [
+      "test/sheets-shortcuts.test.ts",
+      "test/sheets-normalization.test.ts",
+      "test/sheets-properties.test.ts",
+      "test/sheets-file-inputs.test.ts"
+    ],
+    "adaptations": [
+      "Pinned 1.0.97 handler semantics are implemented; offline source-derived fixtures are not live tenant acceptance.",
+      "CLI filesystem inputs and outputs use grant-owned private artifacts; artifact permissions are enforced.",
+      "See docs/sheets-shortcuts.md for source audit groups and hosted resource limits."
+    ]
+  },
+  "sheets.+sheet-hide": {
+    "status": "implemented",
+    "flags": [
+      "url",
+      "spreadsheet-token",
+      "sheet-id",
+      "sheet-name"
+    ],
+    "evidence": [
+      "test/sheets-shortcuts.test.ts",
+      "test/sheets-normalization.test.ts",
+      "test/sheets-properties.test.ts",
+      "test/sheets-file-inputs.test.ts"
+    ],
+    "adaptations": [
+      "Pinned 1.0.97 handler semantics are implemented; offline source-derived fixtures are not live tenant acceptance.",
+      "CLI filesystem inputs and outputs use grant-owned private artifacts; artifact permissions are enforced.",
+      "See docs/sheets-shortcuts.md for source audit groups and hosted resource limits."
+    ]
+  },
+  "sheets.+sheet-unhide": {
+    "status": "implemented",
+    "flags": [
+      "url",
+      "spreadsheet-token",
+      "sheet-id",
+      "sheet-name"
+    ],
+    "evidence": [
+      "test/sheets-shortcuts.test.ts",
+      "test/sheets-normalization.test.ts",
+      "test/sheets-properties.test.ts",
+      "test/sheets-file-inputs.test.ts"
+    ],
+    "adaptations": [
+      "Pinned 1.0.97 handler semantics are implemented; offline source-derived fixtures are not live tenant acceptance.",
+      "CLI filesystem inputs and outputs use grant-owned private artifacts; artifact permissions are enforced.",
+      "See docs/sheets-shortcuts.md for source audit groups and hosted resource limits."
+    ]
+  },
+  "sheets.+sheet-set-tab-color": {
+    "status": "implemented",
+    "flags": [
+      "url",
+      "spreadsheet-token",
+      "sheet-id",
+      "sheet-name",
+      "color"
+    ],
+    "evidence": [
+      "test/sheets-shortcuts.test.ts",
+      "test/sheets-normalization.test.ts",
+      "test/sheets-properties.test.ts",
+      "test/sheets-file-inputs.test.ts"
+    ],
+    "adaptations": [
+      "Pinned 1.0.97 handler semantics are implemented; offline source-derived fixtures are not live tenant acceptance.",
+      "CLI filesystem inputs and outputs use grant-owned private artifacts; artifact permissions are enforced.",
+      "See docs/sheets-shortcuts.md for source audit groups and hosted resource limits."
+    ]
+  },
+  "sheets.+sheet-show-gridline": {
+    "status": "implemented",
+    "flags": [
+      "url",
+      "spreadsheet-token",
+      "sheet-id",
+      "sheet-name"
+    ],
+    "evidence": [
+      "test/sheets-shortcuts.test.ts",
+      "test/sheets-normalization.test.ts",
+      "test/sheets-properties.test.ts",
+      "test/sheets-file-inputs.test.ts"
+    ],
+    "adaptations": [
+      "Pinned 1.0.97 handler semantics are implemented; offline source-derived fixtures are not live tenant acceptance.",
+      "CLI filesystem inputs and outputs use grant-owned private artifacts; artifact permissions are enforced.",
+      "See docs/sheets-shortcuts.md for source audit groups and hosted resource limits."
+    ]
+  },
+  "sheets.+sheet-hide-gridline": {
+    "status": "implemented",
+    "flags": [
+      "url",
+      "spreadsheet-token",
+      "sheet-id",
+      "sheet-name"
+    ],
+    "evidence": [
+      "test/sheets-shortcuts.test.ts",
+      "test/sheets-normalization.test.ts",
+      "test/sheets-properties.test.ts",
+      "test/sheets-file-inputs.test.ts"
+    ],
+    "adaptations": [
+      "Pinned 1.0.97 handler semantics are implemented; offline source-derived fixtures are not live tenant acceptance.",
+      "CLI filesystem inputs and outputs use grant-owned private artifacts; artifact permissions are enforced.",
+      "See docs/sheets-shortcuts.md for source audit groups and hosted resource limits."
+    ]
+  },
+  "sheets.+workbook-info": {
+    "status": "implemented",
+    "flags": [
+      "url",
+      "spreadsheet-token"
+    ],
+    "evidence": [
+      "test/sheets-shortcuts.test.ts",
+      "test/sheets-normalization.test.ts",
+      "test/sheets-properties.test.ts",
+      "test/sheets-file-inputs.test.ts"
+    ],
+    "adaptations": [
+      "Pinned 1.0.97 handler semantics are implemented; offline source-derived fixtures are not live tenant acceptance.",
+      "CLI filesystem inputs and outputs use grant-owned private artifacts; artifact permissions are enforced.",
+      "See docs/sheets-shortcuts.md for source audit groups and hosted resource limits."
+    ]
+  },
+  "sheets.+sheet-list": {
+    "status": "implemented",
+    "flags": [
+      "url",
+      "spreadsheet-token"
+    ],
+    "evidence": [
+      "test/sheets-shortcuts.test.ts",
+      "test/sheets-normalization.test.ts",
+      "test/sheets-properties.test.ts",
+      "test/sheets-file-inputs.test.ts"
+    ],
+    "adaptations": [
+      "Pinned 1.0.97 handler semantics are implemented; offline source-derived fixtures are not live tenant acceptance.",
+      "CLI filesystem inputs and outputs use grant-owned private artifacts; artifact permissions are enforced.",
+      "See docs/sheets-shortcuts.md for source audit groups and hosted resource limits."
+    ]
+  },
+  "sheets.+revision-get": {
+    "status": "implemented",
+    "flags": [
+      "url",
+      "spreadsheet-token"
+    ],
+    "evidence": [
+      "test/sheets-shortcuts.test.ts",
+      "test/sheets-normalization.test.ts",
+      "test/sheets-properties.test.ts",
+      "test/sheets-file-inputs.test.ts"
+    ],
+    "adaptations": [
+      "Pinned 1.0.97 handler semantics are implemented; offline source-derived fixtures are not live tenant acceptance.",
+      "CLI filesystem inputs and outputs use grant-owned private artifacts; artifact permissions are enforced.",
+      "See docs/sheets-shortcuts.md for source audit groups and hosted resource limits."
+    ]
+  },
+  "sheets.+changeset-get": {
+    "status": "implemented",
+    "flags": [
+      "url",
+      "spreadsheet-token",
+      "start-revision",
+      "end-revision"
+    ],
+    "evidence": [
+      "test/sheets-shortcuts.test.ts",
+      "test/sheets-normalization.test.ts",
+      "test/sheets-properties.test.ts",
+      "test/sheets-file-inputs.test.ts"
+    ],
+    "adaptations": [
+      "Pinned 1.0.97 handler semantics are implemented; offline source-derived fixtures are not live tenant acceptance.",
+      "CLI filesystem inputs and outputs use grant-owned private artifacts; artifact permissions are enforced.",
+      "See docs/sheets-shortcuts.md for source audit groups and hosted resource limits."
+    ]
+  },
+  "sheets.+history-list": {
+    "status": "implemented",
+    "flags": [
+      "url",
+      "spreadsheet-token",
+      "end-version"
+    ],
+    "evidence": [
+      "test/sheets-shortcuts.test.ts",
+      "test/sheets-normalization.test.ts",
+      "test/sheets-properties.test.ts",
+      "test/sheets-file-inputs.test.ts"
+    ],
+    "adaptations": [
+      "Pinned 1.0.97 handler semantics are implemented; offline source-derived fixtures are not live tenant acceptance.",
+      "CLI filesystem inputs and outputs use grant-owned private artifacts; artifact permissions are enforced.",
+      "See docs/sheets-shortcuts.md for source audit groups and hosted resource limits."
+    ]
+  },
+  "sheets.+history-revert": {
+    "status": "implemented",
+    "flags": [
+      "url",
+      "spreadsheet-token",
+      "history-version-id"
+    ],
+    "evidence": [
+      "test/sheets-shortcuts.test.ts",
+      "test/sheets-normalization.test.ts",
+      "test/sheets-properties.test.ts",
+      "test/sheets-file-inputs.test.ts"
+    ],
+    "adaptations": [
+      "Pinned 1.0.97 handler semantics are implemented; offline source-derived fixtures are not live tenant acceptance.",
+      "CLI filesystem inputs and outputs use grant-owned private artifacts; artifact permissions are enforced.",
+      "See docs/sheets-shortcuts.md for source audit groups and hosted resource limits."
+    ]
+  },
+  "sheets.+history-revert-status": {
+    "status": "implemented",
+    "flags": [
+      "url",
+      "spreadsheet-token",
+      "transaction-id"
+    ],
+    "evidence": [
+      "test/sheets-shortcuts.test.ts",
+      "test/sheets-normalization.test.ts",
+      "test/sheets-properties.test.ts",
+      "test/sheets-file-inputs.test.ts"
+    ],
+    "adaptations": [
+      "Pinned 1.0.97 handler semantics are implemented; offline source-derived fixtures are not live tenant acceptance.",
+      "CLI filesystem inputs and outputs use grant-owned private artifacts; artifact permissions are enforced.",
+      "See docs/sheets-shortcuts.md for source audit groups and hosted resource limits."
+    ]
+  },
+  "sheets.+chart-list": {
+    "status": "implemented",
+    "flags": [
+      "url",
+      "spreadsheet-token",
+      "sheet-id",
+      "sheet-name",
+      "chart-id"
+    ],
+    "evidence": [
+      "test/sheets-shortcuts.test.ts",
+      "test/sheets-normalization.test.ts",
+      "test/sheets-properties.test.ts",
+      "test/sheets-file-inputs.test.ts",
+      "test/sheets-charts.test.ts"
+    ],
+    "adaptations": [
+      "Pinned 1.0.97 handler semantics are implemented; offline source-derived fixtures are not live tenant acceptance.",
+      "CLI filesystem inputs and outputs use grant-owned private artifacts; artifact permissions are enforced.",
+      "See docs/sheets-shortcuts.md for source audit groups and hosted resource limits."
+    ]
+  },
+  "sheets.+pivot-list": {
+    "status": "implemented",
+    "flags": [
+      "url",
+      "spreadsheet-token",
+      "sheet-id",
+      "sheet-name",
+      "pivot-table-id"
+    ],
+    "evidence": [
+      "test/sheets-shortcuts.test.ts",
+      "test/sheets-normalization.test.ts",
+      "test/sheets-properties.test.ts",
+      "test/sheets-file-inputs.test.ts"
+    ],
+    "adaptations": [
+      "Pinned 1.0.97 handler semantics are implemented; offline source-derived fixtures are not live tenant acceptance.",
+      "CLI filesystem inputs and outputs use grant-owned private artifacts; artifact permissions are enforced.",
+      "See docs/sheets-shortcuts.md for source audit groups and hosted resource limits."
+    ]
+  },
+  "sheets.+cond-format-list": {
+    "status": "implemented",
+    "flags": [
+      "url",
+      "spreadsheet-token",
+      "sheet-id",
+      "sheet-name",
+      "rule-id"
+    ],
+    "evidence": [
+      "test/sheets-shortcuts.test.ts",
+      "test/sheets-normalization.test.ts",
+      "test/sheets-properties.test.ts",
+      "test/sheets-file-inputs.test.ts"
+    ],
+    "adaptations": [
+      "Pinned 1.0.97 handler semantics are implemented; offline source-derived fixtures are not live tenant acceptance.",
+      "CLI filesystem inputs and outputs use grant-owned private artifacts; artifact permissions are enforced.",
+      "See docs/sheets-shortcuts.md for source audit groups and hosted resource limits."
+    ]
+  },
+  "sheets.+filter-list": {
+    "status": "implemented",
+    "flags": [
+      "url",
+      "spreadsheet-token",
+      "sheet-id",
+      "sheet-name"
+    ],
+    "evidence": [
+      "test/sheets-shortcuts.test.ts",
+      "test/sheets-normalization.test.ts",
+      "test/sheets-properties.test.ts",
+      "test/sheets-file-inputs.test.ts"
+    ],
+    "adaptations": [
+      "Pinned 1.0.97 handler semantics are implemented; offline source-derived fixtures are not live tenant acceptance.",
+      "CLI filesystem inputs and outputs use grant-owned private artifacts; artifact permissions are enforced.",
+      "See docs/sheets-shortcuts.md for source audit groups and hosted resource limits."
+    ]
+  },
+  "sheets.+filter-view-list": {
+    "status": "implemented",
+    "flags": [
+      "url",
+      "spreadsheet-token",
+      "sheet-id",
+      "sheet-name",
+      "view-id"
+    ],
+    "evidence": [
+      "test/sheets-shortcuts.test.ts",
+      "test/sheets-normalization.test.ts",
+      "test/sheets-properties.test.ts",
+      "test/sheets-file-inputs.test.ts"
+    ],
+    "adaptations": [
+      "Pinned 1.0.97 handler semantics are implemented; offline source-derived fixtures are not live tenant acceptance.",
+      "CLI filesystem inputs and outputs use grant-owned private artifacts; artifact permissions are enforced.",
+      "See docs/sheets-shortcuts.md for source audit groups and hosted resource limits."
+    ]
+  },
+  "sheets.+sparkline-list": {
+    "status": "implemented",
+    "flags": [
+      "url",
+      "spreadsheet-token",
+      "sheet-id",
+      "sheet-name",
+      "group-id"
+    ],
+    "evidence": [
+      "test/sheets-shortcuts.test.ts",
+      "test/sheets-normalization.test.ts",
+      "test/sheets-properties.test.ts",
+      "test/sheets-file-inputs.test.ts"
+    ],
+    "adaptations": [
+      "Pinned 1.0.97 handler semantics are implemented; offline source-derived fixtures are not live tenant acceptance.",
+      "CLI filesystem inputs and outputs use grant-owned private artifacts; artifact permissions are enforced.",
+      "See docs/sheets-shortcuts.md for source audit groups and hosted resource limits."
+    ]
+  },
+  "sheets.+float-image-list": {
+    "status": "implemented",
+    "flags": [
+      "url",
+      "spreadsheet-token",
+      "sheet-id",
+      "sheet-name",
+      "float-image-id"
+    ],
+    "evidence": [
+      "test/sheets-shortcuts.test.ts",
+      "test/sheets-normalization.test.ts",
+      "test/sheets-properties.test.ts",
+      "test/sheets-file-inputs.test.ts"
+    ],
+    "adaptations": [
+      "Pinned 1.0.97 handler semantics are implemented; offline source-derived fixtures are not live tenant acceptance.",
+      "CLI filesystem inputs and outputs use grant-owned private artifacts; artifact permissions are enforced.",
+      "See docs/sheets-shortcuts.md for source audit groups and hosted resource limits."
+    ]
+  },
+  "sheets.+batch-chart-create": {
+    "status": "implemented",
+    "flags": [
+      "url",
+      "spreadsheet-token",
+      "operations",
+      "continue-on-error"
+    ],
+    "evidence": [
+      "test/sheets-shortcuts.test.ts",
+      "test/sheets-normalization.test.ts",
+      "test/sheets-properties.test.ts",
+      "test/sheets-file-inputs.test.ts",
+      "test/sheets-charts.test.ts"
+    ],
+    "adaptations": [
+      "Pinned 1.0.97 handler semantics are implemented; offline source-derived fixtures are not live tenant acceptance.",
+      "CLI filesystem inputs and outputs use grant-owned private artifacts; artifact permissions are enforced.",
+      "See docs/sheets-shortcuts.md for source audit groups and hosted resource limits."
+    ]
+  },
+  "sheets.+batch-chart-update": {
+    "status": "implemented",
+    "flags": [
+      "url",
+      "spreadsheet-token",
+      "operations",
+      "continue-on-error"
+    ],
+    "evidence": [
+      "test/sheets-shortcuts.test.ts",
+      "test/sheets-normalization.test.ts",
+      "test/sheets-properties.test.ts",
+      "test/sheets-file-inputs.test.ts",
+      "test/sheets-charts.test.ts",
+      "test/sheets-workflows.test.ts"
+    ],
+    "adaptations": [
+      "Pinned 1.0.97 handler semantics are implemented; offline source-derived fixtures are not live tenant acceptance.",
+      "CLI filesystem inputs and outputs use grant-owned private artifacts; artifact permissions are enforced.",
+      "Multi-request work executes as resumable bounded workflow steps; uncertain writes are not replayed.",
+      "See docs/sheets-shortcuts.md for source audit groups and hosted resource limits."
+    ]
+  },
+  "sheets.+workbook-export": {
+    "status": "implemented",
+    "flags": [
+      "url",
+      "spreadsheet-token",
+      "file-extension",
+      "sheet-id",
+      "output-path"
+    ],
+    "evidence": [
+      "test/sheets-shortcuts.test.ts",
+      "test/sheets-normalization.test.ts",
+      "test/sheets-properties.test.ts",
+      "test/sheets-file-inputs.test.ts",
+      "test/sheets-conversion.test.ts"
+    ],
+    "adaptations": [
+      "Pinned 1.0.97 handler semantics are implemented; offline source-derived fixtures are not live tenant acceptance.",
+      "CLI filesystem inputs and outputs use grant-owned private artifacts; artifact permissions are enforced.",
+      "Multi-request work executes as resumable bounded workflow steps; uncertain writes are not replayed.",
+      "See docs/sheets-shortcuts.md for source audit groups and hosted resource limits."
+    ]
+  },
+  "sheets.+workbook-import": {
+    "status": "implemented",
+    "flags": [
+      "file",
+      "folder-token",
+      "name"
+    ],
+    "evidence": [
+      "test/sheets-shortcuts.test.ts",
+      "test/sheets-normalization.test.ts",
+      "test/sheets-properties.test.ts",
+      "test/sheets-file-inputs.test.ts",
+      "test/sheets-conversion.test.ts"
+    ],
+    "adaptations": [
+      "Pinned 1.0.97 handler semantics are implemented; offline source-derived fixtures are not live tenant acceptance.",
+      "CLI filesystem inputs and outputs use grant-owned private artifacts; artifact permissions are enforced.",
+      "Multi-request work executes as resumable bounded workflow steps; uncertain writes are not replayed.",
+      "See docs/sheets-shortcuts.md for source audit groups and hosted resource limits."
+    ]
+  },
+  "sheets.+chart-create-basic": {
+    "status": "implemented",
+    "flags": [
+      "url",
+      "spreadsheet-token",
+      "sheet-id",
+      "sheet-name",
+      "chart-type",
+      "data-range",
+      "header-range",
+      "data-direction",
+      "aggregate-categories",
+      "x-axis-numbers-as",
+      "x-axis-min",
+      "x-axis-max",
+      "y-axis-min",
+      "y-axis-max",
+      "dim1-index",
+      "dim2-indexes",
+      "series-types",
+      "series-y-axes",
+      "key-index",
+      "x-index",
+      "y-index",
+      "group-index",
+      "size-index",
+      "title",
+      "subtitle",
+      "legend-position",
+      "x-axis-title",
+      "y-axis-title",
+      "secondary-y-axis-title",
+      "x-axis-label-angle",
+      "y-axis-label-angle",
+      "data-labels",
+      "data-label-position",
+      "stack",
+      "stacked",
+      "smooth",
+      "color-palette",
+      "colors",
+      "anchor-cell",
+      "width",
+      "height"
+    ],
+    "evidence": [
+      "test/sheets-shortcuts.test.ts",
+      "test/sheets-normalization.test.ts",
+      "test/sheets-properties.test.ts",
+      "test/sheets-file-inputs.test.ts",
+      "test/sheets-charts.test.ts"
+    ],
+    "adaptations": [
+      "Pinned 1.0.97 handler semantics are implemented; offline source-derived fixtures are not live tenant acceptance.",
+      "CLI filesystem inputs and outputs use grant-owned private artifacts; artifact permissions are enforced.",
+      "See docs/sheets-shortcuts.md for source audit groups and hosted resource limits."
+    ]
+  },
+  "sheets.+chart-config-update": {
+    "status": "implemented",
+    "flags": [
+      "url",
+      "spreadsheet-token",
+      "sheet-id",
+      "sheet-name",
+      "chart-id",
+      "title",
+      "subtitle",
+      "legend-position",
+      "x-axis-title",
+      "y-axis-title",
+      "secondary-y-axis-title",
+      "x-axis-label-angle",
+      "y-axis-label-angle",
+      "x-axis-min",
+      "x-axis-max",
+      "y-axis-min",
+      "y-axis-max",
+      "data-labels",
+      "data-label-position",
+      "aggregate-categories",
+      "stack",
+      "stacked",
+      "smooth",
+      "color-palette",
+      "colors"
+    ],
+    "evidence": [
+      "test/sheets-shortcuts.test.ts",
+      "test/sheets-normalization.test.ts",
+      "test/sheets-properties.test.ts",
+      "test/sheets-file-inputs.test.ts",
+      "test/sheets-charts.test.ts"
+    ],
+    "adaptations": [
+      "Pinned 1.0.97 handler semantics are implemented; offline source-derived fixtures are not live tenant acceptance.",
+      "CLI filesystem inputs and outputs use grant-owned private artifacts; artifact permissions are enforced.",
+      "See docs/sheets-shortcuts.md for source audit groups and hosted resource limits."
+    ]
+  },
+  "sheets.+chart-data-update": {
+    "status": "implemented",
+    "flags": [
+      "url",
+      "spreadsheet-token",
+      "sheet-id",
+      "sheet-name",
+      "chart-id",
+      "data-range",
+      "header-range",
+      "data-direction",
+      "dim1-index",
+      "dim2-indexes",
+      "key-index",
+      "x-index",
+      "y-index",
+      "group-index",
+      "size-index"
+    ],
+    "evidence": [
+      "test/sheets-shortcuts.test.ts",
+      "test/sheets-normalization.test.ts",
+      "test/sheets-properties.test.ts",
+      "test/sheets-file-inputs.test.ts",
+      "test/sheets-charts.test.ts"
+    ],
+    "adaptations": [
+      "Pinned 1.0.97 handler semantics are implemented; offline source-derived fixtures are not live tenant acceptance.",
+      "CLI filesystem inputs and outputs use grant-owned private artifacts; artifact permissions are enforced.",
+      "See docs/sheets-shortcuts.md for source audit groups and hosted resource limits."
+    ]
+  },
+  "sheets.+table-put": {
+    "status": "implemented",
+    "flags": [
+      "url",
+      "spreadsheet-token",
+      "sheets",
+      "styles"
+    ],
+    "evidence": [
+      "test/sheets-shortcuts.test.ts",
+      "test/sheets-normalization.test.ts",
+      "test/sheets-properties.test.ts",
+      "test/sheets-file-inputs.test.ts",
+      "test/sheets-table-write.test.ts",
+      "test/sheets-border-vocabulary.test.ts",
+      "test/sheets-workflows.test.ts"
+    ],
+    "adaptations": [
+      "Pinned 1.0.97 handler semantics are implemented; offline source-derived fixtures are not live tenant acceptance.",
+      "CLI filesystem inputs and outputs use grant-owned private artifacts; artifact permissions are enforced.",
+      "Multi-request work executes as resumable bounded workflow steps; uncertain writes are not replayed.",
+      "See docs/sheets-shortcuts.md for source audit groups and hosted resource limits."
+    ]
+  },
+  "sheets.+workbook-create": {
+    "status": "implemented",
+    "flags": [
+      "title",
+      "folder-token",
+      "values",
+      "sheets",
+      "styles"
+    ],
+    "evidence": [
+      "test/sheets-shortcuts.test.ts",
+      "test/sheets-normalization.test.ts",
+      "test/sheets-properties.test.ts",
+      "test/sheets-file-inputs.test.ts",
+      "test/sheets-table-write.test.ts",
+      "test/sheets-border-vocabulary.test.ts",
+      "test/sheets-workflows.test.ts"
+    ],
+    "adaptations": [
+      "Pinned 1.0.97 handler semantics are implemented; offline source-derived fixtures are not live tenant acceptance.",
+      "CLI filesystem inputs and outputs use grant-owned private artifacts; artifact permissions are enforced.",
+      "Multi-request work executes as resumable bounded workflow steps; uncertain writes are not replayed.",
+      "See docs/sheets-shortcuts.md for source audit groups and hosted resource limits."
+    ]
+  },
+  "sheets.+cells-set-image": {
+    "status": "implemented",
+    "flags": [
+      "url",
+      "spreadsheet-token",
+      "sheet-id",
+      "sheet-name",
+      "range",
+      "image",
+      "name"
+    ],
+    "evidence": [
+      "test/sheets-shortcuts.test.ts",
+      "test/sheets-normalization.test.ts",
+      "test/sheets-properties.test.ts",
+      "test/sheets-file-inputs.test.ts",
+      "test/sheets-images.test.ts",
+      "test/sheets-image-metadata.test.ts"
+    ],
+    "adaptations": [
+      "Pinned 1.0.97 handler semantics are implemented; offline source-derived fixtures are not live tenant acceptance.",
+      "CLI filesystem inputs and outputs use grant-owned private artifacts; artifact permissions are enforced.",
+      "Multi-request work executes as resumable bounded workflow steps; uncertain writes are not replayed.",
+      "See docs/sheets-shortcuts.md for source audit groups and hosted resource limits."
+    ]
+  },
+  "sheets.+table-get": {
+    "status": "implemented",
+    "flags": [
+      "url",
+      "spreadsheet-token",
+      "sheet-id",
+      "sheet-name",
+      "range",
+      "max-chars",
+      "output-path",
+      "no-header"
+    ],
+    "evidence": [
+      "test/sheets-shortcuts.test.ts",
+      "test/sheets-normalization.test.ts",
+      "test/sheets-properties.test.ts",
+      "test/sheets-file-inputs.test.ts",
+      "test/sheets-table-read.test.ts",
+      "test/sheets-workflows.test.ts"
+    ],
+    "adaptations": [
+      "Pinned 1.0.97 handler semantics are implemented; offline source-derived fixtures are not live tenant acceptance.",
+      "CLI filesystem inputs and outputs use grant-owned private artifacts; artifact permissions are enforced.",
+      "Multi-request work executes as resumable bounded workflow steps; uncertain writes are not replayed.",
+      "See docs/sheets-shortcuts.md for source audit groups and hosted resource limits."
+    ]
+  },
+  "sheets.+float-image-create": {
+    "status": "implemented",
+    "flags": [
+      "url",
+      "spreadsheet-token",
+      "sheet-id",
+      "sheet-name",
+      "image-name",
+      "image-token",
+      "image-uri",
+      "position-row",
+      "position-col",
+      "size-width",
+      "size-height",
+      "offset-row",
+      "offset-col",
+      "z-index",
+      "image"
+    ],
+    "evidence": [
+      "test/sheets-shortcuts.test.ts",
+      "test/sheets-normalization.test.ts",
+      "test/sheets-properties.test.ts",
+      "test/sheets-file-inputs.test.ts",
+      "test/sheets-images.test.ts",
+      "test/sheets-image-metadata.test.ts"
+    ],
+    "adaptations": [
+      "Pinned 1.0.97 handler semantics are implemented; offline source-derived fixtures are not live tenant acceptance.",
+      "CLI filesystem inputs and outputs use grant-owned private artifacts; artifact permissions are enforced.",
+      "Multi-request work executes as resumable bounded workflow steps; uncertain writes are not replayed.",
+      "See docs/sheets-shortcuts.md for source audit groups and hosted resource limits."
+    ]
+  }
+}

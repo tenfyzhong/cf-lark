@@ -1,0 +1,92 @@
+{
+  "base.+record-get": {
+    "status": "implemented",
+    "flags": [
+      "base-token",
+      "table-id",
+      "record-id",
+      "field-id",
+      "fields",
+      "field-names",
+      "json",
+      "format",
+      "output",
+      "minimal-stdout",
+      "jq-records",
+      "overwrite"
+    ],
+    "evidence": [
+      "test/base-record-read.test.ts",
+      "test/docs-parser.test.ts"
+    ],
+    "adaptations": [
+      "Exact pure upstream recordexport and Markdown functions execute in isolated WebAssembly.",
+      "Filesystem export paths become grant-owned NDJSON and manifest artifacts; overwrite accepts a fresh isolated artifact.",
+      "Pagination checkpoints one 500-row request per resume; default NDJSON limit remains 2000.",
+      "jq-records uses pinned gojq with deadline and output bounds and leaves saved artifacts unchanged."
+    ]
+  },
+  "base.+record-list": {
+    "status": "implemented",
+    "flags": [
+      "base-token",
+      "table-id",
+      "field-id",
+      "fields",
+      "field-names",
+      "view-id",
+      "filter-json",
+      "sort-json",
+      "offset",
+      "limit",
+      "format",
+      "output",
+      "minimal-stdout",
+      "jq-records",
+      "overwrite"
+    ],
+    "evidence": [
+      "test/base-record-read.test.ts",
+      "test/docs-parser.test.ts"
+    ],
+    "adaptations": [
+      "Exact pure upstream recordexport and Markdown functions execute in isolated WebAssembly.",
+      "Filesystem export paths become grant-owned NDJSON and manifest artifacts; overwrite accepts a fresh isolated artifact.",
+      "Pagination checkpoints one 500-row request per resume; default NDJSON limit remains 2000.",
+      "jq-records uses pinned gojq with deadline and output bounds and leaves saved artifacts unchanged."
+    ]
+  },
+  "base.+record-search": {
+    "status": "implemented",
+    "flags": [
+      "base-token",
+      "table-id",
+      "json",
+      "keyword",
+      "search-field",
+      "field-id",
+      "fields",
+      "field-names",
+      "view-id",
+      "filter-json",
+      "sort-json",
+      "offset",
+      "limit",
+      "format",
+      "output",
+      "minimal-stdout",
+      "jq-records",
+      "overwrite"
+    ],
+    "evidence": [
+      "test/base-record-read.test.ts",
+      "test/docs-parser.test.ts"
+    ],
+    "adaptations": [
+      "Exact pure upstream recordexport and Markdown functions execute in isolated WebAssembly.",
+      "Filesystem export paths become grant-owned NDJSON and manifest artifacts; overwrite accepts a fresh isolated artifact.",
+      "Pagination checkpoints one 500-row request per resume; default NDJSON limit remains 2000.",
+      "jq-records uses pinned gojq with deadline and output bounds and leaves saved artifacts unchanged."
+    ]
+  }
+}
