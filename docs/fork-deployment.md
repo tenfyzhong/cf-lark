@@ -34,11 +34,12 @@ Forking creates your deployment source; it does not deploy anything by itself.
    Choose a hostname such as `mcp.example.com`. The workflow attaches it as a
    Worker Custom Domain; reserve it for this service and resolve conflicting
    DNS records or existing Worker bindings before deployment.
-3. Activate R2 and create a **private Standard bucket**, for example
-   `cf-lark-private`. Keep public access disabled. Configure one-day object
-   expiration and incomplete multipart upload cleanup as described in
-   [deployment](deployment.md). The workflow binds an existing bucket; it does
-   not create it or activate R2.
+3. Activate R2 in that account. You do not need to create a bucket manually.
+   Actions creates a private Standard bucket named by `R2_BUCKET_NAME` (default
+   `${WORKER_NAME}-private`) before uploading Workers, or reuses it if present.
+   The provisioner maintains a named `cf-lark-temporary-retention` rule for
+   one-day object expiration and incomplete multipart upload cleanup, preserving
+   all other lifecycle rules. It never enables public access or deletes a bucket.
 4. Configure Cloudflare Access using [Access setup](cloudflare-access.md): enable
    email one-time PIN, create a self-hosted application protecting your host's
    `/api/admin` prefix and `/consent` path, and allow your chosen email domain.
@@ -73,7 +74,7 @@ workflow reads `secrets.*` directly without selecting an Environment.
 | `CLOUDFLARE_API_TOKEN` | Yes | Token scoped to your account and hostname's zone | See token setup below |
 | `ENCRYPTION_KEY` | Yes | Standard base64 encoding of exactly 32 random bytes | See key setup below |
 | `WORKER_NAME` | No | Public Worker name; lowercase letters/digits/hyphens, 1–51 characters, starting with a letter or digit | Defaults to `cf-lark` |
-| `R2_BUCKET_NAME` | No | Existing private bucket name; lowercase letters/digits/hyphens, 3–63 characters, starting/ending with a letter or digit | Defaults to `${WORKER_NAME}-private` |
+| `R2_BUCKET_NAME` | No | Private bucket name to create or reuse; lowercase letters/digits/hyphens, 3–63 characters, starting/ending with a letter or digit | Defaults to `${WORKER_NAME}-private` |
 
 Examples are placeholders. Replace them with your own settings; the configuration
 renderer rejects `example.com`, `example.org` and `example.net` deployment origins.
@@ -82,7 +83,7 @@ An optional Secret may be omitted or left empty to use its default.
 For `WORKER_NAME=cf-lark`, the deployment creates/updates `cf-lark`,
 `cf-lark-docs-engine` and `cf-lark-mail-engine`. Engine names and service bindings
 are derived automatically; do not add separate engine-name Secrets.
-`R2_BUCKET_NAME` must match the bucket created in step 2.
+`R2_BUCKET_NAME` chooses the bucket Actions creates; keep the existing name on upgrades.
 
 All ten entries use repository **Secrets**; no deployment Variables are needed.
 Each fork must configure its own settings. Do not paste real values into source,
@@ -144,7 +145,7 @@ management. They are not required as GitHub deployment Secrets.
 
 ## 4. Deploy from your fork
 
-1. Confirm the bucket, Access policy and all eight required Secrets are ready.
+1. Confirm R2 activation, Access policy and all eight required Secrets are ready.
    Set `DEPLOY_ENABLED` to `true`.
 2. Open **Actions → Cloudflare → Run workflow**. Select the **main** branch and
    click **Run workflow**. Changing a Secret does not itself start
@@ -153,7 +154,7 @@ management. They are not required as GitHub deployment Secrets.
    module boundaries, minified Worker builds, native runtime/engine tests and
    Chromium browser tests. It needs no production Secrets.
 4. After verification succeeds, watch **Deploy production**. It validates your
-   settings, prepares private files, deploys both internal engines, and uploads
+   settings, prepares private files, provisions R2, deploys both internal engines, and uploads
    the public Worker together with its encryption key.
 5. Open your `PUBLIC_URL` to visit management, sign in using an allowed email,
    and configure a Lark application and account. Connect an OAuth-capable MCP
@@ -194,6 +195,16 @@ upgrade failure. Follow [operations and recovery](operations.md) instead.
 
 ## What the workflow manages
 
+`pnpm provision:r2` reads the generated production configuration and calls the
+[Cloudflare bucket API](https://developers.cloudflare.com/api/resources/r2/subresources/buckets/methods/create/)
+with the deployment token. Existing buckets and objects are retained. A creation
+race is accepted only after another lookup confirms the bucket exists. Permission,
+network and lifecycle failures stop deployment; raw API bodies and credential
+values are never logged. Rerunning repairs a partially completed setup. The
+managed retention rule is merged with existing rules using the
+[lifecycle API](https://developers.cloudflare.com/api/resources/r2/subresources/buckets/subresources/lifecycle/methods/update/).
+
+
 The renderer changes account, origin, Access settings, Worker/service names and
 bucket bindings while preserving tracked migration tags/classes and limits.
 The default combined R2 temporary-storage cap remains **2,000,000,000 bytes**,
@@ -207,8 +218,8 @@ Pinned action commits and locked dependencies keep the validation path
 reproducible. Type declarations for Vite, Wasm, Go runtime and native Worker tests
 are tracked so clean checkouts do not depend on local ignored files.
 
-The workflow does not create the R2 bucket, activate subscriptions, provision
-Access identities/policies, or register Lark accounts. Keep the selected Workers
+The workflow creates/reuses the R2 bucket; it does not activate subscriptions,
+provision Access identities/policies, or register Lark accounts. Keep the selected Workers
 plan and resource limits consistent with [deployment](deployment.md).
 
 ## Troubleshooting
@@ -219,7 +230,7 @@ plan and resource limits consistent with [deployment](deployment.md).
 | **Deploy production** or its steps skipped | Use `main`, ensure **Verify** passed, and set repository Secret `DEPLOY_ENABLED` to exact `true`; PR skipping is expected |
 | `Missing NAME` / `Invalid NAME` | Add the named repository Secret; check the formats in the tables, replace placeholder origins, and use base64 encoding of exactly 32 bytes for the key |
 | Cloudflare authentication/permission error | Check API token expiry, account/zone restrictions, token permissions and the account ID; do not substitute Wrangler OAuth credentials |
-| Bucket not found | Activate R2 and create the exact `R2_BUCKET_NAME` in the selected account |
+| Bucket not found | Confirm R2 activation and Workers R2 Storage Edit rights; inspect the provisioning step before any Worker upload |
 | Custom Domain cannot be attached | Confirm the zone is active in the account and resolve conflicting DNS/Worker ownership for the hostname |
 | Access login works but management returns 403 | Match team issuer, application AUD and exact email domain to the configured Access application/policy |
 | Existing credentials cannot be decrypted | Restore the installation's original `ENCRYPTION_KEY`; do not regenerate it or delete stored data |

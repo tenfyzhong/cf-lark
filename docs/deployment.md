@@ -26,7 +26,8 @@ public routes, preview URLs, or workers.dev endpoints.
 
 [GitHub Actions](fork-deployment.md) automates validation and the three-Worker
 upload sequence using repository Secrets. It deploys only main
-after successful checks and does not create the R2 bucket or Access policies.
+after successful checks. It creates/reuses the private R2 bucket before uploads;
+R2 activation and Access policies remain account prerequisites.
 The following sequence also applies to manual deployments.
 
 1. Install locked dependencies and run `pnpm check` plus browser checks appropriate

@@ -29,6 +29,10 @@ it('validates PRs without credentials and gates serialized production deployment
     for (const step of steps.slice(0, -1)) expect(step.if).toBe("env.DEPLOY_ENABLED == 'true'");
     expect(steps.find((step: { run?: string }) => step.run === 'pnpm configure:deployment').env.ENCRYPTION_KEY).toBe('${{ secrets.ENCRYPTION_KEY }}');
     expect(steps.find((step: { run?: string }) => step.run === 'pnpm deploy:actions').env.CLOUDFLARE_API_TOKEN).toBe('${{ secrets.CLOUDFLARE_API_TOKEN }}');
+    const provision = steps.findIndex((step: { run?: string }) => step.run === 'pnpm provision:r2');
+    expect(provision).toBeGreaterThan(steps.findIndex((step: { run?: string }) => step.run === 'pnpm configure:deployment'));
+    expect(provision).toBeLessThan(steps.findIndex((step: { run?: string }) => step.run === 'pnpm deploy:actions'));
+    expect(steps[provision].env.CLOUDFLARE_API_TOKEN).toBe('${{ secrets.CLOUDFLARE_API_TOKEN }}');
     expect(steps.at(-1).if).toBe('always()');
     expect(steps.at(-1).run).toContain('deployment-secrets.production.json');
     for (const job of Object.values(workflow.jobs) as Array<{ steps: Array<{ uses?: string }> }>) {
