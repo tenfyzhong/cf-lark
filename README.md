@@ -14,7 +14,11 @@ final validation and live-client acceptance are separate release gates.
 
 Clients discover commands with `lark_search`, inspect exact schemas with
 `lark_schema`, and invoke them with `lark_execute`. Discovery includes authorized
-profile/account choices. Unambiguous selections can be inferred; multiple choices
+profile/account choices. `lark_auth_diagnose` reports grant and cached authorization
+state without returning credentials or making upstream calls. Versioned MCP
+resources provide [Agent guidance](docs/agent-guidance.md), including workflow
+continuation, artifact delivery, event polling, and resource limits.
+Unambiguous selections can be inferred; multiple choices
 require explicit selection. Long operations return a workflow ID and continue
 through `workflow.resume`. Generated API commands also support typed parameter
 flags, JSON/artifact input, pagination, file transfer, jq, and structured output
@@ -61,6 +65,9 @@ checklist, first deployment, MCP connection and subsequent upgrades.
 - [Security and authorization](docs/security.md)
 - [Public interfaces](docs/interfaces.md)
 - [Compatibility and acceptance](docs/compatibility.md)
+- [Pinned upstream contracts](docs/upstream-contract-check.md)
+- [Safe authorization diagnostics](docs/auth-diagnostics-and-errors.md)
+- [Opt-in OAuth v3 and DPoP](docs/cloud-oauth-dpop.md)
 - [Implementation evidence](docs/verification.md)
 
 ## Local development

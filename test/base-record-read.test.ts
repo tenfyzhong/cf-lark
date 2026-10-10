@@ -25,7 +25,7 @@ it('exports exact typed matrices and schema metadata through the pinned engine',
     expect(await parser.process({ operation: 'markdown', data: { ...page, record_id_list: ['rec_a'], data: [['A', 2, true]] }, get: true })).toContain('- `_record_id`: rec_a');
 });
 
-it('checkpoints export pagination and leaves artifacts unchanged when applying jq', async () => {
+it('exports one short page with continuation metadata and leaves artifacts unchanged when applying jq', async () => {
     const { recordReadPrograms } = await import('../src/capabilities/base/record-read');
     const { readFile } = await import('node:fs/promises');
     const { WasmDocumentParser } = await import('../src/infrastructure/documents/engine');
@@ -36,12 +36,13 @@ it('checkpoints export pagination and leaves artifacts unchanged when applying j
     const artifacts = { upload: vi.fn(async (_owner: string, size: number, stream: ReadableStream) => { bodies.push(await new Response(stream).text()); return { id: `a${bodies.length}`, owner: 'g', size, state: 'ready' as const, expiresAt: 1 }; }), stat: vi.fn(), read: vi.fn(), remove: vi.fn() };
     const context = { lark: { request }, selection: { profileId: 'p', identity: 'user' as const, accountId: 'u' }, grant: { id: 'g', expiresAt: Date.now() + 60000, revoked: false, profiles: [{ profileId: 'p', identities: ['user' as const], accounts: ['u'] }], domains: ['base', 'artifact'], permissions: ['read' as const, 'write' as const] } };
     const start = vi.fn();
-    await recordReadCapabilities({ workflows: { start, resume: vi.fn() }, artifacts, recordFormatter: parser }).find(item => item.definition.id === 'base.+record-list')!.execute({ 'base-token': 'b', 'table-id': 't', format: 'ndjson', limit: 2, 'jq-records': 'map(.Score) | add' }, context);
+    await recordReadCapabilities({ workflows: { start, resume: vi.fn() }, artifacts, recordFormatter: parser }).find(item => item.definition.id === 'base.+record-list')!.execute({ 'base-token': 'b', 'table-id': 't', format: 'ndjson', offset: 17, limit: 2000, 'jq-records': 'map(.Score) | add' }, context);
     let state = start.mock.calls[0]![1], output: unknown;
     for (let i = 0; i < 5; i++) { const result = await recordReadPrograms(artifacts, parser)[0]!.step(state, context); if (result.done) { output = result.output; break; } state = result.state; }
-    expect(request.mock.calls.map(call => call[0].query)).toEqual([{ offset: 0, limit: 2 }, { offset: 1, limit: 1 }]);
-    expect(output).toMatchObject({ records_count: 2, jq_records: [6], record_artifact_id: 'a1', manifest_artifact_id: 'a2' });
-    expect(bodies[0]).toContain('"Score":2'); expect(bodies[0]).toContain('"Score":4');
+    expect(request.mock.calls.map(call => call[0].query)).toEqual([{ offset: 17, limit: 2000 }]);
+    expect(output).toMatchObject({ records_count: 1, has_more: true, jq_records: [2], record_artifact_id: 'a1', manifest_artifact_id: 'a2' });
+    expect(bodies[0]).toContain('"Score":2'); expect(bodies[0]).not.toContain('"Score":4');
+    expect(JSON.parse(bodies[1]!)).toMatchObject({ records_count: 1, has_more: true, next_offset: 18 });
 });
 
 it('preserves JSON search overrides and rejects projection ambiguity', async () => {
@@ -52,14 +53,14 @@ it('preserves JSON search overrides and rejects projection ambiguity', async () 
     expect(await command('list').preview({ 'base-token': 'b', 'table-id': 't', 'field-names': '"Name, full",Status', format: 'json', offset: -1 })).toMatchObject({ request: { query: { field_id: ['Name, full', 'Status'], offset: 0 } } });
 });
 
-it('rejects changed export schemas and oversized server pages before artifact writes', async () => {
+it('rejects malformed matrices and oversized server pages before artifact writes', async () => {
     const { recordReadPrograms } = await import('../src/capabilities/base/record-read');
     const { prepareRecordRead } = await import('../src/capabilities/base/record-read-input');
     const page = { timezone: 'UTC', fields: ['A'], field_id_list: ['f'], field_type_list: ['text'], record_id_list: ['r'], data: [['A']], has_more: true };
-    const request = vi.fn(async () => ({ ...page, field_id_list: ['other'] }));
+    const request = vi.fn(async () => ({ ...page, record_id_list: ['a', 'b'] }));
     const context = { lark: { request }, selection: { profileId: 'p', identity: 'bot' as const }, grant: { id: 'g', expiresAt: 1, revoked: false, profiles: [], domains: [], permissions: [] } };
-    const plan = prepareRecordRead('list', { 'base-token': 'b', 'table-id': 't', format: 'ndjson', limit: 2 });
-    await expect(recordReadPrograms()[0]!.step({ plan, pages: [page], phase: 'read', remaining: 1, offset: 1 }, context)).rejects.toMatchObject({ code: 'UPSTREAM_ERROR' });
+    const plan = prepareRecordRead('list', { 'base-token': 'b', 'table-id': 't', format: 'ndjson', limit: 1 });
+    await expect(recordReadPrograms()[0]!.step({ plan, pages: [], phase: 'read' }, context)).rejects.toMatchObject({ code: 'UPSTREAM_ERROR' });
     request.mockResolvedValueOnce({ ...page, record_id_list: ['a', 'b'], data: [['A'], ['B']] });
-    await expect(recordReadPrograms()[0]!.step({ plan, pages: [], phase: 'read', remaining: 1, offset: 0 }, context)).rejects.toMatchObject({ code: 'UPSTREAM_ERROR' });
+    await expect(recordReadPrograms()[0]!.step({ plan, pages: [], phase: 'read' }, context)).rejects.toMatchObject({ code: 'UPSTREAM_ERROR' });
 });

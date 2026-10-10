@@ -138,7 +138,7 @@ it('completes PKCE authorization once, enforces selection, and rejects code repl
     const mcp = () => fetchService('/mcp', { method: 'POST', headers: { Authorization: `Bearer ${access}`, 'Content-Type': 'application/json', Accept: 'application/json, text/event-stream' }, body: JSON.stringify({ jsonrpc: '2.0', id: 1, method: 'tools/list', params: {} }) });
     const tools = await mcp();
     expect(tools.status, await tools.clone().text()).toBe(200);
-    expect((await tools.json() as { result: { tools: unknown[] } }).result.tools).toHaveLength(3);
+    expect((await tools.json() as { result: { tools: { name: string }[] } }).result.tools.map(tool => tool.name)).toEqual(['lark_search', 'lark_schema', 'lark_execute', 'lark_auth_diagnose']);
     const writeAttempt = await fetchService('/mcp', { method: 'POST', headers: { Authorization: `Bearer ${access}`, 'Content-Type': 'application/json', Accept: 'application/json, text/event-stream' }, body: JSON.stringify({ jsonrpc: '2.0', id: 2, method: 'tools/call', params: { name: 'lark_execute', arguments: { command: 'im.+messages-send', identity: 'bot', args: { 'chat-id': 'oc_fixture', text: 'Fixture' }, dryRun: true } } }) });
     expect(writeAttempt.status).toBe(403);
     expect(writeAttempt.headers.get('WWW-Authenticate')).toContain('error="insufficient_scope"');

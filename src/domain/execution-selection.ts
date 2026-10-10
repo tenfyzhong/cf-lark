@@ -1,3 +1,4 @@
+import { grantDenialDetails } from './authorization';
 import { ServiceError } from './errors';
 import type { ExecutionSelection, Grant, Identity } from './models';
 
@@ -17,11 +18,11 @@ export function executionContext(grant: Grant, supported: readonly Identity[] = 
 }
 
 export function resolveSelection(input: SelectionInput, grant: Grant, supported: readonly Identity[], now: number): ExecutionSelection {
-    if (grant.revoked || grant.expiresAt <= now) throw new ServiceError('GRANT_EXPIRED', 'Authorization has expired or was revoked.', 401);
+    if (grant.revoked || grant.expiresAt <= now) throw new ServiceError('GRANT_EXPIRED', 'Authorization has expired or was revoked.', 401, grantDenialDetails(grant.revoked ? 'grant_revoked' : 'grant_expired'));
     if (!supported.includes(input.identity)) throw new ServiceError('UNSUPPORTED_IDENTITY', 'The command does not support this identity.');
     const context = executionContext(grant, [input.identity]);
     const candidates = context.profiles.filter((profile) => input.profileId === undefined || profile.profileId === input.profileId);
-    if (!candidates.length) throw new ServiceError('FORBIDDEN', 'This identity is outside the authorization grant.', 403);
+    if (!candidates.length) throw new ServiceError('FORBIDDEN', 'This identity is outside the authorization grant.', 403, grantDenialDetails('grant_identity_denied'));
     if (candidates.length !== 1) {
         throw new ServiceError('SELECTION_REQUIRED', 'Choose a profileId from the authorized execution context.', 400, context);
     }

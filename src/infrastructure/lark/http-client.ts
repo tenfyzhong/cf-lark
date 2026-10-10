@@ -1,4 +1,7 @@
+import type { AccessAuthorization } from '../../ports/credentials';
+import { authorizationHeaders } from './dpop';
 import { ServiceError } from '../../domain/errors';
+import { readErrorBody, upstreamError } from './upstream-errors';
 import type { Brand, JsonObject } from '../../domain/models';
 import { endpoints, validateApiPath } from '../../domain/upstream';
 import type { StreamingApiRequest, ApiRequest, DownloadRequest, LarkTransferClient, StreamingUploadRequest, UploadRequest } from '../../ports/lark';
@@ -8,7 +11,7 @@ export class LarkHttpClient implements LarkTransferClient {
 
     constructor(
         readonly brand: Brand,
-        private readonly getToken: () => Promise<string>,
+        private readonly getToken: () => Promise<string | AccessAuthorization>,
         private readonly send: (request: Request) => Promise<Response> = (request) => fetch(request),
         private readonly maxRequests = 40,
         private readonly signal?: AbortSignal,
@@ -19,7 +22,7 @@ export class LarkHttpClient implements LarkTransferClient {
             if (input.body !== undefined) throw new ServiceError('INVALID_ARGUMENTS', 'Structured and raw JSON bodies are mutually exclusive.');
             try { JSON.parse(input.rawBody); } catch { throw new ServiceError('INVALID_ARGUMENTS', 'rawBody must contain valid JSON.'); }
         }
-        return this.json(await this.exchange(input, input.rawBody ?? (input.body === undefined ? undefined : JSON.stringify(input.body)), 'application/json'), input.responseMode);
+        return this.json(await this.exchange(input, input.rawBody ?? (input.body === undefined ? undefined : JSON.stringify(input.body)), 'application/json'), input.method, input.responseMode);
     }
 
     async requestStream(input: StreamingApiRequest): Promise<JsonObject> {
@@ -35,7 +38,7 @@ export class LarkHttpClient implements LarkTransferClient {
             },
             flush() { if (input.size !== undefined && bytes !== input.size) throw new ServiceError('INVALID_SIZE', 'The JSON stream was shorter than its declared length.'); },
         }));
-        return this.json(await this.exchange(input, body, 'application/json', input.size), input.responseMode);
+        return this.json(await this.exchange(input, body, 'application/json', input.size), input.method, input.responseMode);
     }
 
     async upload(input: UploadRequest): Promise<JsonObject> {
@@ -71,7 +74,7 @@ export class LarkHttpClient implements LarkTransferClient {
             cancel(reason) { return reader.cancel(reason); },
         });
         return this.json(await this.exchange({ method: input.method ?? 'POST', path: input.path, query: input.query }, body,
-            `multipart/form-data; boundary=${boundary}`, header.byteLength + input.file.size + footer.byteLength));
+            `multipart/form-data; boundary=${boundary}`, header.byteLength + input.file.size + footer.byteLength), input.method ?? 'POST');
     }
 
     async download(input: DownloadRequest): Promise<Response> {
@@ -95,7 +98,7 @@ export class LarkHttpClient implements LarkTransferClient {
             try { envelope = JSON.parse(await new Blob(chunks as BlobPart[]).text()); } catch { /* A JSON file may contain invalid JSON. */ }
             if (envelope && typeof envelope === 'object' && 'code' in envelope && 'msg' in envelope
                 && typeof envelope.code === 'number' && envelope.code !== 0 && typeof envelope.msg === 'string') {
-                throw new ServiceError('UPSTREAM_ERROR', 'The upstream API rejected the download.', 502, { upstreamCode: envelope.code });
+                throw upstreamError({ brand: this.brand, method, response, body: envelope });
             }
         }
         let index = 0;
@@ -129,6 +132,7 @@ export class LarkHttpClient implements LarkTransferClient {
             } else url.searchParams.set(key, typeof value === 'object' ? JSON.stringify(value) : String(value));
         }
         const token = await this.getToken();
+        const headers = await authorizationHeaders(token, input.method, url.toString());
         const transfer = new AbortController();
         let bodyPipe: Promise<void> | undefined;
         if (contentLength !== undefined && body instanceof ReadableStream && typeof FixedLengthStream !== 'undefined') {
@@ -138,7 +142,7 @@ export class LarkHttpClient implements LarkTransferClient {
         }
         const request = new Request(url, {
             method: input.method,
-            headers: { Authorization: `Bearer ${token}`, ...(contentType ? { 'Content-Type': contentType } : {}),
+            headers: { ...headers, ...(contentType ? { 'Content-Type': contentType } : {}),
                 ...(contentLength === undefined ? {} : { 'Content-Length': String(contentLength) }) },
             body,
             redirect: 'manual',
@@ -149,25 +153,23 @@ export class LarkHttpClient implements LarkTransferClient {
         try { [response] = await Promise.all([this.send(request), bodyPipe ?? Promise.resolve()]); } catch {
             transfer.abort();
             throw new ServiceError(input.method === 'GET' ? 'UPSTREAM_UNAVAILABLE' : 'OUTCOME_UNCERTAIN',
-                input.method === 'GET' ? 'The upstream service could not be reached.' : 'The upstream write outcome could not be confirmed.', 502);
+                input.method === 'GET' ? 'The upstream service could not be reached.' : 'The upstream write outcome could not be confirmed.', 502,
+                { type: 'transport', subtype: input.method === 'GET' ? 'service_unavailable' : 'outcome_uncertain', retryable: input.method === 'GET',
+                    troubleshooter: { action: input.method === 'GET' ? 'retry_read_later' : 'verify_write_outcome', message: input.method === 'GET'
+                        ? 'A later read may succeed.' : 'Check whether the write succeeded before considering another attempt.' } });
         }
-        if (!response.ok) throw new ServiceError('UPSTREAM_HTTP_ERROR', 'The upstream service rejected the request.', 502, { upstreamStatus: response.status });
+        if (!response.ok) throw upstreamError({ brand: this.brand, method: input.method, response, body: await readErrorBody(response) });
         return response;
     }
 
-    private async json(response: Response, mode: ApiRequest['responseMode'] = 'data'): Promise<JsonObject> {
+    private async json(response: Response, method: ApiRequest['method'], mode: ApiRequest['responseMode'] = 'data'): Promise<JsonObject> {
         let result: JsonObject;
         try { result = await response.json() as JsonObject; } catch {
             throw new ServiceError('INVALID_UPSTREAM_RESPONSE', 'The upstream response was not JSON.', 502);
         }
+        if (!result || typeof result !== 'object' || Array.isArray(result)) throw new ServiceError('INVALID_UPSTREAM_RESPONSE', 'The upstream response was not a JSON object.', 502);
         if (result.code !== undefined && result.code !== 0) {
-            const message = typeof result.msg === 'string' ? result.msg.toLowerCase() : '';
-            const reason = message.includes('command already exists') ? 'command_already_exists'
-                : result.code === 2 && message.includes('member_type') ? 'unsupported_member_type'
-                : message.includes('server time out error') || message.includes('data not ready') ? 'transient_tool_failure'
-                : message.includes('k_dl_1600039') && message.includes('lock already held') ? 'dts_lock_contention' : undefined;
-            throw new ServiceError('UPSTREAM_ERROR', 'The upstream API rejected the operation.', 502, { upstreamCode: result.code,
-                ...(reason ? { reason } : {}) });
+            throw upstreamError({ brand: this.brand, method, response, body: result });
         }
         return (mode === 'envelope' ? result : result.data ?? result) as JsonObject;
     }

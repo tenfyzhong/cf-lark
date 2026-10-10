@@ -3,6 +3,13 @@
 Baseline: [lark-cli v1.0.97](https://github.com/larksuite/cli/tree/v1.0.97),
 commit `72579c80027c863ca51d5f9affda72a70ab0d8a6`, MIT licensed.
 
+The later audited revision `9067ec079bfa0b1ae2266cd91d1c1ee4a1ce824d` is
+tracked separately by [pinned contract checks](upstream-contract-check.md). Its
+typed API schemas and registered business shortcut IDs match this inventory;
+that does not imply identical behavior or live acceptance. Base reads adopt the
+new [NDJSON and single-page contract](base-record-read.md). OAuth v3/DPoP is
+explicitly opt-in; existing deployments retain legacy authentication defaults.
+
 Inventory API methods, shortcuts, events, authentication, profile configuration,
 and file workflows separately. The manifest records stable command ID, source,
 implementation status, cloud adaptation, and test evidence. Allowed statuses are

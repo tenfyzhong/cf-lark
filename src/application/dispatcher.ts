@@ -1,3 +1,6 @@
+import { commandAffordance, guidanceLinks, guidanceResources, readGuidance } from './agent-guidance';
+import { AuthDiagnosticService, type AuthDiagnosticInput } from './auth-diagnostics';
+import type { AuthorizationInspector } from '../ports/auth-diagnostics';
 import { matchesCommand } from '../domain/command-search';
 import { executionContext, resolveSelection, type SelectionInput } from '../domain/execution-selection';
 import { authorize } from '../domain/authorization';
@@ -18,7 +21,12 @@ export class Dispatcher {
         private readonly validator: InputValidator,
         private readonly createClient: (selection: ExecutionSelection) => Promise<LarkClient>,
         private readonly now: () => number = Date.now,
+        private readonly authorizationInspector?: AuthorizationInspector,
     ) {}
+
+    diagnoseAuth(input: AuthDiagnosticInput, grant: Grant) {
+        return new AuthDiagnosticService(this.registry, this.authorizationInspector, this.now).diagnose(input, grant);
+    }
 
     private visible(capability: Capability, grant: Grant): boolean {
         const command = capability.definition;
@@ -26,6 +34,15 @@ export class Dispatcher {
             && grant.domains.includes(command.domain) && (capability.risk ? grant.permissions.length > 0 : grant.permissions.includes(command.risk))
             && grant.profiles.some((profile) => profile.identities.some((identity) => command.identities.includes(identity)));
     }
+
+    private guidanceCommands(grant: Grant): readonly Capability[] {
+        if (grant.revoked || grant.expiresAt <= this.now()) throw new ServiceError('GRANT_EXPIRED', 'Authorization has expired.', 401);
+        return this.registry.list().filter(command => this.visible(command, grant));
+    }
+
+    guidanceResources(grant: Grant) { return guidanceResources(this.guidanceCommands(grant)); }
+
+    readGuidance(uri: string, grant: Grant) { return readGuidance(uri, this.guidanceCommands(grant)); }
 
     search(input: { query: string; domain?: string; cursor?: string; limit?: number }, grant: Grant) {
         if (grant.revoked || grant.expiresAt <= this.now()) throw new ServiceError('GRANT_EXPIRED', 'Authorization has expired.', 401);
@@ -37,6 +54,7 @@ export class Dispatcher {
         const results = this.registry.list().filter((item) =>
             this.visible(item, grant) && matchesCommand(item.definition, input)).map((item) => item.definition);
         return {
+            guidance: guidanceLinks(this.guidanceCommands(grant)),
             executionContext: executionContext(grant),
             authorization: { domains: grant.domains, permissions: grant.permissions, writeAccess: grant.permissions.includes('write'),
                 requiredWriteScope: 'mcp:write', guidance: 'Missing domains or write access require a new OAuth authorization with the desired domains and mcp:write scope.' },
@@ -48,7 +66,8 @@ export class Dispatcher {
     schema(id: string, grant: Grant) {
         const command = this.resolve(id);
         if (!this.visible(command, grant)) throw new ServiceError('FORBIDDEN', 'This command is outside the authorization grant.', 403);
-        return { ...command.definition, ...(command.risk ? { riskByArguments: true } : {}), executionContext: executionContext(grant, command.definition.identities) };
+        const visible = this.guidanceCommands(grant);
+        return { ...command.definition, ...(command.risk ? { riskByArguments: true } : {}), guidance: guidanceLinks(visible, command.definition), affordance: commandAffordance(command, visible), executionContext: executionContext(grant, command.definition.identities) };
     }
 
     private resolve(id: string): Capability {
