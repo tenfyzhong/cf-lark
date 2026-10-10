@@ -23,6 +23,7 @@ import { ServiceError, safeError } from '../domain/errors';
 import { SqliteOAuthStore } from '../infrastructure/storage/oauth-store';
 import { SqliteCredentialStore } from '../infrastructure/storage/credential-store';
 import { SecretBox, hash } from '../infrastructure/crypto/secret-box';
+import { parseLarkAuthOptions } from '../infrastructure/lark/auth-options';
 import { LarkAuthHttp } from '../infrastructure/lark/auth-http';
 import { LarkHttpClient } from '../infrastructure/lark/http-client';
 import { SchemaValidator } from '../infrastructure/validation/schema-validator';
@@ -50,6 +51,8 @@ export interface Env {
     ACCESS_AUD: string;
     ACCESS_EMAIL_DOMAIN: string;
     ENCRYPTION_KEY: string;
+    LARK_OAUTH_PROTOCOL?: string;
+    LARK_DPOP_MODE?: string;
     OAUTH_KV?: KVNamespace;
     OAUTH_PROVIDER?: OAuthHelpers;
     MAX_STORAGE_BYTES: string;
@@ -74,7 +77,7 @@ export class Authority extends DurableObject<Env> {
         const storage = new SqliteOAuthStore(ctx.storage.sql);
         this.oauthStorage = storage;
         this.rateLimits = new SqliteRateLimits(ctx.storage.sql);
-        const credentials = new CredentialService(new SqliteCredentialStore(ctx.storage.sql), new SecretBox(env.ENCRYPTION_KEY), new LarkAuthHttp());
+        const credentials = new CredentialService(new SqliteCredentialStore(ctx.storage.sql), new SecretBox(env.ENCRYPTION_KEY), new LarkAuthHttp(undefined, parseLarkAuthOptions(env)));
         const sessions = new AccessSessions({ issuer: env.ACCESS_TEAM_DOMAIN, audience: env.ACCESS_AUD, emailDomain: env.ACCESS_EMAIL_DOMAIN, origin: env.PUBLIC_URL });
         const artifactLedger = new SqliteArtifactLedger(ctx.storage.sql, {
             maxBytes: Number(env.MAX_STORAGE_BYTES), maxClassA: Number(env.R2_CLASS_A_BUDGET), maxClassB: Number(env.R2_CLASS_B_BUDGET),
@@ -89,7 +92,7 @@ export class Authority extends DurableObject<Env> {
         const admin = adminRoutes(credentials, sessions, this.artifacts, env.EVENT_INBOX.getByName('inbox'));
         const createClient = async (selection: ExecutionSelection) => {
             const profile = await credentials.get(selection.profileId);
-            return new LarkHttpClient(profile.brand, () => credentials.token(selection.profileId, selection.identity, selection.accountId));
+            return new LarkHttpClient(profile.brand, () => credentials.authorization(selection.profileId, selection.identity, selection.accountId));
         };
         this.workflowStorage = new SqliteWorkflowStore(ctx.storage.sql, new SecretBox(env.ENCRYPTION_KEY), new EncryptedWorkflowBlobs(this.artifacts, new SecretBox(env.ENCRYPTION_KEY)));
         const remoteFiles = new HttpRemoteFiles();
@@ -103,7 +106,7 @@ export class Authority extends DurableObject<Env> {
         const workflows = new WorkflowService(this.workflowStorage, createWorkflowPrograms({ artifacts: this.artifacts, remoteFiles, cardFormatter: imCardFormatter, recordFormatter: baseRecordFormatter, events: env.EVENT_INBOX.getByName('inbox'), hasher, mailTransformer }), createClient);
         const registry = new Registry(createCapabilities({ eventConsumers, recordFormatter: baseRecordFormatter, mailTransformer, documentParser, remoteFiles, artifacts: this.artifacts, workflows, events: env.EVENT_INBOX.getByName('inbox') }));
         const consent = consentRoutes(credentials, sessions, storage, [...new Set(registry.list().map((item) => item.definition.domain))]);
-        const dispatcher = new Dispatcher(registry, new SchemaValidator(), createClient);
+        const dispatcher = new Dispatcher(registry, new SchemaValidator(), createClient, Date.now, credentials);
         this.bindings = { ...env, OAUTH_KV: storage as unknown as KVNamespace };
         this.provider = new OAuthProvider<Env>({
             apiRoute: '/mcp',

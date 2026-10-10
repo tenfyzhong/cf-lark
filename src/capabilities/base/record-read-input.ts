@@ -18,12 +18,16 @@ function csv(value: string): string[] {
     if (quoted) invalid('Unclosed CSV quote.'); result.push(current); return result;
 }
 function sort(value: unknown): unknown[] { const parsed = parse(value, 'sort-json'), values = object(parsed) ? parsed.sort_config : parsed; if (!Array.isArray(values) || values.length > 10) invalid('sort must contain at most ten conditions.'); return values as unknown[]; }
+export function recordReadFormat(args: JsonObject): string {
+    const format = String(args.format ?? (String(args.output ?? '').trim() ? 'ndjson' : 'markdown'));
+    if (!['markdown', 'json', 'ndjson'].includes(format)) invalid('Record format must be markdown, json, or ndjson.');
+    return format;
+}
 export interface ReadPlan { request: ApiRequest; format: string; args: JsonObject; offset: number; limit: number; action: string; }
 export function prepareRecordRead(action: string, args: JsonObject): ReadPlan {
     const base = String(args['base-token'] ?? '').trim(), table = String(alias(args, ['table-id', 'table']) ?? '').trim();
     if (!base || !table) invalid('base-token and table-id are required.');
-    const output = String(args.output ?? '').trim(), format = String(args.format ?? (output ? 'ndjson' : 'markdown'));
-    if (!['markdown', 'json', 'ndjson'].includes(format)) invalid('Invalid record format.');
+    const output = String(args.output ?? '').trim(), format = recordReadFormat(args);
     if (output && (format !== 'ndjson' || !output.endsWith('.ndjson'))) invalid('output requires ndjson format and a .ndjson filename.');
     if (format !== 'ndjson' && (args['minimal-stdout'] || args['jq-records'] || args.overwrite)) invalid('Export flags require ndjson format.');
     if (args['minimal-stdout'] && args['jq-records']) invalid('minimal-stdout and jq-records are mutually exclusive.');

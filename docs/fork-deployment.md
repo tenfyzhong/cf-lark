@@ -67,6 +67,8 @@ workflow reads `secrets.*` directly without selecting an Environment.
 | --- | --- | --- | --- |
 | `WORKER_NAME` | No | Explicit instance name for multiple installations; stable on upgrades. With no override, reuse the hostname-bound Worker or default to `cf-lark` for a new installation | Lowercase letters/digits/hyphens, 1–51 characters |
 | `DEPLOY_ENABLED` | No | Defaults to `true`; exact `false` suspends uploads | Optional `false` while staging |
+| `LARK_OAUTH_PROTOCOL` | No | User OAuth protocol: `legacy` or `oauthv3`; explicit owner approval is required before opting in | `legacy` |
+| `LARK_DPOP_MODE` | No | User proof mode: `disabled`, `preferred`, or `required`; non-disabled modes require `oauthv3` | `disabled` |
 | `PUBLIC_URL` | Yes | Canonical HTTPS origin using your chosen Custom Domain; no path, query, credentials or port | `https://mcp.example.com` |
 | `ACCESS_EMAIL_DOMAIN` | Yes | Exact allowed lowercase email domain, without `@` | `example.com` |
 | `CLOUDFLARE_API_TOKEN` | Yes | Token scoped to your account and hostname's zone | See token setup below |
@@ -78,7 +80,14 @@ An optional Secret may be omitted or left empty to use its default.
 
 Only four Secrets are required: `CLOUDFLARE_API_TOKEN`, `PUBLIC_URL`,
 `ACCESS_EMAIL_DOMAIN` and `ENCRYPTION_KEY`. `DEPLOY_ENABLED` is an optional control,
-and `WORKER_NAME` is an optional namespace selection.
+`WORKER_NAME` is an optional namespace selection, and the two Lark OAuth settings
+are optional authorization-policy selections. Omitted or empty OAuth settings
+retain `legacy`/`disabled`; surrounding whitespace is ignored and values are
+case-sensitive. Invalid values and combinations fail before Cloudflare requests.
+Both deployment and read-only inspection consume these settings. Generated
+public Worker `vars` record the effective values; private engines do not receive
+them. See [OAuth deployment criteria](deployment.md#optional-user-oauth-settings)
+before opting in, including the approval and staging verification requirements.
 No deployment Variables are needed. Do not add `CLOUDFLARE_ACCOUNT_ID`,
 `ACCESS_TEAM_DOMAIN`, `ACCESS_AUD` or `R2_BUCKET_NAME` Secrets;
 these identifiers are discovered or derived and old overrides are ignored.
