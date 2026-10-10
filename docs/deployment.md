@@ -56,6 +56,33 @@ The default aggregate limit is 2,000,000,000 bytes, artifact TTL is 86,400 secon
 and monthly Class A/B budgets are 100,000/1,000,000. Other account usage can consume
 Cloudflare's allowances; local budgets do not guarantee account-wide free usage.
 
+### Optional user OAuth settings
+
+`LARK_OAUTH_PROTOCOL` and `LARK_DPOP_MODE` are optional repository Secrets for
+Actions, or environment values for local `configure:deployment`. The workflow
+passes them through bootstrap validation into the public Worker's generated
+`vars`. Read-only deployment inspection validates the same settings. They are
+never added to private engine configuration or the encryption-secret file.
+
+Acceptance criteria for this configuration path:
+
+- Omitted or empty values keep the existing `legacy` protocol and `disabled`
+  DPoP defaults. Surrounding whitespace is ignored; values are case-sensitive.
+- Protocol accepts only `legacy` or `oauthv3`; DPoP accepts only `disabled`,
+  `preferred`, or `required`. Non-disabled DPoP requires `oauthv3`.
+- Unknown values or incompatible combinations fail before Cloudflare discovery
+  or provisioning and before private configuration files are written. Errors
+  identify the setting without printing its supplied value.
+- The generated public Worker configuration records both effective settings,
+  including defaults, rather than inheriting an opt-in from a template.
+- Rendering settings only prepares deployment files. It does not authorize or
+  perform deployment, generate proof keys, or change existing accounts/grants.
+
+Changing these settings changes user-authorization policy. Enabling OAuth v3 or
+DPoP requires the deployment owner's explicit approval and separately authorized
+staging verification. See [the OAuth/DPoP contract](cloud-oauth-dpop.md) for mode
+semantics and recovery behavior; publishing this code does not opt in a deployment.
+
 ## Authorization and continuity
 
 Register application profiles and upstream accounts in management. Account login

@@ -19,9 +19,8 @@ function csv(value: string): string[] {
 }
 function sort(value: unknown): unknown[] { const parsed = parse(value, 'sort-json'), values = object(parsed) ? parsed.sort_config : parsed; if (!Array.isArray(values) || values.length > 10) invalid('sort must contain at most ten conditions.'); return values as unknown[]; }
 export function recordReadFormat(args: JsonObject): string {
-    const format = String(args.format ?? 'ndjson');
-    if (format === 'markdown') invalid('Deprecated format: markdown is no longer supported. Use ndjson or json.');
-    if (!['ndjson', 'json'].includes(format)) invalid('Record format must be ndjson or json.');
+    const format = String(args.format ?? (String(args.output ?? '').trim() ? 'ndjson' : 'markdown'));
+    if (!['markdown', 'json', 'ndjson'].includes(format)) invalid('Record format must be markdown, json, or ndjson.');
     return format;
 }
 export interface ReadPlan { request: ApiRequest; format: string; args: JsonObject; offset: number; limit: number; action: string; }

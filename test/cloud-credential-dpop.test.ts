@@ -135,3 +135,18 @@ it('clears expired flow proof state and preserves state while waiting for author
     expect(await ctx.service.pollLogin(flow.id)).toMatchObject({ status: 'expired' });
     expect((await ctx.store.getFlow(flow.id))!.authorization).toBeUndefined();
 });
+
+it.each(['invalid_grant', 'expired_token'])('preserves bound credentials after refresh authorization failure: %s', async (error) => {
+    const ctx = setup();
+    const { profile } = await login(ctx);
+    const before = await ctx.store.getAccount(profile.id, 'fixture-user');
+    ctx.advance(3_600_000);
+    ctx.send.mockClear();
+    ctx.send.mockResolvedValueOnce(Response.json({ error, error_description: 'fixture-private-description' }, { status: 400 }));
+    await expect(ctx.service.authorization(profile.id, 'user', 'fixture-user')).rejects.toMatchObject({
+        code: 'UPSTREAM_AUTH_ERROR', status: 401,
+        message: 'Upstream authorization failed; check credentials and permissions.',
+    });
+    expect(ctx.send).toHaveBeenCalledOnce();
+    expect(await ctx.store.getAccount(profile.id, 'fixture-user')).toEqual(before);
+});

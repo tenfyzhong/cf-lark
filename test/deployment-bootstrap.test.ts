@@ -43,9 +43,31 @@ function fixture(options: { create?: boolean; unsafe?: boolean; ambiguous?: bool
 it('derives account/team/AUD from four Secrets and preserves encryption and quota', async () => {
     const request = fixture();
     const rendered = await prepareDeployment(env, templates, request);
-    expect(rendered.configs[0]).toMatchObject({ account_id: account, vars: { ACCESS_TEAM_DOMAIN: 'https://acme.cloudflareaccess.com', ACCESS_AUD: audience, MAX_STORAGE_BYTES: '2000000000' } });
+    expect(rendered.configs[0]).toMatchObject({ account_id: account, vars: { ACCESS_TEAM_DOMAIN: 'https://acme.cloudflareaccess.com', ACCESS_AUD: audience, MAX_STORAGE_BYTES: '2000000000',
+        LARK_OAUTH_PROTOCOL: 'legacy', LARK_DPOP_MODE: 'disabled' } });
     expect(rendered.secrets.ENCRYPTION_KEY).toBe(env.ENCRYPTION_KEY);
     expect(request.mock.calls.every((call) => call[1].method === 'GET')).toBe(true);
+});
+
+it.each(['disabled', 'preferred', 'required'])('preserves optional OAuth v3/%s settings through discovery and rendering', async (dpopMode) => {
+    const rendered = await prepareDeployment({ ...env, LARK_OAUTH_PROTOCOL: ' oauthv3 ', LARK_DPOP_MODE: dpopMode }, templates, fixture());
+    expect(rendered.configs[0]!.vars).toMatchObject({ LARK_OAUTH_PROTOCOL: 'oauthv3', LARK_DPOP_MODE: dpopMode });
+    for (const config of rendered.configs.slice(1)) expect(config).not.toHaveProperty('vars');
+    expect(rendered.secrets).toEqual({ ENCRYPTION_KEY: env.ENCRYPTION_KEY });
+});
+
+it.each([
+    [{ LARK_OAUTH_PROTOCOL: 'unknown' }, 'Invalid LARK_OAUTH_PROTOCOL'],
+    [{ LARK_DPOP_MODE: 'unknown' }, 'Invalid LARK_DPOP_MODE'],
+    [{ LARK_DPOP_MODE: 'preferred' }, 'LARK_DPOP_MODE requires LARK_OAUTH_PROTOCOL=oauthv3'],
+    [{ LARK_OAUTH_PROTOCOL: 'legacy', LARK_DPOP_MODE: 'required' }, 'LARK_DPOP_MODE requires LARK_OAUTH_PROTOCOL=oauthv3'],
+] as const)('validates OAuth settings %j before any Cloudflare request', async (options, message) => {
+    const request = fixture();
+    await expect(prepareDeployment({ ...env, ...options }, templates, request)).rejects.toThrow(message);
+    expect(request).not.toHaveBeenCalled();
+    const { inspectDeployment } = await import('../scripts/deploy/inspection');
+    expect(await inspectDeployment({ ...env, ...options }, templates, request)).toEqual({ ready: false, checks: {}, error: message });
+    expect(request).not.toHaveBeenCalled();
 });
 
 it('creates organization/PIN/application with narrow domains and email policy', async () => {

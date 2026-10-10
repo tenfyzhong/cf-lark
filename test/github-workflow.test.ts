@@ -23,7 +23,7 @@ it('validates PRs without credentials and gates serialized production deployment
     expect(workflow.jobs.deploy.if).toContain("github.event_name != 'pull_request'");
     expect(JSON.stringify(workflow)).not.toContain('vars.');
     expect(workflow.jobs.deploy.env.DEPLOY_ENABLED).toBe("${{ secrets.DEPLOY_ENABLED || 'true' }}");
-    for (const name of ['PUBLIC_URL', 'ACCESS_EMAIL_DOMAIN', 'WORKER_NAME']) {
+    for (const name of ['PUBLIC_URL', 'ACCESS_EMAIL_DOMAIN', 'WORKER_NAME', 'LARK_OAUTH_PROTOCOL', 'LARK_DPOP_MODE']) {
         expect(workflow.jobs.deploy.env[name]).toBe('${{ secrets.' + name + ' }}');
     }
     for (const name of ['CLOUDFLARE_ACCOUNT_ID', 'ACCESS_TEAM_DOMAIN', 'ACCESS_AUD', 'R2_BUCKET_NAME']) {
@@ -79,6 +79,10 @@ it('offers manual read-only inspection without production uploads or private fil
     expect(workflow.jobs.deploy.if).toContain('!inputs.inspect');
     const steps = workflow.jobs.inspect.steps;
     expect(steps.some((step: { run?: string }) => step.run === 'pnpm inspect:deployment')).toBe(true);
+    const inspection = steps.find((step: { run?: string }) => step.run === 'pnpm inspect:deployment');
+    for (const name of ['LARK_OAUTH_PROTOCOL', 'LARK_DPOP_MODE']) {
+        expect(inspection.env[name]).toBe('${{ secrets.' + name + ' }}');
+    }
     expect(JSON.stringify(steps)).not.toContain('deploy:actions');
     expect(JSON.stringify(steps)).not.toContain('provision:r2');
     expect(JSON.stringify(steps)).not.toContain('configure:deployment');

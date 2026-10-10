@@ -11,24 +11,24 @@ export class LarkAuthHttp implements UpstreamAuth {
         this.options = parseOAuthOptions(options.protocol, options.dpopMode);
     }
 
-    private async request(url: string, init: RequestInit, allowOAuthError = false, allowEmpty = false): Promise<JsonObject> {
+    private async request(url: string, init: RequestInit, options: { pollOAuthErrors?: boolean; inspectOAuthErrors?: boolean; allowEmpty?: boolean } = {}): Promise<JsonObject> {
         let response: Response;
         try { response = await this.send(new Request(url, { ...init, redirect: 'manual', signal: AbortSignal.timeout(20_000) })); }
         catch { throw new ServiceError('AUTH_UPSTREAM_UNAVAILABLE', 'The upstream authorization service could not be reached.', 502); }
-        if (!response.ok && !allowOAuthError) {
+        if (!response.ok && !options.pollOAuthErrors && !options.inspectOAuthErrors) {
             throw new ServiceError('UPSTREAM_AUTH_ERROR', 'Upstream authorization failed; check credentials and permissions.', 401);
         }
         let body: JsonObject;
         try {
             const text = await response.text();
-            body = allowEmpty && response.ok && !text.trim() ? {} : JSON.parse(text) as JsonObject;
+            body = options.allowEmpty && response.ok && !text.trim() ? {} : JSON.parse(text) as JsonObject;
             if (!body || typeof body !== 'object' || Array.isArray(body)) throw new Error('Invalid envelope');
         }
         catch { throw new ServiceError('AUTH_UPSTREAM_INVALID', 'The authorization service returned an invalid response.', 502); }
         if (body.error === 'invalid_dpop_proof' || body.error === 'use_dpop_nonce') {
             throw new ServiceError('DPOP_TOKEN_REJECTED', 'The authorization service rejected the proof; the stored credential has been preserved.', 401);
         }
-        if (allowOAuthError && typeof body.error === 'string' && ['authorization_pending', 'slow_down', 'access_denied', 'expired_token', 'invalid_grant'].includes(body.error)) return { error: body.error };
+        if (options.pollOAuthErrors && typeof body.error === 'string' && ['authorization_pending', 'slow_down', 'access_denied', 'expired_token', 'invalid_grant'].includes(body.error)) return { error: body.error };
         if (!response.ok || body.error || (body.code !== undefined && body.code !== 0)) {
             throw new ServiceError('UPSTREAM_AUTH_ERROR', 'Upstream authorization failed; check credentials and permissions.', 401);
         }
@@ -107,7 +107,7 @@ export class LarkAuthHttp implements UpstreamAuth {
             method: 'POST', headers: { 'Content-Type': json ? 'application/json; charset=utf-8' : 'application/x-www-form-urlencoded',
                 ...(key ? { DPoP: await tokenProof(key, 'POST', url) } : {}) },
             body: json ? JSON.stringify(valuesWithCredentials) : new URLSearchParams(valuesWithCredentials).toString(),
-        }, allowError || Boolean(key));
+        }, { pollOAuthErrors: allowError, inspectOAuthErrors: Boolean(key) });
     }
 
     private requireToken(body: JsonObject, protocol: OAuthOptions['protocol'], key?: DeviceAuthorizationState['dpopKey'], requireBound = false): UpstreamToken {
@@ -156,6 +156,6 @@ export class LarkAuthHttp implements UpstreamAuth {
         await this.request(url, {
             method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded', ...(authorization?.dpopKey ? { DPoP: await tokenProof(authorization.dpopKey, 'POST', url) } : {}) },
             body: new URLSearchParams({ client_id: app.appId, client_secret: app.appSecret, token }).toString(),
-        }, false, true);
+        }, { allowEmpty: true });
     }
 }

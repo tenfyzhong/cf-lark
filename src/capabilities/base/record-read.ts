@@ -40,7 +40,11 @@ export function recordReadCapabilities(dependencies: RecordReadDependencies): Ca
             recordReadFormat(args);
             const plan = prepareRecordRead(action, await resolveInputs(args, context, dependencies.artifacts)); await validateJq(plan, dependencies.recordFormatter);
             if (plan.format === 'ndjson') { authorize(context.grant, { ...context.selection, domain: 'artifact', risk: 'write' }, Date.now()); if (!dependencies.workflows) throw new ServiceError('UNAVAILABLE', 'Record export workflows are unavailable.', 503); return dependencies.workflows.start('base-record-read', { plan, phase: 'read', pages: [] }, context.selection, context.grant); }
-            return context.lark.request(plan.request);
+            const data = await context.lark.request(plan.request);
+            if (plan.format === 'json') return data;
+            if (!dependencies.recordFormatter) throw new ServiceError('UNAVAILABLE', 'Record Markdown conversion is unavailable.', 503);
+            try { return { markdown: await dependencies.recordFormatter.process({ operation: 'markdown', data, get: action === 'get' }) }; }
+            catch { return { ...data, _notice: 'Record Markdown rendering failed; returning the original matrix.' }; }
         },
     }; });
 }

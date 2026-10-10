@@ -23,7 +23,8 @@ async function discoverAccount(client: CloudflareBootstrapClient, hostname: stri
 export async function prepareDeployment(env: Environment, templates: Record<string, unknown>[], request: CloudflareRequest = fetch): Promise<Deployment> {
     // Discovered identifiers never come from user Secrets, including stale overrides.
     const resolved: Environment = { PUBLIC_URL: env.PUBLIC_URL, ACCESS_EMAIL_DOMAIN: env.ACCESS_EMAIL_DOMAIN,
-        CLOUDFLARE_API_TOKEN: env.CLOUDFLARE_API_TOKEN, ENCRYPTION_KEY: env.ENCRYPTION_KEY, WORKER_NAME: env.WORKER_NAME?.trim() || undefined };
+        CLOUDFLARE_API_TOKEN: env.CLOUDFLARE_API_TOKEN, ENCRYPTION_KEY: env.ENCRYPTION_KEY, WORKER_NAME: env.WORKER_NAME?.trim() || undefined,
+        LARK_OAUTH_PROTOCOL: env.LARK_OAUTH_PROTOCOL, LARK_DPOP_MODE: env.LARK_DPOP_MODE };
     const checked = renderDeployment({ ...resolved, CLOUDFLARE_ACCOUNT_ID: '0'.repeat(32),
         ACCESS_TEAM_DOMAIN: 'https://validation.cloudflareaccess.com', ACCESS_AUD: '0'.repeat(64) }, templates);
     const vars = checked.configs[0]!.vars as Record<string, string>;

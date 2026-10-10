@@ -10,36 +10,75 @@ const page = { timezone: 'UTC', fields: ['Title'], field_id_list: ['f'], field_t
 function setup() {
     const request = vi.fn().mockResolvedValue(page);
     const start = vi.fn().mockResolvedValue({ workflowId: 'w', status: 'pending' });
-    const capabilities = recordReadCapabilities({ workflows: { start, resume: vi.fn() } });
+    const process = vi.fn().mockResolvedValue('Rendered Markdown');
+    const capabilities = recordReadCapabilities({ workflows: { start, resume: vi.fn() }, recordFormatter: { process } });
     const command = (action: string) => capabilities.find(value => value.definition.id === `base.+record-${action}`)!;
     const context = { lark: { request }, selection: { profileId: 'p', identity: 'user' as const, accountId: 'u' }, grant: { id: 'g', expiresAt: Date.now() + 60000, revoked: false, profiles: [{ profileId: 'p', identities: ['user' as const], accounts: ['u'] }], domains: ['base', 'artifact'], permissions: ['read' as const, 'write' as const] } };
-    return { request, start, command, context };
+    return { request, start, process, command, context };
 }
 
-describe('Base record-read contract at upstream 9067ec079bfa0b1ae2266cd91d1c1ee4a1ce824d', () => {
-    it.each([['get', getArgs], ['list', args], ['search', searchArgs]] as const)('defaults %s to NDJSON and advertises supported formats', async (action, input) => {
+describe('Base hosted read compatibility and explicit NDJSON one-page contract', () => {
+    it.each([['get', getArgs], ['list', args], ['search', searchArgs]] as const)('defaults %s to inline Markdown with a Base-only read grant', async (action, input) => {
         const f = setup();
+        f.context.grant.domains = ['base'];
+        f.context.grant.permissions = ['read'];
         const preview = await f.command(action).preview(input);
-        expect(preview).toMatchObject({ format: 'ndjson', storage: 'private artifacts', page_size: action === 'get' ? 2 : 2000 });
-        expect((f.command(action).definition.inputSchema.properties as JsonObject).format).toEqual({ enum: ['ndjson', 'json'], default: 'ndjson' });
-        await f.command(action).execute(input, f.context);
-        expect(f.start).toHaveBeenCalledOnce();
-        expect(f.request).not.toHaveBeenCalled();
+        expect(preview).toMatchObject({ format: 'markdown' });
+        expect(preview).not.toHaveProperty('storage');
+        expect((f.command(action).definition.inputSchema.properties as JsonObject).format).toMatchObject({ enum: ['markdown', 'json', 'ndjson'], default: 'markdown' });
+        expect(await f.command(action).execute(input, f.context)).toEqual({ markdown: 'Rendered Markdown' });
+        expect(f.process).toHaveBeenCalledExactlyOnceWith({ operation: 'markdown', data: page, get: action === 'get' });
+        expect(f.request).toHaveBeenCalledOnce();
+        expect(f.start).not.toHaveBeenCalled();
     });
 
-    it.each([['get', getArgs], ['list', args], ['search', searchArgs]] as const)('rejects obsolete Markdown for %s before upstream I/O', async (action, input) => {
+    it.each([['get', getArgs], ['list', args], ['search', searchArgs]] as const)('accepts explicit Markdown for %s without artifact or workflow dependencies', async (action, input) => {
         const f = setup();
-        await expect(f.command(action).preview({ ...input, format: 'markdown' })).rejects.toMatchObject({ code: 'INVALID_ARGUMENTS', message: expect.stringMatching(/markdown.*no longer supported/i) });
-        await expect(f.command(action).execute({ ...input, format: 'markdown' }, f.context)).rejects.toMatchObject({ code: 'INVALID_ARGUMENTS' });
+        f.context.grant.domains = ['base'];
+        f.context.grant.permissions = ['read'];
+        const capability = recordReadCapabilities({ recordFormatter: { process: f.process } }).find(value => value.definition.id === `base.+record-${action}`)!;
+        expect(await capability.preview({ ...input, format: 'markdown' })).toMatchObject({ format: 'markdown' });
+        expect(await capability.execute({ ...input, format: 'markdown' }, f.context)).toEqual({ markdown: 'Rendered Markdown' });
+        expect(f.process).toHaveBeenCalledExactlyOnceWith({ operation: 'markdown', data: page, get: action === 'get' });
+        expect(f.request).toHaveBeenCalledOnce();
+    });
+
+    it.each([['get', getArgs], ['list', args], ['search', searchArgs]] as const)('preserves the %s raw-matrix fallback when Markdown rendering fails', async (action, input) => {
+        const f = setup();
+        f.context.grant.domains = ['base'];
+        f.context.grant.permissions = ['read'];
+        f.process.mockRejectedValue(new Error('Invalid record matrix'));
+        expect(await f.command(action).execute(input, f.context)).toEqual({ ...page, _notice: 'Record Markdown rendering failed; returning the original matrix.' });
+        expect(f.request).toHaveBeenCalledOnce();
+        expect(f.start).not.toHaveBeenCalled();
+    });
+
+    it.each([['get', getArgs], ['list', args], ['search', searchArgs]] as const)('keeps explicit NDJSON and implicit output exports for %s', async (action, input) => {
+        for (const exportArgs of [{ format: 'ndjson' }, { output: 'records.ndjson' }]) {
+            const f = setup();
+            expect(await f.command(action).preview({ ...input, ...exportArgs })).toMatchObject({ format: 'ndjson', storage: 'private artifacts', page_size: action === 'get' ? 2 : 2000 });
+            expect(await f.command(action).execute({ ...input, ...exportArgs }, f.context)).toEqual({ workflowId: 'w', status: 'pending' });
+            expect(f.start).toHaveBeenCalledOnce();
+            expect(f.start.mock.calls[0]![1]).toMatchObject({ plan: { format: 'ndjson' }, phase: 'read' });
+            expect(f.request).not.toHaveBeenCalled();
+            expect(f.process).not.toHaveBeenCalled();
+        }
+    });
+
+    it.each([{ domains: ['base'] }, { domains: ['base', 'artifact'] }])('still requires artifact-write permission for NDJSON exports with domains $domains', async ({ domains }) => {
+        const f = setup();
+        f.context.grant.domains = domains;
+        f.context.grant.permissions = ['read'];
+        await expect(f.command('list').execute({ ...args, format: 'ndjson' }, f.context)).rejects.toMatchObject({ code: 'FORBIDDEN' });
         expect(f.request).not.toHaveBeenCalled();
         expect(f.start).not.toHaveBeenCalled();
     });
 
-    it('rejects Markdown before deferring or resolving artifact input', async () => {
+    it('rejects an unsupported format before deferring or resolving artifact input', async () => {
         const f = setup();
         const artifacts = { stat: vi.fn(), read: vi.fn(), upload: vi.fn(), remove: vi.fn() };
         const capability = recordReadCapabilities({ artifacts }).find(value => value.definition.id === 'base.+record-get')!;
-        const input = { ...args, json: '@selected-records', format: 'markdown' };
+        const input = { ...args, json: '@selected-records', format: 'csv' };
         await expect(capability.preview(input)).rejects.toMatchObject({ code: 'INVALID_ARGUMENTS' });
         await expect(capability.execute(input, f.context)).rejects.toMatchObject({ code: 'INVALID_ARGUMENTS' });
         expect(artifacts.stat).not.toHaveBeenCalled();
@@ -48,21 +87,43 @@ describe('Base record-read contract at upstream 9067ec079bfa0b1ae2266cd91d1c1ee4
         expect(f.request).not.toHaveBeenCalled();
     });
 
-    it.each(['list', 'search'])('preserves %s format-specific defaults, limits, and the page-size alias', action => {
-        const input = action === 'search' ? searchArgs : args;
-        expect(prepareRecordRead(action, input).limit).toBe(2000);
-        expect(prepareRecordRead(action, { ...input, format: 'json' }).limit).toBe(action === 'list' ? 100 : 10);
-        for (const limit of [1, 501, 2000]) expect(prepareRecordRead(action, { ...input, 'page-size': limit }).limit).toBe(limit);
-        for (const limit of [0, 2001, 1.5]) expect(() => prepareRecordRead(action, { ...input, limit })).toThrow();
-        expect(prepareRecordRead(action, { ...input, format: 'json', limit: 200 }).limit).toBe(200);
-        expect(() => prepareRecordRead(action, { ...input, format: 'json', limit: 201 })).toThrow();
+    it('resolves Markdown artifact input with read permission without exporting', async () => {
+        const f = setup();
+        f.context.grant.permissions = ['read'];
+        const artifacts = { stat: vi.fn().mockResolvedValue({ size: 30 }), read: vi.fn().mockResolvedValue(new Response(JSON.stringify({ record_id_list: ['rec_a'] }))), upload: vi.fn(), remove: vi.fn() };
+        const capability = recordReadCapabilities({ artifacts, recordFormatter: { process: f.process } }).find(value => value.definition.id === 'base.+record-get')!;
+        const input = { ...args, json: '@selected-records', format: 'markdown' };
+        expect(await capability.preview(input)).toMatchObject({ deferredArtifactValidation: true, requests: [] });
+        expect(await capability.execute(input, f.context)).toEqual({ markdown: 'Rendered Markdown' });
+        expect(artifacts.stat).toHaveBeenCalledExactlyOnceWith('g', 'selected-records');
+        expect(artifacts.read).toHaveBeenCalledExactlyOnceWith('g', 'selected-records');
+        expect(artifacts.upload).not.toHaveBeenCalled();
+        expect(f.request).toHaveBeenCalledOnce();
     });
 
-    it('applies the NDJSON default and bounds to a JSON search body', () => {
+    it.each(['list', 'search'])('preserves %s format-specific defaults, limits, and the page-size alias', action => {
+        const input = action === 'search' ? searchArgs : args;
+        const inlineDefault = action === 'list' ? 100 : 10;
+        for (const format of [undefined, 'markdown', 'json']) {
+            expect(prepareRecordRead(action, { ...input, format }).limit).toBe(inlineDefault);
+            for (const limit of [1, 200]) expect(prepareRecordRead(action, { ...input, format, 'page-size': limit }).limit).toBe(limit);
+            for (const limit of [0, 201, 1.5]) expect(() => prepareRecordRead(action, { ...input, format, limit })).toThrow();
+        }
+        expect(prepareRecordRead(action, { ...input, format: 'ndjson' }).limit).toBe(2000);
+        for (const limit of [1, 501, 2000]) expect(prepareRecordRead(action, { ...input, format: 'ndjson', 'page-size': limit }).limit).toBe(limit);
+        for (const limit of [0, 2001, 1.5]) expect(() => prepareRecordRead(action, { ...input, format: 'ndjson', limit })).toThrow();
+    });
+
+    it('preserves format-specific defaults and bounds with a JSON search body', () => {
         const input = { ...args, json: { keyword: 'Launch', search_fields: ['Title'] } };
-        expect(prepareRecordRead('search', input).request.body).toMatchObject({ offset: 0, limit: 2000 });
-        expect(prepareRecordRead('search', { ...input, json: { ...input.json, offset: 17, limit: 2000 } }).request.body).toMatchObject({ offset: 17, limit: 2000 });
-        expect(() => prepareRecordRead('search', { ...input, json: { ...input.json, limit: 2001 } })).toThrow();
+        for (const format of [undefined, 'markdown', 'json']) {
+            expect(prepareRecordRead('search', { ...input, format }).request.body).toMatchObject({ offset: 0, limit: 10 });
+            expect(prepareRecordRead('search', { ...input, format, json: { ...input.json, offset: 17, limit: 200 } }).request.body).toMatchObject({ offset: 17, limit: 200 });
+            expect(() => prepareRecordRead('search', { ...input, format, json: { ...input.json, limit: 201 } })).toThrow();
+        }
+        expect(prepareRecordRead('search', { ...input, format: 'ndjson' }).request.body).toMatchObject({ offset: 0, limit: 2000 });
+        expect(prepareRecordRead('search', { ...input, format: 'ndjson', json: { ...input.json, offset: 17, limit: 2000 } }).request.body).toMatchObject({ offset: 17, limit: 2000 });
+        expect(() => prepareRecordRead('search', { ...input, format: 'ndjson', json: { ...input.json, limit: 2001 } })).toThrow();
     });
 
     it.each(['list', 'search'])('requests one %s page at the supplied offset and full requested limit', async action => {
@@ -111,7 +172,7 @@ it.each(['get', 'search', 'empty-search'])('exports the %s one-page matrix with 
     f.request.mockResolvedValue(empty ? { ...page, record_id_list: [], data: [] } : { ...page, has_more: !get });
     const input = get ? { ...getArgs, 'field-id': ['Title'] } : { ...searchArgs, offset: 17, limit: 2000 };
     const capability = recordReadCapabilities({ workflows: { start: f.start, resume: vi.fn() }, artifacts, recordFormatter: parser }).find(value => value.definition.id === `base.+record-${get ? 'get' : 'search'}`)!;
-    await capability.execute(input, f.context);
+    await capability.execute({ ...input, format: 'ndjson' }, f.context);
     const program = recordReadPrograms(artifacts, parser)[0]!;
     const read = await program.step(f.start.mock.calls[0]![1], f.context);
     expect(read.done).toBe(false);

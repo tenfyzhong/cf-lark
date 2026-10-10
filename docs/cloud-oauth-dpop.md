@@ -82,3 +82,13 @@ accounts, request live grants, or alter production configuration. Keep a tested
 recovery plan: bound credentials continue using their keys when issuance is
 later disabled; replacing them with Bearer credentials requires a fresh, explicit
 authorization rather than an automatic fallback.
+
+## Refresh error compatibility
+
+OAuth errors returned during refresh, including `invalid_grant` and `expired_token`,
+are authorization failures (`UPSTREAM_AUTH_ERROR`, HTTP 401), never malformed token
+payloads (HTTP 502). Only device polling may return the recognized OAuth polling
+states to its caller. Bound refresh must still identify proof rejection as
+`DPOP_TOKEN_REJECTED` without exposing provider descriptions or retrying as Bearer.
+Regression acceptance covers successful and error HTTP envelopes, ordinary refresh
+errors, proof errors, and unchanged device-polling states using local fixtures.

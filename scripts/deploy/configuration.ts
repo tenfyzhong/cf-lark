@@ -42,13 +42,18 @@ export function renderDeployment(env: Environment, templates: Configuration[]): 
     required('CLOUDFLARE_API_TOKEN');
     const key = required('ENCRYPTION_KEY');
     valid('ENCRYPTION_KEY', key, Buffer.from(key, 'base64').byteLength === 32 && Buffer.from(key, 'base64').toString('base64') === key);
+    const protocol = env.LARK_OAUTH_PROTOCOL?.trim() || 'legacy';
+    valid('LARK_OAUTH_PROTOCOL', protocol, protocol === 'legacy' || protocol === 'oauthv3');
+    const dpopMode = env.LARK_DPOP_MODE?.trim() || 'disabled';
+    valid('LARK_DPOP_MODE', dpopMode, ['disabled', 'preferred', 'required'].includes(dpopMode));
+    if (protocol === 'legacy' && dpopMode !== 'disabled') throw new Error('LARK_DPOP_MODE requires LARK_OAUTH_PROTOCOL=oauthv3');
     if (templates.length !== 3) throw new Error('Three deployment templates are required.');
     const configs = templates.map((template, index) => ({ ...structuredClone(template),
         account_id: account, name: index === 0 ? worker : `${worker}-${index === 1 ? 'docs' : 'mail'}-engine` }));
     const main = configs[0]! as Configuration;
     main.routes = [{ pattern: publicUrl.hostname, custom_domain: true }];
     main.vars = { ...main.vars as Record<string, string>, PUBLIC_URL: publicUrl.origin, ACCESS_TEAM_DOMAIN: team.origin,
-        ACCESS_AUD: audience, ACCESS_EMAIL_DOMAIN: domain };
+        ACCESS_AUD: audience, ACCESS_EMAIL_DOMAIN: domain, LARK_OAUTH_PROTOCOL: protocol, LARK_DPOP_MODE: dpopMode };
     main.services = [{ binding: 'DOCS_ENGINE', service: `${worker}-docs-engine` }, { binding: 'MAIL_ENGINE', service: `${worker}-mail-engine` }];
     main.r2_buckets = [{ binding: 'ARTIFACTS', bucket_name: bucket }];
     return { configs, secrets: { ENCRYPTION_KEY: key } };

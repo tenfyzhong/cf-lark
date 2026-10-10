@@ -25,6 +25,24 @@ it('exports exact typed matrices and schema metadata through the pinned engine',
     expect(await parser.process({ operation: 'markdown', data: { ...page, record_id_list: ['rec_a'], data: [['A', 2, true]] }, get: true })).toContain('- `_record_id`: rec_a');
 });
 
+
+it('renders default and explicit inline Markdown through the pinned engine with read-only grants', async () => {
+    const { readFile } = await import('node:fs/promises');
+    const { WasmDocumentParser } = await import('../src/infrastructure/documents/engine');
+    const parser = new WasmDocumentParser(await WebAssembly.compile(await readFile(new URL('../src/infrastructure/documents/generated/docs/parser.wasm', import.meta.url))));
+    const page = { timezone: 'UTC', fields: ['Title'], field_id_list: ['f'], field_type_list: ['text'], record_id_list: ['rec_a'], data: [['Launch']], has_more: false };
+    const request = vi.fn().mockResolvedValue(page);
+    const context = { lark: { request }, selection: { profileId: 'p', identity: 'user' as const, accountId: 'u' }, grant: { id: 'g', expiresAt: Date.now() + 60000, revoked: false, profiles: [{ profileId: 'p', identities: ['user' as const], accounts: ['u'] }], domains: ['base'], permissions: ['read' as const] } };
+    const capabilities = recordReadCapabilities({ recordFormatter: parser });
+    for (const action of ['get', 'list', 'search']) for (const format of [undefined, 'markdown']) {
+        const args = { 'base-token': 'b', 'table-id': 't', format, ...(action === 'get' ? { 'record-id': ['rec_a'] } : action === 'search' ? { keyword: 'Launch', 'search-field': ['Title'] } : {}) };
+        const output = await capabilities.find(item => item.definition.id === `base.+record-${action}`)!.execute(args, context);
+        expect(output).toEqual({ markdown: await parser.process({ operation: 'markdown', data: page, get: action === 'get' }) });
+        expect(output).toMatchObject({ markdown: expect.stringContaining('Launch') });
+    }
+    expect(request).toHaveBeenCalledTimes(6);
+});
+
 it('exports one short page with continuation metadata and leaves artifacts unchanged when applying jq', async () => {
     const { recordReadPrograms } = await import('../src/capabilities/base/record-read');
     const { readFile } = await import('node:fs/promises');

@@ -128,3 +128,35 @@ it('applies a stricter required policy to an existing preferred authorization fl
     const auth = new LarkAuthHttp(async () => Response.json({ access_token: 'fixture', token_type: 'Bearer', expires_in: 3600 }), { protocol: 'oauthv3', dpopMode: 'required' });
     await expect(auth.pollDevice(app, 'fixture-code', { protocol: 'oauthv3', dpopMode: 'preferred', dpopKey: await generateDpopKey() })).rejects.toMatchObject({ code: 'DPOP_REQUIRED' });
 });
+
+it.each([200, 400])('classifies bound refresh OAuth errors as authorization failures (HTTP %s)', async (status) => {
+    const dpopKey = await generateDpopKey();
+    for (const error of ['invalid_grant', 'expired_token', 'access_denied', 'authorization_pending', 'slow_down']) {
+        let calls = 0;
+        const auth = new LarkAuthHttp(async (request) => {
+            calls++;
+            expect(request.headers.get('DPoP')).toBeTruthy();
+            return Response.json({ error, error_description: 'private-provider-description' }, { status });
+        });
+        await expect(auth.refresh(app, 'fixture-refresh', { protocol: 'oauthv3', tokenType: 'DPoP', dpopKey }))
+            .rejects.toMatchObject({ code: 'UPSTREAM_AUTH_ERROR', status: 401 });
+        expect(calls).toBe(1);
+    }
+});
+
+it.each(['invalid_dpop_proof', 'use_dpop_nonce'])('preserves bound refresh proof rejection: %s', async (error) => {
+    let calls = 0;
+    const auth = new LarkAuthHttp(async () => {
+        calls++;
+        return Response.json({ error, error_description: 'private-provider-description' }, { status: 400 });
+    });
+    await expect(auth.refresh(app, 'fixture-refresh', { protocol: 'oauthv3', tokenType: 'DPoP', dpopKey: await generateDpopKey() }))
+        .rejects.toMatchObject({ code: 'DPOP_TOKEN_REJECTED', status: 401 });
+    expect(calls).toBe(1);
+});
+
+it.each(['authorization_pending', 'slow_down', 'access_denied', 'expired_token', 'invalid_grant'])('still returns device polling state %s', async (error) => {
+    const auth = new LarkAuthHttp(async () => Response.json({ error, error_description: 'private-provider-description' }, { status: 400 }));
+    expect(await auth.pollDevice(app, 'fixture-code', { protocol: 'oauthv3', dpopMode: 'required', dpopKey: await generateDpopKey() }))
+        .toEqual({ error });
+});
