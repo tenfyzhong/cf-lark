@@ -67,7 +67,7 @@ it('runs separate credential-free unit and native integration jobs with complete
         expect(job['runs-on']).toBe('ubuntu-24.04');
         expect(job['timeout-minutes']).toBeGreaterThan(0);
         expect(job.steps.find((step) => step.uses?.startsWith('actions/checkout@'))?.with?.['persist-credentials']).toBe(false);
-        expect(job.steps.find((step) => step.uses?.startsWith('actions/setup-node@'))?.with).toMatchObject({ 'node-version': '26', cache: 'pnpm' });
+        expect(job.steps.find((step) => step.uses?.startsWith('actions/setup-node@'))?.with).toMatchObject({ 'node-version': '26.12.1', cache: 'pnpm' });
         for (const step of job.steps) if (step.uses) expect(step.uses).toMatch(/@[a-f0-9]{40}$/u);
     }
 });
@@ -86,4 +86,18 @@ it('offers manual read-only inspection without production uploads or private fil
     expect(JSON.stringify(steps)).not.toContain('deploy:actions');
     expect(JSON.stringify(steps)).not.toContain('provision:r2');
     expect(JSON.stringify(steps)).not.toContain('configure:deployment');
+});
+
+
+it('pins development and all workflow jobs to the patched Node.js release', async () => {
+    const version = (await readFile('.node-version', 'utf8')).trim();
+    expect(version).toBe('26.12.1');
+    for (const path of ['.github/workflows/tests.yml', '.github/workflows/cloudflare.yml']) {
+        const workflow = parse(await readFile(path, 'utf8'));
+        for (const job of Object.values(workflow.jobs) as Array<{ steps?: Array<{ uses?: string; with?: Record<string, unknown> }> }>) {
+            for (const step of job.steps ?? []) {
+                if (step.uses?.startsWith('actions/setup-node@')) expect(step.with?.['node-version']).toBe(version);
+            }
+        }
+    }
 });
